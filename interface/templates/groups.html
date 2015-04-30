@@ -1,0 +1,32 @@
+<div class="groups">
+  <div class="groups__add" ng-show="gr.showNewGroupInput">
+    <label class="control-label" for="group-name">Сохранить группу</label>
+
+    <form name="newGroup" class="input-button-group">
+      <button class="btn btn-sm btn-success input-button-group__button" ng-disabled="!newGroup.name"
+              ng-click="gr.addGroup(newGroup)">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+      <div class="input-button-group__wrapped">
+        <input class="form-control input-sm input-button-group__wrapped__input" type="text" name="group-name"
+               ng-model="newGroup.name" id="group-name"/>
+      </div>
+    </form>
+    <strong class="text-center" style="display: block; color: red;" ng-if="gr.error">{{ gr.error }}</strong>
+  </div>
+  <div class="groups__list">
+    <div class="panel panel-default groups__list__group" ng-repeat="group in gr.groups">
+      <div class="panel-heading">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="group.selected" ng-change="gr.selectGroup(group.selected, group)">
+            {{group.name}}
+          </label>
+        </div>
+        <div class="group__delete" ng-click="gr.deleteGroup(group)" ng-if="group.controllers !== 'all'">
+          <i class="fa fa-trash"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

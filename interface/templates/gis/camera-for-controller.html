@@ -1,0 +1,17 @@
+<div ng-controller="CameraCtrl as cc">
+  <p>{{attributes.address||'Адрес неизвестен'}}</p>
+
+  <div class="text-center">
+    <button ng-disabled="!attributes.purl" class="btn btn-default btn-sm" ng-click="cc.showVideo()">
+      Наблюдение
+    </button>
+    <button ng-if="!cc.isConnected(attributes)" ng-disabled="!attributes.Id || loading" class="btn btn-success btn-sm"
+            ng-click="cc.connectCamera(attributes)">
+      {{ loading ? 'Подождите' : 'Подключить к контроллеру' }}
+    </button>
+    <button ng-if="cc.isConnected(attributes)" ng-disabled="!attributes.Id || loading" class="btn btn-danger btn-sm"
+            ng-click="cc.removeCamera(attributes)">
+      {{ loading ? 'Подождите' : 'Отключить от контроллера' }}
+    </button>
+  </div>
+</div>

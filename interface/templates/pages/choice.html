@@ -1,0 +1,195 @@
+<div class="row" style="padding-top: 87px;">
+  <div class="col-md-12">
+    <h3>Интегральное состояние объектов
+      <small ng-show="currentDate">актуально на {{currentDate|serverDate|date:'dd.MM.yyyy HH:mm:ss'}}</small>
+    </h3>
+  </div>
+</div>
+<div class="row">
+<div class="col-md-12" fixed-header>
+<table class="table table-condensed table-bordered table-main">
+<thead>
+<tr>
+  <th>Наименование</th>
+  <th>ДП</th>
+  <th>Объекты</th>
+  <th>Включено</th>
+  <th>События</th>
+  <th><img src="/assets/img/fire14.png" alt=""/> Пожар</th>
+  <th><img src="/assets/img/disconnect14.png" alt=""/> Связь</th>
+  <th><img src="/assets/img/door14.png" alt=""/> Дверь</th>
+  <th><img src="/assets/img/input14.png" alt=""/> Авария</th>
+  <th><img src="/assets/img/block14.png" alt=""/> Блокировано</th>
+  <th><span class="glyphicon glyphicon-wrench"></span> Профилактика</th>
+</tr>
+</thead>
+<tbody>
+<tr integral-table-row="rdps.cdp[0]" row-href="rdps.cdp[0].href" first="true" click-link="show.showSumNO=true"
+    ng-if="!show.showSumNO"></tr>
+<tr ng-if="!show.showSumNO">
+  <td>РДП Кремль</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+<tr ng-if="!show.showSumNO">
+  <td>РДП Зеленоград</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.armianskii[0]" row-href="rdps.armianskii[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.dushinskaia[0]" row-href="rdps.dushinskaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.tushinskaia[0]" row-href="rdps.tushinskaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.nalesnyi[0]" row-href="rdps.nalesnyi[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps['petrovsko-razumovski'][0]" row-href="rdps['petrovsko-razumovski'][0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.borodinskaia[0]" row-href="rdps.borodinskaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.raduzhnaia[0]" row-href="rdps.raduzhnaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.artiukhinoi[0]" row-href="rdps.artiukhinoi[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.vavilova[0]" row-href="rdps.vavilova[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.dorogobuzhskaia[0]" row-href="rdps.dorogobuzhskaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps.veselaia[0]" row-href="rdps.veselaia[0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps['varshavskoe-shosse'][0]" row-href="rdps['varshavskoe-shosse'][0].href"></tr>
+<tr ng-if="!show.showSumNO" integral-table-row="rdps['mkad-2km'][0]" row-href="rdps['mkad-2km'][0].href"></tr>
+<tr ng-if="show.showSumNO">
+  <td rowspan="1" style="border-right: none">
+    <span class="pivot-icon fa fa-plus-square" ng-click="show.showSumNO = false"></span>
+    <a ui-sref="core.rdps">Объекты НО</a>
+  </td>
+  <td style="border-left: none"></td>
+  <td>{{sumNO.controllers}}</td>
+  <td>{{sumNO.enabled}}</td>
+  <td>{{sumNO.events}}</td>
+  <td>{{sumNO.fire}}</td>
+  <td>{{sumNO.connection}}</td>
+  <td>{{sumNO.door}}</td>
+  <td>{{sumNO.common_alarm}}</td>
+  <td>{{sumNO.lock}}</td>
+  <td>{{sumNO.on_maintenance}}</td>
+</tr>
+<tr ng-if="!show.showSumGR">
+  <td rowspan="2">
+    <span class="pivot-icon fa fa-minus-square" ng-click="show.showSumGR = true"></span>
+    <a ui-sref="group">Групповые регуляторы</a>
+  </td>
+  <td><a ui-sref="core.rdp({rdp: 'kulon'})">Кулон</a></td>
+  <td>{{grs['kulon'][0].controllers||0}}</td>
+  <td>{{grs['kulon'][0].enabled||0}}</td>
+  <td>{{grs['kulon'][0].events||0}}</td>
+  <td>{{grs['kulon'][0].fire||0}}</td>
+  <td>{{grs['kulon'][0].connection||0}}</td>
+  <td>{{grs['kulon'][0].door||0}}</td>
+  <td>{{grs['kulon'][0].common_alarm||0}}</td>
+  <td>{{grs['kulon'][0].lock||0}}</td>
+  <td>{{grs['kulon'][0].on_maintenance||0}}</td>
+</tr>
+<tr ng-if="!show.showSumGR">
+  <td>СШС</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+<tr ng-if="show.showSumGR">
+  <td rowspan="1" style="border-right: none">
+    <span class="pivot-icon fa fa-plus-square" ng-click="show.showSumGR = false"></span>
+    <a ui-sref="group">Групповые регуляторы</a>
+  </td>
+  <td style="border-left: none"></td>
+  <td>{{sumGRS.controllers||0}}</td>
+  <td>{{sumGRS.enabled||0}}</td>
+  <td>{{sumGRS.events||0}}</td>
+  <td>{{sumGRS.fire||0}}</td>
+  <td>{{sumGRS.connection||0}}</td>
+  <td>{{sumGRS.door||0}}</td>
+  <td>{{sumGRS.common_alarm||0}}</td>
+  <td>{{sumGRS.lock||0}}</td>
+  <td>{{sumGRS.on_maintenance||0}}</td>
+</tr>
+<tr integral-ahp-row="ahps['akhp-dp-1'][0]" row-href="ahps['akhp-dp-1'][0].href" first="true"
+    click-link="show.showSumAHP = true" ng-if="!show.showSumAHP"></tr>
+<tr integral-ahp-row="ahps['akhp-dp-2'][0]" row-href="ahps['akhp-dp-2'][0].href"
+    click-link="show.showSumAHP = true" ng-if="!show.showSumAHP"></tr>
+<tr integral-ahp-row="ahps['akhp-dp-3'][0]" row-href="ahps['akhp-dp-3'][0].href"
+    click-link="show.showSumAHP = true" ng-if="!show.showSumAHP"></tr>
+<tr ng-if="show.showSumAHP">
+  <td rowspan="1" style="border-right: none">
+    <span class="pivot-icon fa fa-plus-square" ng-click="show.showSumAHP = false"></span>
+    <a href="kasuao://open">Объекты АХП</a>
+  </td>
+  <td style="border-left: none"></td>
+  <td>{{sumAHP.controllers}}</td>
+  <td>{{sumAHP.enabled}}</td>
+  <td>{{sumAHP.events}}</td>
+  <td>{{sumAHP.fire}}</td>
+  <td>{{sumAHP.connection}}</td>
+  <td>{{sumAHP.door}}</td>
+  <td>{{sumAHP.common_alarm}}</td>
+  <td>{{sumAHP.lock}}</td>
+  <td>{{sumAHP.on_maintenance}}</td>
+</tr>
+<tr ng-if="!show.showSumTP">
+  <td rowspan="2">
+    <span class="pivot-icon fa fa-minus-square" ng-click="show.showSumTP = true"></span>
+    <a ui-sref="tp">Объекты ТП</a>
+  </td>
+  <td>ДП 1</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+<tr ng-if="!show.showSumTP">
+  <td>ДП 2</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+<tr ng-if="show.showSumTP">
+  <td rowspan="1" style="border-right: none">
+    <span class="pivot-icon fa fa-plus-square" ng-click="show.showSumTP = false"></span>
+    <a ui-sref="tp">Объекты ТП</a>
+  </td>
+  <td style="border-left: none"></td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+  <td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>

@@ -1,0 +1,153 @@
+<div class="row" ng-hide="journalExpanded">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
+        <ol breadcrumbs="crumbs"></ol>
+        <div class="controller-label-container">
+          <div controller-label="controller" rdp="rdp"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row controller-telemetry">
+      <div class="col-md-8 controller-telemetry__signals">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="row" dimmer="controller" ng-if="controller.type === 'grs_kulon'"></div>
+            <div class="row">
+              <div class="col-sm-12 controller-telemetry__signals__tele-signals">
+                <h5>Телесигнализация</h5>
+
+                <div tele-signal="controller.alarms.fire" icon-src="/assets/img/fire.png" active-text="Пожар"
+                     inactive-text="Пожара нет" ng-if="controller.type !== 'grs_kulon'"></div>
+                <div tele-signal="controller.alarms.connection" icon-src="/assets/img/disconnect.png"
+                     icon-src-disabled="/assets/img/connection-ok.png" active-text="Потеря связи с ПП"
+                     inactive-text="Соединение установлено"></div>
+                <div tele-signal="controller.alarms.door" icon-src="/assets/img/door.png" active-text="Дверь открыта"
+                     inactive-text="Дверь закрыта" ng-if="controller.type !== 'grs_kulon'"></div>
+                <div tele-signal="controller.alarms.common_alarm" icon-src="/assets/img/input.png" active-text="Авария"
+                     inactive-text="Нет аварии"></div>
+                <div tele-signal="controller.alarms.lock" icon-src="/assets/img/block.png"
+                     ng-if="controller.type !== 'grs_kulon'"
+                     active-text="Управление блокировано" inactive-text="Управление не блокировано"></div>
+              </div>
+            </div>
+          </div>
+          <div class="scheme col-sm-9">
+            <div class="row" ng-switch="controller.type">
+              <div ng-switch-when="dep" class="col-md-12">
+                <div controller-scheme="controller" ng-class="{'maintenance': controller.isMaintenance()}"
+                     ng-include="'/assets/img/scheme.svg'"></div>
+              </div>
+              <div ng-switch-when="niitm" class="col-md-12">
+                <div controller-scheme="controller" ng-class="{'maintenance': controller.isMaintenance()}"
+                     ng-include="'/assets/img/scheme.svg'"></div>
+              </div>
+              <div ng-switch-when="ahp_kulon" class="col-md-12">
+                <div ahp-kulon-scheme="controller" ng-class="{'maintenance': controller.isMaintenance()}" ng-include="'/assets/img/akhp.svg'"></div>
+              </div>
+              <div ng-switch-when="ahp_saturn" class="col-md-12">
+                <div ng-class="{'maintenance': controller.isMaintenance()}" ng-include="'/assets/img/akhp.svg'"></div>
+              </div>
+              <div ng-switch-when="grs_kulon" kulon-graphs="controller"></div>
+              <div ng-switch-default class="col-md-12">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 controller-telemetry__sidebar">
+        <div class="row">
+          <div class="col-md-12" controller-description="controller"></div>
+        </div>
+        <div class="row">
+          <telemetry controller="controller" class="col-md-12"></telemetry>
+        </div>
+        <div class="row">
+          <div class="col-md-12 controller-telemetry__signals__video">
+            <h5>Видеонаблюдение</h5>
+
+            <div class="row" ng-repeat="camera in controller.cameras">
+              <div camera-block="camera"></div>
+            </div>
+
+            <div ng-if="!controller.cameras.length">
+              <strong>
+                Не подключены камеры видеонаблюдения.
+                <a href="javascript:void(0)" ng-click="showMiniMap = !showMiniMap">
+                  <span ng-if="!showMiniMap">Посмотреть на карте.</span>
+                  <span ng-if="showMiniMap">Скрыть карту.</span>
+                </a>
+              </strong>
+
+              <div simple-map sm-zoom="17" sm-hide-layers="true" ng-if="showMiniMap" style="height:  300px">
+                <div simple-map-layer="cameras" sml-parent-scope="child" show="true" sml-point-click="cameraClick">
+                  <div feature-renderer fr-extractor="cameraExtractor" fr-default-symbol="/assets/img/camera.png">
+                    <div renderer-setting rs-value="1" rs-symbol="/assets/img/camera_green.png"></div>
+                  </div>
+                </div>
+                <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
+                     sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
+                     sml-popup-template="<div controller-popup controller='point'></div>"
+                     sml-point-connect="controllerConnect"
+                     sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top: 5px;" ng-if="controller.type !== 'grs_kulon'" ng-controller="ControllerDirectionsCtrl as dirc">
+      <div class="col-md-12" ng-if="dirc.directionsGridOptions">
+        <div class="gridStyle" style="height: 138px;" ng-grid="dirc.directionsGridOptions"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row bottom-journal--static" ng-class="{'bottom-journal--expanded': journalExpanded}">
+  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()">
+    <span class="fa" ng-class="{'fa-compress': journalExpanded, 'fa-expand': !journalExpanded}"></span>
+  </button>
+
+  <div class="col-md-12">
+    <h5>Оперативный журнал аварий по {{controller.name}}</h5>
+
+    <form class="form-inline journal-form">
+      <div class="form-group">
+        <label>С</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateFrom" max-date="filters.dateTo" placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateFrom"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <label>По</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateTo" min-date="filters.dateFrom" max-date="today"
+               placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateTo"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterToday()" ng-class="{'active': filters.filterToday}">
+          Сегодня
+        </button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterUnacknowledged()"
+                ng-class="{'active': filters.unacknowledged === 1}">
+          Неквитированные аварии
+        </button>
+        <label ng-show="report.loading"><span class="fa fa-refresh fa-spin"></span></label>
+      </div>
+      <div class="form-group pull-right">
+        <button class="btn btn-primary btn-sm" ng-if="selectedEvents.length" ng-click="massMute()"
+                ng-disabled="muteLoading">Квитировать ({{selectedEvents.length||0}})
+        </button>
+      </div>
+    </form>
+
+    <div class="gridStyle" ng-grid="alertsGridOptions" ng-class="{'gridStyle--loading': report.loading}"></div>
+  </div>
+</div>

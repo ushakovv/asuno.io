@@ -1,0 +1,28 @@
+<div class="controller-telemetry__description">
+  <h5>Комментарий</h5>
+
+  <pre class="controller-telemetry__description__text" ng-if="!cd._showEditor && cd.controller.description" ng-bind="cd.controller.description"></pre>
+
+  <form ng-show="cd._showEditor">
+    <div class="form-group">
+      <textarea rows="2" class="form-control" ng-model="cd._newDescription"></textarea>
+    </div>
+  </form>
+
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-primary btn-xs btn-block" ng-if="!cd.contoller.description && !cd._showEditor" ng-click="cd.editDescription()">
+        {{ cd.controller.description ? 'Редактировать' : 'Добавить' }}
+      </button>
+      <button class="btn btn-success btn-xs btn-block" ng-if="cd._showEditor" ng-disabled="!cd._newDescription" ng-click="cd.saveDescription(cd._newDescription)">
+        Сохранить
+      </button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-success btn-xs btn-block" ng-if="!cd._showEditor && cd.controller.description" ng-click="cd.cleanDescription()">
+        Очистить
+      </button>
+      <button class="btn btn-default btn-xs btn-block" ng-if="cd._showEditor" ng-click="cd.closeEditor()">Отменить</button>
+    </div>
+  </div>
+</div>

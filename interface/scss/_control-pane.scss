@@ -1,0 +1,14 @@
+@import "mixins";
+
+.control-pane {
+  @include pane(percentage(2/3));
+
+  .row + .row {
+    margin-top : 10px;
+  }
+
+  &__show {
+    display     : inline-block;
+    margin-left : 15px;
+  }
+}

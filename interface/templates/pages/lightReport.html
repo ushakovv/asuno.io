@@ -1,0 +1,26 @@
+<div class="row" style="height:100%">
+  <div class="col-md-12" style="height:100%">
+    <h4>Журнал времени горения объектов НО</h4>
+
+    <form class="form-inline journal-form">
+      <div class="form-group">
+        <label>С</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateFrom" date-format="dd.MM.yyyy" max-date="filters.dateTo"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateFrom"/>
+      </div>
+      <div class="form-group">
+        <label>По</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateTo" date-format="dd.MM.yyyy" min-date="filters.dateFrom" max-date="today"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateTo"/>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterToday()" ng-class="{'active': filters.filterToday}">
+          Сегодня
+        </button>
+      </div>
+    </form>
+    <div class="gridStyle" style="height:90%" ng-grid="lightOptions"></div>
+  </div>
+</div>

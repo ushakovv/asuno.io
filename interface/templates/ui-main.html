@@ -1,0 +1,8 @@
+<div class="row app-container">
+  <aside class="sidebar" ng-class="{'sidebar--show': sidebar.show}">
+    <a class="sidebar__close" ng-click="sidebar.show = false"></a>
+
+    <div ui-view="sidebar"></div>
+  </aside>
+  <div class="col-sm-12 map-container" ui-view></div>
+</div>

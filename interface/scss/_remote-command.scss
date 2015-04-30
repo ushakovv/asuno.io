@@ -1,0 +1,102 @@
+.remote-commands {
+  padding : 0;
+  display : table;
+  width   : 100%;
+}
+
+.remote-command-block {
+
+}
+
+.remote-command {
+
+  display     : table-row-group;
+  user-select : none;
+  cursor      : pointer;
+
+  &--finished {
+    opacity : 0.5;
+    cursor  : default;
+  }
+
+  &--executed, &--executed:hover {
+    background-color : rgba(0, 255, 0, 0.1) !important;
+  }
+
+  &--rejected, &--rejected:hover {
+    background-color : rgba(255, 0, 0, 0.1) !important;
+  }
+
+  & + & {
+    .remote-command__description__object, .remote-command__description__command {
+      border-top : 1px solid #e5e5e5;
+    }
+  }
+
+  &:hover {
+    background-color : #f5f5f5;
+  }
+
+  &__description {
+    display : table-row;
+    width   : 100%;
+
+    &__object {
+      display        : table-cell;
+      padding        : 8px 10px;
+      vertical-align : top;
+      width          : 50%;
+
+      &__name {
+        font-weight : bold;
+      }
+
+      &__address {
+        display : inline-block;
+        color   : #777777;
+      }
+    }
+
+    &__command {
+      display        : table-cell;
+      padding        : 8px 10px;
+      vertical-align : top;
+      text-align     : center;
+      width          : 50%;
+
+      &__type {
+        text-transform : uppercase;
+        font-weight    : bold;
+
+        &--safe {
+          color : #008000;
+        }
+
+        &--danger {
+          color : #ff0000;
+        }
+      }
+
+      &__timestamp {
+        font-weight : bold;
+      }
+    }
+  }
+
+  &__operations {
+    display : table-row;
+    width   : 100%;
+
+    &__execute {
+      display : table-cell;
+      padding : 8px 10px;
+      width   : 50%;
+    }
+
+    &__reject {
+      display : table-cell;
+      padding : 8px 10px;
+      width   : 50%;
+    }
+  }
+}

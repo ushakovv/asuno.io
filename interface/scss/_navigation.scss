@@ -1,0 +1,77 @@
+.rdp-navigation {
+  &__search {
+  }
+
+  &__rdp-list {
+    margin-top : 10px;
+
+    &__rdp {
+      margin-bottom : 10px;
+      box-shadow    : none;
+
+      &__controller {
+        &--enabled {
+          color : red
+        }
+
+        &--disabled {
+          color : green
+        }
+
+        &--offline {
+          color : grey
+        }
+
+        &--alert {
+          height : 14px;
+          width  : 14px;
+        }
+      }
+    }
+  }
+}
+
+.groups {
+  &__list {
+    padding-top : 17px;
+
+    &__group {
+      box-shadow : none;
+      position   : relative;
+
+      &--loading {
+        opacity : 0.5;
+      }
+
+      .checkbox {
+        margin      : 0;
+        line-height : 1.8;
+        height      : 21px;
+
+        > label {
+          overflow      : hidden;
+          text-overflow : ellipsis;
+          white-space   : nowrap;
+        }
+      }
+    }
+  }
+}
+
+.group {
+  &__delete {
+    position      : absolute;
+    top           : 0;
+    right         : 0;
+    color         : red;
+    cursor        : pointer;
+    width         : 17px;
+    text-align    : center;
+    border-left   : 1px solid #dddddd;
+    border-bottom : 1px solid #dddddd;
+
+    &:hover {
+      background-color : rgba(red, 0.1);
+    }
+  }
+}

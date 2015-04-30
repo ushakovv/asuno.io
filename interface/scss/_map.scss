@@ -1,0 +1,175 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+
+.map {
+  width    : 100% !important;
+  position : relative;
+
+  &__layer-menu-button {
+    position      : absolute;
+    top           : 5px;
+    right         : 15px;
+    z-index       : 30;
+    border-radius : 5px;
+    border        : 1px solid #57585a;
+  }
+
+  &__layer-menu {
+    background  : #ffffff;
+    border-left : 1px solid $navbar-default-border;
+    position    : absolute;
+    width       : 300px;
+    height      : 100%;
+    top         : 0;
+    bottom      : 0;
+    right       : -300px;
+    z-index     : 1000;
+    overflow-y  : auto;
+    box-shadow  : 0 2px 6px rgba(0, 0, 0, 0.3);
+
+    transition  : right 0.3s ease;
+
+    &--show {
+      right : 0;
+    }
+
+    &__close {
+      position   : absolute;
+      height     : 60px;
+      width      : 20px;
+      background : url(/assets/img/3dot.png) 0 -60px;
+      opacity    : 0.6;
+    }
+
+    &__tabs {
+      text-align : center;
+      padding    : 13px 0;
+    }
+
+    &__layers {
+      padding : 0 10px;
+
+      &__layer {
+        padding          : 10px 15px;
+        background-color : $panel-default-heading-bg;
+        border           : 1px solid $panel-default-border;
+
+        .checkbox {
+          margin : 0;
+        }
+
+        & + & {
+          margin-top : 5px;
+        }
+
+        &--group {
+          margin-top     : 10px !important;
+          padding-bottom : 0;
+
+          .checkbox {
+            margin-top    : 0;
+            margin-bottom : 10px;
+          }
+
+          .list-group {
+            margin-left  : -15px;
+            margin-right : -15px;
+          }
+        }
+
+        &__filter {
+          cursor     : pointer;
+          float      : right;
+          color      : #cccccc;
+          margin-top : 3px;
+
+          &:hover {
+            color : #333333;
+          }
+
+          &--active {
+            color : #008000;
+          }
+        }
+      }
+    }
+  }
+
+  &__search-bar {
+    position : absolute;
+    top      : 5px;
+    left     : 62px;
+    width    : 300px;
+
+    .form-control-feedback {
+      top            : 0;
+      cursor         : pointer;
+      pointer-events : all;
+    }
+  }
+}
+
+.esriSimpleSliderTL {
+  top  : 5px;
+  left : 15px;
+}
+
+.esriPopup .titlePane,
+.esriPopup .contentPane,
+.esriPopup .actionsPane {
+  background-color : #ffffff;
+  color            : #333333;
+  border           : none;
+}
+
+.esriPopup .titlePane {
+  border-bottom : 1px solid #e5e5e5;
+  padding       : 8px;
+}
+
+.esriPopup .titlePane .title {
+  font-size : 16px;
+}
+
+.esriPopup .titleButton.close {
+  right               : 3px;
+  background-position : -34px 0;
+  width               : 12px;
+  height              : 17px;
+}
+
+.esriPopup .titleButton {
+  top : 12px;
+}
+
+.esriPopup .titleButton.close {
+  right               : 10px;
+  background-position : -34px -3px;
+  width               : 11px;
+  height              : 11px;
+}
+
+.esriPopup dt {
+  width : 120px;
+}
+
+.esriPopup dd {
+  margin-left : 140px;
+  min-height  : 17px;
+}
+
+.esriPopup a.btn {
+  text-decoration : none;
+  color           : #333333;
+}
+
+.esriPopup .sizer {
+  width : 300px;
+}
+
+.esriPopup .pointer {
+  background-color : #f7f7f7 !important;
+}
+
+.contentPane .dl-horizontal {
+  margin-bottom : 0;
+}

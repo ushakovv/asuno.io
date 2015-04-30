@@ -1,0 +1,10 @@
+.filters {
+  $filters-border-color : #e7e7e7;
+
+  border-top : 1px solid $filters-border-color;
+  &__item {
+    & + & {
+      border-left : 1px solid $filters-border-color;
+    }
+  }
+}

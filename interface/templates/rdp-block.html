@@ -1,0 +1,33 @@
+<a ui-sref="core.rdp({rdp: rdp.slug})" class="col-lg-3 col-sm-4 container__rdp">
+  <div class="rdp">
+    <div class="rdp__name">
+      РДП {{rdp.name}}
+      <span ng-if="rdp.controllers >= 0">({{rdp.enabled||0}}/{{rdp.controllers}})</span>
+    </div>
+    <div class="rdp__address">
+      Адрес: {{rdp.address}}
+    </div>
+    <div class="rdp__alarms">
+      <div class="rdp__alarms__alarm">
+        <div class="corner-counter-sm" corner-counter="/assets/img/fire.png" cc-value="{{rdp.fire}}"
+             cc-compare="{{rdp.fire_acknowledged}}"></div>
+      </div>
+      <div class="rdp__alarms__alarm">
+        <div class="corner-counter-sm" corner-counter="/assets/img/disconnect.png"
+             cc-value="{{rdp.connection}}" cc-compare="{{rdp.connection_acknowledged}}"></div>
+      </div>
+      <div class="rdp__alarms__alarm">
+        <div class="corner-counter-sm" corner-counter="/assets/img/door.png" cc-value="{{rdp.door}}"
+             cc-compare="{{rdp.door_acknowledged}}"></div>
+      </div>
+      <div class="rdp__alarms__alarm">
+        <div class="corner-counter-sm" corner-counter="/assets/img/input.png" cc-value="{{rdp.common_alarm}}"
+             cc-compare="{{rdp.common_alarm_acknowledged}}"></div>
+      </div>
+      <div class="rdp__alarms__alarm">
+        <div class="corner-counter-sm" corner-counter="/assets/img/block.png" cc-value="{{rdp.lock}}"
+             cc-compare="{{rdp.lock_acknowledged}}"></div>
+      </div>
+    </div>
+  </div>
+</a>

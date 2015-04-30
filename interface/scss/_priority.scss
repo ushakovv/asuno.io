@@ -1,0 +1,32 @@
+@import "mixins";
+
+.priority-row {
+  &__priority {
+    height          : 16px;
+    padding         : 0 10px;
+    line-height     : 1;
+
+    -moz-appearance : textfield;
+
+    &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+      -webkit-appearance : none;
+      margin             : 0
+    }
+  }
+
+  &--low {
+    @include priority-row-colored(green);
+  }
+
+  &--average {
+    @include priority-row-colored(yellow);
+  }
+
+  &--high {
+    @include priority-row-colored(orange);
+  }
+
+  &--highest {
+    @include priority-row-colored(red);
+  }
+}

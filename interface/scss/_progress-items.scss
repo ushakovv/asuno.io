@@ -1,0 +1,15 @@
+.progress-items {
+
+  &__item {
+
+    font-size : 150%;
+
+    &--ok {
+      color : #468847;
+    }
+
+    &--warn {
+      color : #c7254e;
+    }
+  }
+}

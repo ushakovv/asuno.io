@@ -1,0 +1,28 @@
+<div class="rdp-navigation">
+  <form>
+    <input class="form-control rdp-navigation__search" placeholder="Пункт питания..." type="text" ng-model="term"
+           ng-change="search(term)">
+  </form>
+
+  <div class="rdp-navigation__rdp-list">
+    <div class="panel panel-default rdp-navigation__rdp-list__rdp" ng-hide="results[rdp.slug].length === 0"
+         ng-repeat="rdp in rdps |orderBy:'slug' track by rdp.slug">
+      <div class="panel-heading">
+        <a ui-sref="core.rdp({rdp: rdp.slug})">
+          {{rdp.name}}
+        </a>
+      </div>
+      <ul class="list-group" ng-if="results[rdp.slug].length">
+        <li class="list-group-item" ng-repeat="controller in results[rdp.slug] | limitTo:5 track by controller.id">
+          <a ui-sref="core.controller({rdp: rdp.slug, controller: controller.id})">
+            <span controller-search-term="controller"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div ng-if="noControllersFound">
+      <h6>Пункты питания не найдены</h6>
+    </div>
+  </div>
+</div>

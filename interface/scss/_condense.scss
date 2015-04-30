@@ -1,0 +1,51 @@
+.navbar {
+  min-height : 41px;
+
+  .row.main-row {
+    .navbar-brand {
+      padding-top    : 11px;
+      padding-bottom : 11px;
+      height         : 41px;
+      line-height    : 19px;
+    }
+
+    .navbar-form {
+      margin-top    : 5px;
+      margin-bottom : 5px;
+    }
+  }
+
+  .row.small-row {
+    .navbar-form {
+      margin-top    : 0;
+      margin-bottom : 0;
+    }
+
+    .navbar-nav {
+      li > a {
+        padding: 7px 5px 6px;
+      }
+    }
+
+    .controller-search {
+      height : 25px;
+      margin : 4px 0 1px;
+    }
+  }
+}
+
+table.table-condensed {
+  > thead, > tbody, > tfoot {
+    > tr {
+      > td, > th {
+        padding : 0 2px;
+      }
+
+      &.large {
+        > td, .th {
+          padding : 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+@import "mixins";
+
+.graphs {
+  $height: 500px;
+  $margin: ($height - 17px)/2;
+
+  @include simple-well;
+  margin: 0 5px 5px;
+
+  &__names {
+    text-align: center;
+  }
+
+  &__name {
+    padding: 0 1em;
+
+    &--active {
+      text-decoration: underline;
+    }
+  }
+
+  &__loading {
+    margin: $margin 0;
+  }
+}

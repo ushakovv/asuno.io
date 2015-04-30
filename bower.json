@@ -1,0 +1,58 @@
+{
+  "name": "asuno-ui",
+  "version": "0.6.1",
+  "homepage": "https://github.com/dvo-group/asuno-ui",
+  "authors": [
+    "Vasily Chinarev <vasa.chi@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "2.1.3",
+    "angular": "1.3.15",
+    "angular-route": "1.3.15",
+    "angular-i18n": "1.3.15",
+    "angular-resource": "1.3.15",
+    "angular-cookies": "1.3.15",
+    "angular-animate": "1.3.15",
+    "angular-mocks": "1.3.15",
+    "lodash": "3.6.0",
+    "angular-ui-router": "0.2.13",
+    "angular-bootstrap": "0.12.1",
+    "font-awesome": "4.3.0",
+    "bootstrap-sass-official": "3.3.4",
+    "ng-grid": "2.0.13",
+    "jsplumb": "1.7.5",
+    "react": "0.13.1",
+    "eventEmitter": "4.2.11",
+    "momentjs": "2.9.0",
+    "angular-strap": "2.2.1",
+    "bootstrap-additions": "0.2.3",
+    "Fixed-Header-Table": "markmalek/Fixed-Header-Table#8b8667e86cca4d5a608c5f1fd925cc1c4d660237",
+    "a0-angular-storage": "0.0.9",
+    "base64": "0.3.0",
+    "slick-carousel": "1.4.1",
+    "angular-slick": "0.2.1",
+    "socket.io-client": "0.9.17",
+    "immutable": "3.7.1",
+    "angular-bootstrap-slider": "0.1.1",
+    "seiyria-bootstrap-slider": "3.1.0",
+    "d3": "3.5.5",
+    "nvd3": "1.7.1",
+    "angularjs-nvd3-directives": "0.0.7",
+    "classnames": "1.1.4"
+  },
+  "resolutions": {
+    "nvd3": "1.7.1",
+    "angular": "1.3.15",
+    "d3": "3.5.5",
+    "slick-carousel": "1.4.1"
+  }
+}

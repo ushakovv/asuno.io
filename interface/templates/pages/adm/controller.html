@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-7">
+    <form name="controllerEdit">
+      <fieldset>
+        <legend>Контроллер</legend>
+        <div class="form-group" ng-if="error">
+          <div alert type="danger" close="closeErrors()">
+            {{ error }}
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.fio.$invalid}">
+          <label class="control-label" for="controllerName">Название</label>
+          <input type="text" class="form-control" id="controllerName" name="controllerName" ng-minlength="3"
+                 ng-model="controller.name" required/>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.username.$invalid}">
+          <label class="control-label" for="controllerAddress">Адрес</label>
+          <input type="text" class="form-control" id="controllerAddress" name="controllerAddress" ng-minlength="8"
+                 ng-model="controller.address" required/>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.gis_id.$invalid}">
+          <label class="control-label" for="profile">Идентификатор в УФАП ТОиР</label>
+          <input type="text" class="form-control" id="profile" name="profile" ng-model="controller.profile"
+                 typeahead="profile as profile.id for profile in cac.search($viewValue)"
+                 typeahead-on-select="cac.updateControllerData(ctrl, $item)"
+                 typeahead-template-url="/assets/templates/typeahead/ufap.typeahead.html"/>
+        </div>
+        <div class="form-group clearfix" if-has-control>
+          <div class="pull-right">
+            <button class="btn btn-primary" ng-disabled="loading || userAdd.$invalid"
+                    ng-click="updateController(controller)">
+              {{ loading ? 'Подождите' : 'Сохранить' }}
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <div class="row" ui-view=""></div>
+  </div>
+  <div class="col-md-5">
+    <form>
+      <fieldset>
+        <legend>Камеры</legend>
+        <div class="form-group">
+          <div class="col-md-12">
+            <div simple-map sm-zoom="19" sm-hide-layers="true">
+              <div simple-map-layer="cameras" sml-parent-scope="child" show="true"
+                   sml-popup-template-url="/assets/templates/gis/camera-for-controller.html">
+                <div feature-renderer fr-extractor="cameraExtractor" fr-default-symbol="/assets/img/camera.png">
+                  <div renderer-setting rs-value="1" rs-symbol="/assets/img/camera_green.png"></div>
+                </div>
+              </div>
+              <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
+                   sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
+                   sml-point-click="selectController" sml-point-connect="controllerConnect"
+                   sml-popup-template="<div controller-popup controller='point'></div>"
+                   sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+              </div>
+              <div simple-map-search></div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

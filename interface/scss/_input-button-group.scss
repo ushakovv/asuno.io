@@ -1,0 +1,19 @@
+.input-button-group {
+  &__button {
+    float : right;
+
+    &--left {
+      float : left;
+    }
+  }
+
+  &__wrapped {
+    overflow      : hidden;
+    padding-right : 0.5em;
+
+    &__input {
+      width   : 100%;
+      display : inline-block;
+    }
+  }
+}

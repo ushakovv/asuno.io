@@ -1,0 +1,56 @@
+.body-pane {
+  padding    : 5px 0;
+  position   : absolute;
+  top        : 0;
+  bottom     : 257px;
+  overflow-y : auto;
+  overflow-x : hidden;
+  width      : 100%;
+}
+
+.bottom-journal {
+  position : absolute;
+  bottom   : 0;
+  width    : 100%;
+
+  &--expanded {
+    height : 100%;
+
+    .gridStyle {
+      height : 100%;
+    }
+  }
+
+  &__expander {
+    position : absolute;
+    top      : 0;
+    right    : 0;
+    z-index  : 1000;
+    outline  : none !important;
+  }
+
+  > .col-md-12 {
+    background-color : #ffffff;
+    border-top       : 1px solid #e0e0e0;
+  }
+}
+
+.bottom-journal {
+  &--static {
+    position   : relative;
+    margin-top : 15px;
+
+    &.bottom-journal--expanded {
+      margin-top : 0;
+    }
+
+    > .col-md-12 {
+      background-color : #ffffff;
+      border-top       : 1px solid #e0e0e0;
+    }
+  }
+}
+
+.journal-form {
+  margin-bottom : 5px;
+}

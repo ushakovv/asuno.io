@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>РДП</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-condensed table-bordered">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Адрес</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="rdp in rdps track by rdp.slug">
+        <td><a ui-sref="adm.rdp({rdp: rdp.slug})">{{rdp.name}}</a></td>
+        <td>{{rdp.address}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

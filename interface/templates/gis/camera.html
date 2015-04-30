@@ -1,0 +1,9 @@
+<div ng-controller="CameraCtrl as cc">
+  <p>{{attributes.address||'Адрес неизвестен'}}</p>
+
+  <div class="text-center">
+    <button ng-disabled="!attributes.purl" class="btn btn-default btn-sm" ng-click="cc.showVideo()">
+      Наблюдение
+    </button>
+  </div>
+</div>

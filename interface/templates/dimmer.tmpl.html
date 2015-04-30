@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-sm-12 controller-telemetry__dimmer">
+    <h5>Диммер</h5>
+
+    <h6 ng-if="dim.error" class="warn text-center">{{dim.error}}</h6>
+
+    <div class="input-button-group">
+      <input type="number" disabled class="input-button-group__button controller-telemetry__dimmer__value" size="3" ng-model="dim.dimmerReading">
+      <div class="input-button-group__wrapped controller-telemetry__dimmer__slider">
+        <span slider class="input-button-group__wrapped__input" ng-model="dim.dimmerReading" min="170" max="240"></span>
+      </div>
+    </div>
+
+    <button class="btn btn-danger btn-xs btn-block" if-has-control ng-show="dim.dimmerReading !== dim.dimmer.current_reading" ng-click="dim.setDimmerVoltage(dim.dimmerReading)">
+      установить значение
+    </button>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div ng-if="!kg.loadFinished" class="progress graphs__loading">
+  <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+</div>
+<div ng-if="kg.loadFinished">
+  <nvd3-line-chart data="kg.data" id="exampleId" width="700" height="500" interpolate="step-after" forcey="{{kg.forcey}}" forcex="{{kg.between}}" tooltips="true" useInteractiveGuideline="true" showLegend="true" xAxisTickFormat="kg.xAxisTickFormat" yAxisTickFormat="kg.yAxisTickFormat" showXAxis="true" showYAxis="true" noData="Нет данных">
+    <svg viewBox="0 0 700 500" style="width: 100%;"></svg>
+  </nvd3-line-chart>
+</div>

@@ -1,0 +1,16 @@
+<tr>
+  <td rowspan="16" ng-if="first">
+    <span class="pivot-icon fa fa-minus-square" ng-click="clickLink()"></span>
+    <a ui-sref="core.rdps">Объекты НО</a>
+  </td>
+  <td><a ui-sref="core.rdp({rdp: rdp.slug})"><span ng-if="!first">РДП</span> {{rdp.name}}</a></td>
+  <td>{{rdp.controllers||0}}</td>
+  <td>{{rdp.enabled||0}}</td>
+  <td>{{rdp.events||0}}</td>
+  <td>{{rdp.fire||0}}</td>
+  <td>{{rdp.connection||0}}</td>
+  <td>{{rdp.door||0}}</td>
+  <td>{{rdp.common_alarm||0}}</td>
+  <td>{{rdp.lock||0}}</td>
+  <td>{{rdp.on_maintenance||0}}</td>
+</tr>

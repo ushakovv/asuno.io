@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h3>{{attributes.address}}</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="embed-responsive embed-responsive-4by3">
+        <object id="myFlash" type="application/x-shockwave-flash" data="/assets/img/player_flv_mini.swf">
+          <param name="movie" value="player_flv_js.swf"/>
+          <param name="FlashVars"
+                 ng-attr-value="flv={{attributes.purl}}&amp;autoplay=1&amp;autoload=1&amp;buffer=10"/>
+          <p>Ваш браузер не поддерживает Flash</p>
+        </object>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>

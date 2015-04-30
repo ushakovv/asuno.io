@@ -1,0 +1,67 @@
+@import "mixins";
+
+.controller-label-container {
+  @include simple-well;
+  padding-top: 8.5px;
+  margin-top : 10px;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top : 0;
+  }
+}
+
+.controller-telemetry {
+  margin : 0;
+
+  &__description {
+    @include simple-well;
+
+    &__text {
+      background-color: #ffffff;
+    }
+  }
+
+  &__dimmer {
+    @include simple-well;
+
+    &__value {
+      width: 4em;
+    }
+
+    &__slider {
+      padding: 0 1.5em;
+
+      .slider {
+        width: 100%;
+      }
+
+      .slider-selection {
+        background-image: linear-gradient(to bottom, #f90000 0, #f50000 100%);
+      }
+    }
+  }
+
+  &__signals {
+    &__tele-signals {
+      @include simple-well;
+    }
+
+    &__video {
+      @include simple-well;
+    }
+  }
+
+  &__counters {
+    @include simple-well;
+  }
+}
+
+.telemetry-counter {
+  background-color : #333333 !important;
+  font-weight      : bold;
+  color            : lightgreen;
+
+  &--alarm {
+    color: red;
+  }
+}

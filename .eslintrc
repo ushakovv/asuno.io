@@ -1,0 +1,71 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "angular": false,
+    "_": false,
+    "EventEmitter": false,
+    "Flux": false,
+    "moment": false,
+    "$": false,
+    "React": false,
+    "require": false,
+    "dojo": false,
+    "alert": false,
+    "io": false,
+    "Immutable": false,
+    "classNames": false,
+    "REACT": true
+  },
+  "rules": {
+    "quotes": "single",
+    "camelcase": false,
+    "no-underscore-dangle": false,
+    "no-alert": false,
+    "no-extra-parens": 1,
+    "no-extra-strict": 0,
+    "no-reserved-keys": 1,
+    "block-scoped-var": 2,
+    "complexity": [
+      1,
+      10
+    ],
+    "default-case": 1,
+    "guard-for-in": 2,
+    "no-self-compare": 1,
+    "radix": 2,
+    "wrap-iife": [
+      1,
+      "inside"
+    ],
+    "no-undefined": 2,
+    "brace-style": [
+      1,
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "no-lonely-if": 1,
+    "space-after-keywords": [
+      1,
+      "always"
+    ],
+    "key-spacing": false,
+    "no-shadow": false
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "forOf": true,
+    "templateStrings": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralShorthandProperties": true,
+    "destructuring": true,
+    "jsx": true
+  }
+}

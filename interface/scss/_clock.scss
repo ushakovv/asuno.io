@@ -1,0 +1,50 @@
+.clock {
+  color  : #5e5e5e;
+  margin : 0;
+
+  &--navbar {
+    margin : 0 0 0 15px;
+  }
+
+  &--white {
+    color : white;
+  }
+
+  &--inline {
+    display : inline-block;
+  }
+
+  &--animated {
+    .time__point {
+      animation           : mymove 0.5s ease-in-out infinite;
+      animation-direction : alternate;
+    }
+  }
+
+  &__date {
+    font-family : Arial, Helvetica, sans-serif;
+  }
+
+  &__time {
+    margin     : 0;
+    text-align : center;
+
+    span {
+      display     : inline;
+      font-weight : bold;
+      font-family : Arial, Helvetica, sans-serif;
+    }
+  }
+}
+
+@keyframes mymove {
+  from {
+    opacity     : 1.0;
+    text-shadow : 0 0 20px #00c6ff;
+  }
+
+  to {
+    opacity     : 0;
+    text-shadow : none;
+  }
+}

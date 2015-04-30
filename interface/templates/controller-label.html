@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="row" ng-if="cl.isDisconnected()">
+      <div class="col-md-12 text-center" style="color: #a94442;">
+        <h4>
+          Связь с ПП потеряна! Оторбажается состояние на
+          {{controller.alarms.connection[0].last_reading_timestamp|serverDate|date:'HH:mm:ss dd.MM.yyyy'}}
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="row">
+          <div class="col-md-12">
+            <div connection-rate="controller"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div last-response="controller"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>
+              <span ng-if="controller.isMaintenance()" class="tooltipped tooltipped-n"
+                    data-tooltip="Профилактика c {{controller.maintenance.date_from|serverDate|date:'dd.MM.yyyy HH:mm'}} до {{controller.maintenance.date_to|serverDate|date:'dd.MM.yyyy HH:mm'}}">
+                <span class="glyphicon glyphicon-wrench"></span>
+              </span>
+              {{controller.name}}
+              <small>{{controller.address}}</small>
+            </h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h5>РДП {{rdp.name}}
+              <small>{{rdp.address}}</small>
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div controller-regime="controller" ng-if="controller.type !== 'grs_kulon'"></div>
+      <div ng-class="{'col-md-6' : controller.type === 'grs_kulon', 'col-md-2': controller.type !== 'grs_kulon'}">
+        <div class="pull-right">
+          <button class="btn btn-default btn-xs" disabled>Карта</button>
+          <button class="btn btn-default btn-xs" disabled>Панорама</button>
+          <button class="btn btn-default btn-xs" ng-click="cl.openPassport()" ng-disabled="!controller.gis_id">
+            Паспорт
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

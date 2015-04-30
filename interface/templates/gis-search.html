@@ -1,0 +1,11 @@
+<div>
+  <div class="form-group has-feedback map__search-bar">
+    <input type="text" class="form-control" placeholder="Введите адрес"
+           autocomplete="off" ng-model="queryText" typeahead="location.label for location in search($viewValue)"
+           typeahead-min-length="3" typeahead-on-select="locationDone($item)" typeahead-loading="loading"
+           typeahead-wait-ms="250">
+    <span class="glyphicon glyphicon-remove form-control-feedback" ng-if="!loading && queryText"
+          ng-click="cleanSearch()"></span>
+    <span class="glyphicon glyphicon-refresh form-control-feedback" ng-if="loading"></span>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="modal-header">
+  <h3>Паспорт: {{controller.name}}</h3>
+</div>
+<div class="modal-body" ng-if="passport.error">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <button class="btn btn-block btn-success" ng-click="loadPassport()" ng-if="!canReload" ng-disabled="loading">
+        {{ loading ? 'Подождите...' : 'Запросить паспорт объекта' }}
+      </button>
+      <button class="btn btn-block btn-primary" ng-click="reload()" ng-if="canReload" ng-disabled="loading">
+        {{ loading ? 'Подождите...' : 'Нажмите для обновления' }}
+      </button>
+    </div>
+  </div>
+</div>
+<div class="modal-body" ng-if="!passport.error">
+  <style>
+    dl.dl-horizontal > dt {
+      width : 200px;
+    }
+
+    dl.dl-horizontal > dd {
+      margin-left : 220px;
+    }
+  </style>
+  <div class="row">
+    <div class="col-md-12">
+      <div tabset>
+        <div tab heading="Общая информация">
+          <dl class="dl-horizontal">
+            <dt>Название</dt>
+            <dd>{{passport.pp_name}}</dd>
+            <dt>Тип</dt>
+            <dd>{{passport.pp_type}}</dd>
+            <dt>Диспетчерская</dt>
+            <dd>{{passport.dispatch}}</dd>
+            <dt>Участок</dt>
+            <dd>{{passport.site}}</dd>
+            <dt>Административный округ</dt>
+            <dd>{{passport.district}}</dd>
+            <dt>Муниципальный округ</dt>
+            <dd>{{passport.county}}</dd>
+            <dt>Адрес</dt>
+            <dd>{{passport.address}}</dd>
+            <dt>Организация</dt>
+            <dd>{{passport.organization}}</dd>
+            <dt>Поставщик</dt>
+            <dd>{{passport.power_suplier}}</dd>
+            <dt>Статус</dt>
+            <dd>{{passport.pp_status}}</dd>
+            <dt>Год ввода</dt>
+            <dd>{{passport.commissioning_date|date: 'yyyy'}}</dd>
+            <dt>Год кап. ремонта</dt>
+            <dd>{{passport.construction_date|date: 'yyyy'}}</dd>
+            <dt>Год строительства</dt>
+            <dd>{{passport.construction_date|date:'yyyy'}}</dd>
+          </dl>
+        </div>
+        <div tab heading="Параметры">
+          <dl class="dl-horizontal">
+            <dt>Тип управления</dt>
+            <dd>{{passport.control_type}}</dd>
+            <dt>Номер питающей ТП</dt>
+            <dd>{{passport.supply_tp_number}}</dd>
+            <dt>Разрешенная мощность</dt>
+            <dd>{{passport.allowed_power}}</dd>
+            <dt>Разрешенная доп. мощность</dt>
+            <dd>{{passport.allowed_additional_power}}</dd>
+            <dt>Вольтаж</dt>
+            <dd>{{passport.voltage}}</dd>
+          </dl>
+        </div>
+        <div tab heading="Помещение">
+          <dl class="dl-horizontal">
+            <dt>Материал стен</dt>
+            <dd>{{passport.wall_material}}</dd>
+            <dt>Материал кровли</dt>
+            <dd>{{passport.roof_material}}</dd>
+            <dt>Материал фундамента</dt>
+            <dd>{{passport.foundation_material}}</dd>
+            <dt>Материал двери</dt>
+            <dd>{{passport.door_material}}</dd>
+            <dt>Размер</dt>
+            <dd>{{passport.size_x || '? '}}x{{passport.size_y || ' ? '}}x{{passport.size_z || ' ?'}}</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>

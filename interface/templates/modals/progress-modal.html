@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <h3>{{ ::operation }}</h3>
+</div>
+<div class="modal-body" ng-if="!confirmed">
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <strong>Вы уверены что хотите произвести эту операцию?</strong>
+      </p>
+
+      <div class="row" ng-if="!allowToRdp">
+        <div class="col-md-6">
+          <button class="btn btn-sm btn-success btn-block" ng-click="confirm()">Да</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-sm btn-default btn-block" ng-click="$close()">Нет</button>
+        </div>
+      </div>
+      <div class="row" ng-if="allowToRdp">
+        <div class="col-md-4">
+          <button class="btn btn-sm btn-success btn-block" ng-click="confirm()">Да</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-sm btn-primary btn-block" ng-click="sendToRdp()">Отправить на РДП</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-sm btn-default btn-block" ng-click="$close()">Нет</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-body" ng-if="confirmed">
+  <div class="row">
+    <div class="col-sm-12">
+      <progress max="all" class="progress-striped active" style="margin: 0;">
+        <bar value="oks" type="success">{{ oks }} / {{ ::all }}</bar>
+        <bar value="fails" type="danger">{{ fails }} / {{ ::all }}</bar>
+      </progress>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <ul class="progress-items fa-ul">
+    <li ng-repeat="item in progressItems" class="progress-items__item"
+        ng-class="{'progress-items__item--ok': item.ok === true, 'progress-items__item--warn': item.ok === false}">
+      <i class="fa-li fa"
+         ng-class="{'fa-spinner fa-spin' : item.ok === undefined && item.started, 'fa-check' : item.ok === true, 'fa-times' : item.ok === false}"></i>
+      {{ ::item.name }}
+    </li>
+  </ul>
+</div>
+<div class="modal-footer" ng-show="finished">
+  <button class="btn btn-primary btn-sm btn-block" ng-click="$close()">Закрыть</button>
+</div>

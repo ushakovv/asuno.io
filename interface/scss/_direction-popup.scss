@@ -1,0 +1,22 @@
+@import "mixins";
+
+.direction {
+  @include clearfix();
+
+  margin-top: 0;
+  margin-bottom: 17px;
+
+  &__info {
+    float: left;
+    width: 100px;
+    clear: left;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__value {
+    margin-left: 110px !important;
+  }
+}

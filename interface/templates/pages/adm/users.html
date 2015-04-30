@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Пользователи
+      <a ng-click="usersAdm.addUser()" class="btn btn-sm btn-primary">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        Добавить
+      </a>
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" fixed-header>
+    <table class="table table-condensed table-bordered">
+      <thead>
+      <tr>
+        <th>ФИО</th>
+        <th>Логин</th>
+        <th>Роль</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="user in users">
+        <td>
+          <a class="glyphicon glyphicon-trash" ng-click="usersAdm.deleteUser(user)" if-has-control></a>
+          <a class="fa" ng-class="{'fa-lock': user.is_blocked, 'fa-unlock': !user.is_blocked}"
+             ng-click="usersAdm.toggleBlock(user)" if-has-control></a>
+          <a ui-sref="adm.user({id: user.id})">{{ user.name }}</a>
+        </td>
+        <td>
+          {{ user.username }}
+        </td>
+        <td class="text-right">
+          <span ng-repeat="role in user.roles">
+            <span class="label label-primary" ng-if="role.slug === 'dispatcher'">
+              {{ role.name }} {{ user.dispatcher.rdp.name }}
+            </span>
+            <span class="label"
+                  ng-class="{'label-primary': role.slug !== 'admin', 'label-danger': role.slug === 'admin'}"
+                  ng-if="role.slug !== 'dispatcher'">
+              {{ role.name }}
+            </span>
+          </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

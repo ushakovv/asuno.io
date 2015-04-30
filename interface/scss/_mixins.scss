@@ -1,0 +1,70 @@
+@import "variables";
+
+@mixin simple-well($padding: 10px) {
+  border           : 1px solid $well-border;
+  background-color : $well-bg;
+  padding          : 0 $padding 5px;
+  margin-bottom    : 5px;
+
+  .row {
+    margin-left: -$padding;
+    margin-right: -$padding;
+  }
+
+  .form-horizontal .form-group {
+    margin-left: -$padding;
+    margin-right: -$padding;
+  }
+
+  [class*="col-"] {
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+
+  input[class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .input-group[class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@mixin pane($width) {
+  position         : fixed;
+  top              : 0;
+  right            : - $width;
+  width            : $width;
+  opacity          : 0.9;
+  z-index          : 1040;
+  background-color : #d3d3d3;
+  padding          : 15px;
+  transition       : right 0.5s ease;
+
+  &.show {
+    right : 0
+  }
+}
+
+@mixin priority-row-colored($color, $base : 0.2, $hover : 0.25) {
+  background-color : rgba($color, $base);
+
+  &:hover {
+    td {
+      background-color : rgba($color, $base) !important;
+    }
+  }
+}
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
+}

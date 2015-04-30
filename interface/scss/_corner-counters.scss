@@ -1,0 +1,54 @@
+$cc-width : 36px !default;
+$cc-height : $cc-width !default;
+
+$cc-width-sm : 24px !default;
+$cc-height-sm : $cc-width-sm !default;
+
+.corner-counter {
+  position : relative;
+  width    : $cc-width;
+  height   : $cc-height;
+
+  filter   : url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  filter   : #{'grayscale(1)'};
+  opacity  : 0.3;
+
+  &--active {
+    filter  : none;
+    opacity : 1;
+  }
+
+  &--nokvit {
+    > img {
+      animation           : nokvit-img 1s linear infinite;
+      animation-direction : alternate;
+    }
+  }
+
+  > img {
+    width  : $cc-width;
+    height : $cc-height;
+  }
+
+  &.corner-counter-sm {
+    width  : $cc-width-sm;
+    height : $cc-height-sm;
+    > img {
+      width  : $cc-width-sm;
+      height : $cc-height-sm;
+    }
+  }
+
+  > .inlay {
+    position         : absolute;
+    bottom           : -5px;
+    right            : -5px;
+    border           : 1px solid #ffffff;
+    background-color : red;
+    color            : #ffffff;
+    min-width        : 10px;
+    font-size        : 10px;
+    text-align       : center;
+    padding          : 0 4px;
+  }
+}

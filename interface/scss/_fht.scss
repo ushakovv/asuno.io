@@ -1,0 +1,14 @@
+@import "variables";
+
+.fht-thead > table {
+  margin-bottom : 0;
+}
+
+.fht-tbody {
+  border-bottom : 1px solid $table-border-color;
+
+  > table {
+    padding-top   : 20px;
+    margin-bottom : 0;
+  }
+}

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h3>
+    Профилактика:
+    <span ng-repeat="controller in selectedControllers">
+      <span>{{controller.name}}</span><span ng-if="controller.is_group_controller">(каскад)</span><span
+        ng-if="!$last">,</span>
+    </span>
+  </h3>
+</div>
+<div class="modal-body alert-danger" ng-if="error">
+  <div class="row">
+    <div class="col-md-12">
+      <strong>{{error}}</strong>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <form name="maintenanceForm">
+        <div class="form-group">
+          <label for="dateFrom" class="control-label" style="display: block">С</label>
+          <input type="text" id="dateFrom" name="dateFrom" class="form-control" style="width:50%; display: inline"
+                 required
+                 placeholder="дд.мм.гггг" bs-datepicker ng-model="maintenance.date_from" min-date="today"
+                 date-format="dd.MM.yyyy" autoclose="true"/>
+          <input type="text" id="timeFrom" name="timeFrom" class="form-control" style="width:49%; display: inline"
+                 required
+                 placeholder="чч:мм" bs-timepicker ng-model="maintenance.date_from" autoclose="true"/>
+        </div>
+        <div class="form-group">
+          <label for="dateTo" class="control-label" style="display: block">До</label>
+          <input type="text" id="dateTo" name="dateTo" class="form-control" style="width:50%; display: inline" required
+                 placeholder="дд.мм.гггг" bs-datepicker ng-model="maintenance.date_to" min-date="today"
+                 date-format="dd.MM.yyyy" autoclose="true"/>
+          <input type="text" id="timeTo" name="timeTo" class="form-control" style="width:49%; display: inline" required
+                 placeholder="чч:мм" bs-timepicker ng-model="maintenance.date_to" autoclose="true"/>
+        </div>
+        <div class="form-group">
+          <label for="reason" class="control-label">Причина</label>
+          <textarea name="reason" id="reason" class="form-control" rows="5" ng-model="maintenance.reason" required>
+          </textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-danger" ng-click="save(maintenance)" ng-disabled="maintenanceForm.$invalid || loading">
+    Включить профилактику
+  </button>
+  <button class="btn btn-primary" ng-click="$dismiss() || loading">Закрыть</button>
+</div>

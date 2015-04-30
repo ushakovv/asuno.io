@@ -1,0 +1,25 @@
+.schedule {
+  &__month {
+
+    &--hide {
+      .schedule__month__day {
+        display : none;
+      }
+    }
+
+    &__name {
+      background-color : #f2f2f2;
+      cursor           : pointer;
+      text-transform   : uppercase;
+      text-align       : center;
+      font-weight      : bold;
+    }
+
+    &__day {
+      &--current {
+        background-color : #f2f2f2;
+        font-weight      : bold;
+      }
+    }
+  }
+}

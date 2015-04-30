@@ -1,0 +1,12 @@
+<div class="clock clock--inline" ng-class="{'clock--animated': !once}">
+  <div class="clock__time" ng-if="!never">
+    <span class="time__hours">{{hours}}</span>
+    <span class="time__point">:</span>
+    <span class="time__minutes">{{minutes}}</span>
+    <span class="time__point">:</span>
+    <span class="time__seconds">{{seconds}}</span>
+  </div>
+  <div class="clock__time" ng-if="never">
+    <span class="time__hours">сигналов нет</span>
+  </div>
+</div>

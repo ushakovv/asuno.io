@@ -1,0 +1,42 @@
+<div class="navbar-collapse collapse line">
+  <div class="navbar-form navbar-left line__backward">
+    <button class="btn btn-default" ng-click="tl.showConfig()" ng-disabled="tl.status !== 'STOP' || tl.loading">
+      <i class="glyphicon glyphicon-cog" ng-class="{'fa-spin': tl.loading}"></i>
+      </button>
+    <button class="btn btn-default" ng-disabled="!tl.conf || !(tl.canPlay() || tl.status === 'PLAY') || tl.loading"
+            ng-click="tl.togglePlay()">
+      <i class="glyphicon" ng-class="{'glyphicon-play': tl.canPlay(), 'glyphicon-pause': tl.status === 'PLAY'}"></i>
+    </button>
+    <button class="btn btn-default" ng-disabled="!tl.conf || !tl.canStop()" ng-click="tl.stop()">
+      <i class="glyphicon glyphicon-stop"></i>
+    </button>
+    <button class="btn btn-default" ng-disabled="!tl.conf || tl.status !== 'PLAY'"
+            ng-click="tl.setSpeedMultiplier(0.25)">
+      <span>¼x</span>
+    </button>
+    <button class="btn btn-default" ng-disabled="!tl.conf || tl.status !== 'PLAY'"
+            ng-click="tl.setSpeedMultiplier(0.5)">
+      <span>½x</span>
+    </button>
+  </div>
+  <div class="line__body">
+    <div class="line__body__progress" ng-class="{'line__body__progress--animated': tl.status === 'PLAY'}"
+         ng-style="{width: tl.progress}"></div>
+    <div class="line__body__timestamp">
+      {{ tl.loading ? 'Идёт загрузка...' : (tl.currentTime|date:'dd.MM.yyyy HH:mm:ss') }}
+    </div>
+    <div class="line__body__heatmap">
+      <div class="line__body__heatmap__item tooltipped tooltipped-s" ng-repeat="item in tl.heatMap track by $index"
+        ng-style="item.style" data-tooltip="{{item.start | date:'dd.MM.yyyy HH:mm:ss'}} - {{item.end | date:'dd.MM.yyyy HH:mm:ss'}}"
+        ng-click="tl.heatMapClick(item)"></div>
+    </div>
+  </div>
+  <div class="navbar-form navbar-right line__forward">
+    <button class="btn btn-default" ng-disabled="!tl.conf || tl.status !== 'PLAY'" ng-click="tl.setSpeedMultiplier(2)">
+      <span>2x</span>
+    </button>
+    <button class="btn btn-default" ng-disabled="!tl.conf || tl.status !== 'PLAY'" ng-click="tl.setSpeedMultiplier(4)">
+      <span>4x</span>
+    </button>
+  </div>
+</div>

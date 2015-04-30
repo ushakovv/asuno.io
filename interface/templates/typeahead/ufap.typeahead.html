@@ -1,0 +1,15 @@
+<a class="ufap">
+  <div class="ufap__name">
+    <span ng-if="match.model.pp_type" bind-html-unsafe="match.model.pp_type"></span>
+    <span> </span>
+    <span bind-html-unsafe="match.model.pp_name | typeaheadHighlight:query"></span>
+  </div>
+  <div class="ufap__address" ng-if="match.model.address">
+    <strong>Адрес: </strong>
+    <span bind-html-unsafe="match.model.address"></span>
+  </div>
+  <div class="ufap__rdp" ng-if="match.model.dispatch">
+    <strong>РДП: </strong>
+    <span bind-html-unsafe="match.model.dispatch"></span>
+  </div>
+</a>

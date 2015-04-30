@@ -1,0 +1,27 @@
+<div>
+  <div class="row">
+    <div class="col-md-12 sidebar__tabs-select">
+      <div class="btn-group btn-group-sm">
+        <button class="btn btn-default active">Администрирование</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-pills nav-stacked">
+        <li ui-sref-active="active" ng-if="!sidebar.isDispatcher()">
+          <a ui-sref="adm.rdps">Диспетчерские пункты</a>
+        </li>
+        <li ui-sref-active="active" ng-if="sidebar.isDispatcher()">
+          <a ui-sref="adm.rdp({rdp: sidebar.dispatchedRdp().slug})">РДП {{ sidebar.dispatchedRdp().name }}</a>
+        </li>
+        <li ui-sref-active="active" ng-if="!sidebar.isDispatcher()">
+          <a ui-sref="adm.states">Состояния</a>
+        </li>
+        <li ui-sref-active="active" ng-if="sidebar.isAdmin()">
+          <a ui-sref="adm.users">Пользователи</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

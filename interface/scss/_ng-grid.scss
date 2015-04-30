@@ -1,0 +1,75 @@
+.gridStyle {
+  border           : 1px solid rgb(212, 212, 212);
+  height           : 187px;
+  width            : 100%;
+  background-color : #eaeaea;
+
+  &--loading {
+    .ngViewport {
+      opacity : 0.5;
+    }
+  }
+
+  .ngRowCountPicker {
+    display : none;
+  }
+
+  .ngGridMaxPagesNumber {
+    margin-top : -8px;
+    display    : inline-block;
+  }
+
+  div.has-error {
+    input.ng-invalid {
+      color : red !important;
+    }
+  }
+
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance : none;
+    margin             : 0;
+  }
+
+  input[type=number] {
+    -moz-appearance : textfield;
+  }
+}
+
+.ngHeaderText {
+  padding : 3px;
+}
+
+.ngCellText {
+  padding : 3px;
+
+  &[data-col-status="inactive"] {
+    background-color : #f2f2f2;
+    cursor           : default;
+  }
+}
+
+.ngTotalSelectContainer {
+  margin-top : 5px;
+}
+
+.ngPagerContainer {
+  margin-top : 2px !important;
+}
+
+.ngFooterTotalItems, .ngFooterSelectedItems {
+  display : inline-block;
+}
+
+.ngRow, .ngRow.even, .ngRow.odd {
+  background-color : #ffffff;
+  border-top       : 1px solid #d9d9d9;
+
+  &:hover, &.selected {
+    background-color : #f2f2f2;
+  }
+}
+
+.ngSortPriority {
+  top : -2px;
+}

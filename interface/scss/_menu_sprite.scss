@@ -1,0 +1,190 @@
+$alarm-x: 0;
+$alarm-y: 31px;
+$alarm-offset-x: 0;
+$alarm-offset-y: -31px;
+$alarm-width: 31px;
+$alarm-height: 31px;
+$alarm-total-width: 31px;
+$alarm-total-height: 496px;
+$alarm-image: '/assets/img/menu/sprite.png';
+$alarm: 0 31px 0 -31px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$auth-x: 0;
+$auth-y: 248px;
+$auth-offset-x: 0;
+$auth-offset-y: -248px;
+$auth-width: 31px;
+$auth-height: 31px;
+$auth-total-width: 31px;
+$auth-total-height: 496px;
+$auth-image: '/assets/img/menu/sprite.png';
+$auth: 0 248px 0 -248px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$back-x: 0;
+$back-y: 62px;
+$back-offset-x: 0;
+$back-offset-y: -62px;
+$back-width: 31px;
+$back-height: 31px;
+$back-total-width: 31px;
+$back-total-height: 496px;
+$back-image: '/assets/img/menu/sprite.png';
+$back: 0 62px 0 -62px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$connection-systems-x: 0;
+$connection-systems-y: 93px;
+$connection-systems-offset-x: 0;
+$connection-systems-offset-y: -93px;
+$connection-systems-width: 31px;
+$connection-systems-height: 31px;
+$connection-systems-total-width: 31px;
+$connection-systems-total-height: 496px;
+$connection-systems-image: '/assets/img/menu/sprite.png';
+$connection-systems: 0 93px 0 -93px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$connection-x: 0;
+$connection-y: 124px;
+$connection-offset-x: 0;
+$connection-offset-y: -124px;
+$connection-width: 31px;
+$connection-height: 31px;
+$connection-total-width: 31px;
+$connection-total-height: 496px;
+$connection-image: '/assets/img/menu/sprite.png';
+$connection: 0 124px 0 -124px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$home-x: 0;
+$home-y: 155px;
+$home-offset-x: 0;
+$home-offset-y: -155px;
+$home-width: 31px;
+$home-height: 31px;
+$home-total-width: 31px;
+$home-total-height: 496px;
+$home-image: '/assets/img/menu/sprite.png';
+$home: 0 155px 0 -155px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$ibp-x: 0;
+$ibp-y: 186px;
+$ibp-offset-x: 0;
+$ibp-offset-y: -186px;
+$ibp-width: 31px;
+$ibp-height: 31px;
+$ibp-total-width: 31px;
+$ibp-total-height: 496px;
+$ibp-image: '/assets/img/menu/sprite.png';
+$ibp: 0 186px 0 -186px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$icon-settings-asuno-x: 0;
+$icon-settings-asuno-y: 217px;
+$icon-settings-asuno-offset-x: 0;
+$icon-settings-asuno-offset-y: -217px;
+$icon-settings-asuno-width: 31px;
+$icon-settings-asuno-height: 31px;
+$icon-settings-asuno-total-width: 31px;
+$icon-settings-asuno-total-height: 496px;
+$icon-settings-asuno-image: '/assets/img/menu/sprite.png';
+$icon-settings-asuno: 0 217px 0 -217px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$journal-x: 0;
+$journal-y: 0;
+$journal-offset-x: 0;
+$journal-offset-y: 0;
+$journal-width: 31px;
+$journal-height: 31px;
+$journal-total-width: 31px;
+$journal-total-height: 496px;
+$journal-image: '/assets/img/menu/sprite.png';
+$journal: 0 0 0 0 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$gis-x: 0;
+$gis-y: 279px;
+$gis-offset-x: 0;
+$gis-offset-y: -279px;
+$gis-width: 31px;
+$gis-height: 31px;
+$gis-total-width: 31px;
+$gis-total-height: 496px;
+$gis-image: '/assets/img/menu/sprite.png';
+$gis: 0 279px 0 -279px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$passport-x: 0;
+$passport-y: 310px;
+$passport-offset-x: 0;
+$passport-offset-y: -310px;
+$passport-width: 31px;
+$passport-height: 31px;
+$passport-total-width: 31px;
+$passport-total-height: 496px;
+$passport-image: '/assets/img/menu/sprite.png';
+$passport: 0 310px 0 -310px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$reports-x: 0;
+$reports-y: 341px;
+$reports-offset-x: 0;
+$reports-offset-y: -341px;
+$reports-width: 31px;
+$reports-height: 31px;
+$reports-total-width: 31px;
+$reports-total-height: 496px;
+$reports-image: '/assets/img/menu/sprite.png';
+$reports: 0 341px 0 -341px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$schedule-x: 0;
+$schedule-y: 372px;
+$schedule-offset-x: 0;
+$schedule-offset-y: -372px;
+$schedule-width: 31px;
+$schedule-height: 31px;
+$schedule-total-width: 31px;
+$schedule-total-height: 496px;
+$schedule-image: '/assets/img/menu/sprite.png';
+$schedule: 0 372px 0 -372px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$table-x: 0;
+$table-y: 403px;
+$table-offset-x: 0;
+$table-offset-y: -403px;
+$table-width: 31px;
+$table-height: 31px;
+$table-total-width: 31px;
+$table-total-height: 496px;
+$table-image: '/assets/img/menu/sprite.png';
+$table: 0 403px 0 -403px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$timeline-x: 0;
+$timeline-y: 434px;
+$timeline-offset-x: 0;
+$timeline-offset-y: -434px;
+$timeline-width: 31px;
+$timeline-height: 31px;
+$timeline-total-width: 31px;
+$timeline-total-height: 496px;
+$timeline-image: '/assets/img/menu/sprite.png';
+$timeline: 0 434px 0 -434px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$window-x: 0;
+$window-y: 465px;
+$window-offset-x: 0;
+$window-offset-y: -465px;
+$window-width: 31px;
+$window-height: 31px;
+$window-total-width: 31px;
+$window-total-height: 496px;
+$window-image: '/assets/img/menu/sprite.png';
+$window: 0 465px 0 -465px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image}) !important;
+
+  &:hover, &:active {
+    background-image: url(#{$sprite-image}) !important;
+  }
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}

@@ -1,0 +1,11 @@
+<div class="col-md-12" ng-switch="controller.type">
+  <div ng-switch-when="dep">
+    <dep-editor controller="controller" ng-include="'/assets/img/scheme.svg'"></dep-editor>
+  </div>
+  <div ng-switch-when="niitm">
+    <dep-editor controller="controller" ng-include="'/assets/img/scheme.svg'"></dep-editor>
+  </div>
+  <div ng-switch-when="ahp_kulon">
+    <ahp-kulon-editor controller="controller" ng-include="'/assets/img/akhp.svg'"></ahp-kulon-editor>
+  </div>
+</div>

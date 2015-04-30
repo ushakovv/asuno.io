@@ -1,0 +1,75 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+
+.sidebar {
+  display : none;
+
+  &__close {
+    position   : absolute;
+    right      : 0;
+    top        : 0;
+    height     : 60px;
+    width      : 20px;
+    background : url(/assets/img/3dot.png) 0 -60px;
+    opacity    : 0.6;
+    z-index    : 40;
+  }
+
+  &__tabs-select {
+    text-align : center;
+    padding    : 16px 0 13px;
+  }
+}
+
+@media (min-width : $screen-sm) {
+  .sidebar {
+    width            : 300px;
+    position         : fixed;
+    top              : 73px;
+    bottom           : 0;
+    left             : -300px;
+    z-index          : 1000;
+    display          : block;
+    padding          : 0 10px 20px;
+    overflow-x       : hidden;
+    overflow-y       : auto;
+    background-color : #fff;
+    border-right     : 1px solid $navbar-default-border;
+    box-shadow       : 0 2px 6px rgba(0, 0, 0, 0.3);
+
+    transition       : left 0.3s ease;
+
+    &--show {
+      left : 0;
+    }
+  }
+
+  body.has-timeline {
+    .sidebar {
+      top: 106px;
+    }
+  }
+
+  body.three-rows {
+    .sidebar {
+      top : 104px;
+    }
+
+    &.has-timeline {
+      .sidebar {
+        top: 137px;
+      }
+    }
+  }
+
+  body.one-row {
+    .sidebar {
+      top : 41px;
+    }
+
+    &.has-timeline {
+      .sidebar {
+        top : 73px;
+      }
+    }
+  }
+}

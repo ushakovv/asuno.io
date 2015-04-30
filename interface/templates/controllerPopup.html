@@ -1,0 +1,29 @@
+<table style="width: 100%" class="table-only-in-tag">
+  <tbody ng-if="controller">
+  <tr>
+    <td colspan="5"><strong>{{controller.name}}</strong></td>
+  </tr>
+  <tr>
+    <td style="width: 20%">
+      <img class="icon-lg" controller-block-alarm="/assets/img/fire.png" event="controller.alarms.fire"/>
+    </td>
+    <td style="width: 20%">
+      <img class="icon-lg" controller-block-alarm="/assets/img/disconnect.png" event="controller.alarms.connection"/>
+    </td>
+    <td style="width: 20%">
+      <img class="icon-lg" controller-block-alarm="/assets/img/door.png" event="controller.alarms.door"/>
+    </td>
+    <td style="width: 20%">
+      <img class="icon-lg" controller-block-alarm="/assets/img/input.png" event="controller.alarms.common_alarm"/>
+    </td>
+    <td style="width: 20%">
+      <img class="icon-lg" controller-block-alarm="/assets/img/block.png" event="controller.alarms.lock"/>
+    </td>
+  </tr>
+  </tbody>
+  <tbody ng-if="!controller">
+  <tr>
+    <td><strong style="text-align: center">ПУНКТ ПИТАНИЯ НЕ ПОДКЛЮЧЕН</strong></td>
+  </tr>
+  </tbody>
+</table>

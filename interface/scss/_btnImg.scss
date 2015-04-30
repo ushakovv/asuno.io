@@ -1,0 +1,91 @@
+@import "menu_sprite";
+
+.btn-img {
+  padding    : 0;
+  max-height : 31px;
+  border     : none;
+
+  &:active, &:focus, &:active:focus {
+    outline : none !important;
+  }
+
+  &[disabled] {
+    opacity : 0.5;
+    cursor  : default;
+  }
+
+  > img {
+    height : 29px
+  }
+
+  &--active {
+    box-shadow    : 0 0 3px 3px #0505FF;
+    border        : none;
+    border-radius : 3px;
+  }
+
+  &--home {
+    @include sprite($home);
+  }
+
+  &--back {
+    @include sprite($back);
+  }
+
+  &--alarm {
+    @include sprite($alarm);
+  }
+
+  &--journal {
+    @include sprite($journal);
+  }
+
+  &--reports {
+    @include sprite($reports);
+  }
+
+  &--schedule {
+    @include sprite($schedule);
+  }
+
+  &--timeline {
+    @include sprite($timeline);
+  }
+
+  &--passport {
+    @include sprite($passport);
+  }
+
+  &--icon-settings-asuno {
+    @include sprite($icon-settings-asuno);
+  }
+
+  &--auth {
+    @include sprite($auth);
+  }
+
+  &--ibp {
+    @include sprite($ibp);
+  }
+
+  &--connection {
+    @include sprite($connection);
+  }
+
+  &--connection-systems {
+    @include sprite($connection-systems);
+  }
+
+  &--gis {
+    @include sprite($gis);
+  }
+
+  &--window {
+    @include sprite($window);
+  }
+
+  &--table {
+    @include sprite($table);
+  }
+
+}

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru" ng-app="asuno">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <title>АСУНО</title>
+
+  <!-- build:css /assets/css/index.html.style.css -->
+  <link rel="stylesheet" href="vendor/arcgis_3.10/js/esri/css/esri.css"/>
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="../bower_components/ng-grid/ng-grid.css"/>
+  <link rel="stylesheet" href="../bower_components/bootstrap-additions/dist/bootstrap-additions.min.css"/>
+  <link rel="stylesheet" href="../bower_components/Fixed-Header-Table/css/defaultTheme.css"/>
+  <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css"/>
+  <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
+  <link rel="stylesheet" href="../bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css"/>
+  <link rel="stylesheet" href="../bower_components/nvd3/build/nv.d3.min.css">
+  <link rel="stylesheet" href="../.tmp/css/dashboard.css">
+  <!-- endbuild -->
+
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display : none !important;
+    }
+  </style>
+
+</head>
+
+<body
+    ng-class="{'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
+<header class="navbar navbar-default navbar-fixed-top" ng-class="{'is-choice': inState('choice')}"
+        ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="!inState('login')">
+  <div class="container-fluid">
+    <div class="row header-row hide-sm" ng-class="{'show': showTopMenu}">
+      <div class="col-md-12">
+        <div class="row logo-row">
+          <div class="col-sm-8">
+            <div class="logo hide-sm">
+              <img src="/assets/img/logo-mossvet.png" alt=""/>
+            </div>
+            <div class="logo hide-sm">
+              <img src="/assets/img/logo.png" alt=""/>
+            </div>
+            <div class="system-name">
+              <a href="/">Автоматизированная система управления наружным освещением</a>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="row login">
+              <div class="col-md-12">
+                <table style="width:100%">
+                  <tbody>
+                  <tr>
+                    <td rowspan="2">
+                      <a class="login-name" href="#" data-id="41">
+                        <span>{{fio()}}</span>
+                      </a>
+                    </td>
+                    <td class="nav-column">
+                      <a href="" class="navigation-item" ng-click="logout()">
+                        <i class="icon-wrapper"><i class="icon-logout"></i></i>
+                        <span>выход</span>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="nav-column">
+                      <a href="#" class="navigation-item">
+                        <i class="icon-wrapper"><i class="icon-help"></i></i>
+                        <span>справка</span>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row choice-row">
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a ui-sref="core.rdps">Объекты НО</a></li>
+                <li class="dropdown" dropdown>
+                  <a href="" dropdown-toggle>
+                    Групповые регуляторы
+                    <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="http://82.204.177.219/" target="_blank">Маэстро</a></li>
+                    <li><a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
+                      СШС
+                    </a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
+                    Объекты АХП
+                  </a>
+                </li>
+                <li><a ui-sref="tp">Объекты ТП 6-10 кВ</a></li>
+              </ul>
+              <div class="navbar-right clock--navbar" clock></div>
+              <div sun-level></div>
+              <div class="navbar-right navbar-form" style="margin: 5px 0;">
+                <button class="btn btn-default" ng-click="showTopMenu = false" ng-hide="inState('choice')">
+                  <span class="glyphicon glyphicon-chevron-up"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row main-row" ng-show="!inState('choice')">
+      <div class="col-md-12">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" ui-sref="choice">АСУНО</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <div class="navbar-right clock--navbar" clock></div>
+          <div sun-level></div>
+          <div class="navbar-right navbar-form">
+            <button class="btn btn-default" ng-click="showTopMenu = true">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+          </div>
+          <div class="navbar-left navbar-form ">
+            <a class="btn btn-img btn-img--home" ui-sref="choice" title="На главную">
+            </a>
+            <button class="btn btn-img btn-img--back" onclick="window.history.back()" title="Назад">
+            </button>
+            <a ui-sref="report.alarmsReport" class="btn btn-img btn-img--alarm" title="Аварии"></a>
+            <a ui-sref="report.switchesReport" class="btn btn-img btn-img--journal"
+               title="Оперативный журнал переключений">
+            </a>
+            <a ui-sref="report.operativeReport" class="btn btn-img btn-img--reports" title="Отчеты"></a>
+            <a class="btn btn-img btn-img--schedule" title="Режим работы" ui-sref="schedule"></a>
+            <button class="btn btn-img btn-img--timeline" title="Линейка времени"
+                    ng-click="timelineState.show = !timelineState.show"
+                    ng-disabled="!inState(['core.controller'])">
+            </button>
+            <a href="http://5.9.229.167/jsf/f?p=146:30:3331611608905:::::" target="_blank"
+               class="btn btn-img btn-img--passport" title="Паспорта объектов">
+            </a>
+            <a admin-button></a>
+            <button class="btn btn-img btn-img--auth" title="Авторизация"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row small-row hide-xs" ng-show="!inState(['choice', 'login', 'tp','ahp','group', 'ua'])">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <div class="navbar-form navbar-left" style="padding-left: 0">
+            <button class="btn btn-default" style="margin-right: 15px" ng-click="sidebar.show = !sidebar.show">
+              <span class="glyphicon glyphicon-th"></span>
+            </button>
+            <button ng-if="!inState('login')" server-status></button>
+            <button conn-status></button>
+            <button class="btn btn-img btn-img--ibp" title="ИБП" ng-click="openIbp()"></button>
+          </div>
+          <div class="navbar-form navbar-right">
+        <span ng-if="inState(['core.rdps', 'core.rdp'])">
+          <button class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
+                  ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
+          </button>
+          <button class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
+                  ng-class="{'btn-img--active': !show.showMap && show.showBlocks}">
+          </button>
+          <button class="btn btn-img btn-img--table" title="Таблица" ng-click="showTable()"
+                  ng-class="{'btn-img--active': !show.showMap && !show.showBlocks}">
+          </button>
+        </span>
+            <button rdp-remote-commands ng-if="inState(['core.rdp', 'core.controller', 'core.controllersp'])"></button>
+            <button control-pane ng-if="!inState('login')"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row small-row hide-xs filters" ng-show="inState(['core.rdps', 'core.rdp'])">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li filter-badge="all" name="Все" set-filter="setFilter" count="filterCount" current="isCurrentFilter"></li>
+            <li filter-badge="disabled" name="Отключено" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="evening" name="Вечер" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="night" name="Ночь" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="day" name="День" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="fire" name="Пожар" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="door" name="Дверь" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="common_alarm" name="Авария" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="connection" name="Нет связи" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="autonomous" name="Автономный" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="lock" name="Блокировано" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+            <li filter-badge="maintenance_due" name="Профилактика" set-filter="setFilter" count="filterCount"
+                current="isCurrentFilter"></li>
+          </ul>
+          <div class="navbar-form pull-right" style="padding-right: 0"
+               ng-show="(inState('core.rdp') || inState('core.rdps')) && !show.showMap">
+            <input class="form-control input-sm controller-search" placeholder="Быстрый поиск" type="text"
+                   ng-model="search.term" ng-change="navbar.setSearch(search.term)"/>
+          </div>
+          <div class="navbar-form pull-right" controller-zoom
+               ng-show="inState('core.rdp') && !show.showMap && show.showBlocks">
+          </div>
+          <div class="navbar-form pull-right" style="display: none;">
+            <button type="button" class="btn btn-default btn-no-outline" ng-model="showAutonomous" btn-checkbox
+                    ng-show="inState('core.rdp') && !show.showMap && show.showBlocks">
+              <i class="fa" ng-class="{'fa-toggle-on': showAutonomous, 'fa-toggle-off': !showAutonomous}"></i>
+              автономные
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row small-row hide-xs" ng-if="timelineState.show">
+      <div class="col-md-12">
+        <timeline></timeline>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container-fluid" ui-view></div>
+
+<!-- build:js /assets/js/index.html.scripts.js -->
+<script src="../bower_components/base64/base64.js"></script>
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/Fixed-Header-Table/jquery.fixedheadertable.js"></script>
+<script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+<script src="../bower_components/lodash/lodash.js"></script>
+<script src="../bower_components/slick-carousel/slick/slick.js"></script>
+<script src="../bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+<script src="../bower_components/d3/d3.js"></script>
+<script src="../bower_components/nvd3/build/nv.d3.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="../bower_components/angular-resource/angular-resource.js"></script>
+<script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="../bower_components/angular-animate/angular-animate.js"></script>
+<script src="../bower_components/angular-i18n/angular-locale_ru-ru.js"></script>
+<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="../bower_components/angular-strap/dist/angular-strap.js"></script>
+<script src="../bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+<script src="../bower_components/ng-grid/ng-grid-2.0.13.debug.js"></script>
+<script src="../bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+<script src="../bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
+<script src="../bower_components/jsplumb/dist/js/jquery.jsPlumb-1.7.2.js"></script>
+<script src="../bower_components/angular-slick/dist/slick.js"></script>
+<script src="../bower_components/angular-bootstrap-slider/slider.js"></script>
+<script src="../bower_components/react/react-with-addons.js"></script>
+<script src="../bower_components/eventEmitter/EventEmitter.js"></script>
+<script src="../bower_components/momentjs/moment.js"></script>
+<script src="../bower_components/momentjs/locale/ru.js"></script>
+<script src="../bower_components/socket.io-client/dist/socket.io.js"></script>
+<script src="../bower_components/immutable/dist/immutable.js"></script>
+<script src="../bower_components/classnames/index.js"></script>
+<script src="vendor/Flux.js"></script>
+<script src="vendor/arcgis_3.10/init.js"></script>
+<script src="../node_modules/babel-core/browser-polyfill.js"></script>
+<!-- endbuild -->
+
+<!-- build:js /assets/js/index.html.app.js -->
+<script src="app/app.js"></script>
+<script src="app/components/ngInjectMixin.js"></script>
+<script src="app/components/Clock.jsx"></script>
+<script src="app/components/ControllerBlockAlarm.jsx"></script>
+<script src="app/components/ControllerBlock.jsx"></script>
+<script src="app/components/Controllers.jsx"></script>
+<script src="app/components/CounterInput.jsx"></script>
+<script src="app/components/RemoteCommand.jsx"></script>
+<script src="app/components/RemoteCommandList.jsx"></script>
+<script src="app/components/LightSensor.jsx"></script>
+<script src="app/controllers/MainCtrl.js"></script>
+<script src="app/controllers/RDPsController.js"></script>
+<script src="app/controllers/RDPController.js"></script>
+<script src="app/controllers/ControllerCtrl.js"></script>
+<script src="app/controllers/LoginController.js"></script>
+<script src="app/controllers/NavbarCtrl.js"></script>
+<script src="app/controllers/ChoiceCtrl.js"></script>
+<script src="app/controllers/reports/ReportCtrl.js"></script>
+<script src="app/controllers/adm/RdpAdmController.js"></script>
+<script src="app/controllers/adm/ControllerAdmCtrl.js"></script>
+<script src="app/controllers/adm/UsersCtrl.js"></script>
+<script src="app/controllers/adm/UserCtrl.js"></script>
+<script src="app/controllers/adm/NewUserCtrl.js"></script>
+<script src="app/controllers/ControllerLabelCtrl.js"></script>
+<script src="app/controllers/gis/CameraCtrl.js"></script>
+<script src="app/controllers/ControllerDirectionsCtrl.js"></script>
+<script src="app/controllers/MaintenancePopupCtrl.js"></script>
+<script src="app/controllers/SidebarCtrl.js"></script>
+<script src="app/controllers/reports/OperativeReportCtrl.js"></script>
+<script src="app/controllers/reports/AlarmsReportCtrl.js"></script>
+<script src="app/controllers/CascadeControllerCtrl.js"></script>
+<script src="app/controllers/reports/SwitchesReportCtrl.js"></script>
+<script src="app/controllers/reports/TimeLagReportCtrl.js"></script>
+<script src="app/controllers/adm/ControllerSchemeCtrl.js"></script>
+<script src="app/controllers/reports/UserActionsReport.js"></script>
+<script src="app/controllers/reports/ControlReportCtrl.js"></script>
+<script src="app/controllers/reports/ExternalReportController.js"></script>
+<script src="app/controllers/adm/StatesAdmController.js"></script>
+<script src="app/controllers/adm/RdpsAdmController.js"></script>
+<script src="app/controllers/adm/SidebarAdmController.js"></script>
+<script src="app/controllers/reports/AlertsReportController.js"></script>
+<script src="app/controllers/LightSensorsController.js"></script>
+<script src="app/services/Controllers.js"></script>
+<script src="app/services/RDPs.js"></script>
+<script src="app/services/auth/Auth.js"></script>
+<script src="app/services/auth/Users.js"></script>
+<script src="app/services/httpTemplateCache.js"></script>
+<script src="app/services/StatusIcons.const.js"></script>
+<script src="app/services/Events.js"></script>
+<script src="app/services/GISLayers.js"></script>
+<script src="app/services/Controllers.store.js"></script>
+<script src="app/services/FilterSvc.js"></script>
+<script src="app/services/Mute.js"></script>
+<script src="app/services/EmitEvents.js"></script>
+<script src="app/services/Servers.js"></script>
+<script src="app/services/EverGisLocator.js"></script>
+<script src="app/services/UFAP.js"></script>
+<script src="app/services/AsunoDispatcher.js"></script>
+<script src="app/services/Condense.store.js"></script>
+<script src="app/services/States.js"></script>
+<script src="app/services/ReportFormatter.js"></script>
+<script src="app/services/modernizr.js"></script>
+<script src="app/services/Sensors.js"></script>
+<script src="app/services/auth/TokenInterceptor.js"></script>
+<script src="app/services/Mutex.js"></script>
+<script src="app/services/MassOperations.js"></script>
+<script src="app/services/ControllerCreator.js"></script>
+<script src="app/services/ClockStore.js"></script>
+<script src="app/services/Servers.store.js"></script>
+<script src="app/services/Sensors.store.js"></script>
+<script src="app/services/Cameras.js"></script>
+<script src="app/services/Muter.js"></script>
+<script src="app/services/Logs.js"></script>
+<script src="app/services/ConstantsCreator.js"></script>
+<script src="app/services/remoteCommand.store.js"></script>
+<script src="app/services/remoteCommand.listener.js"></script>
+<script src="app/services/remoteCommand.socket.js"></script>
+<script src="app/services/Utils.js"></script>
+<script src="app/services/Groups.js"></script>
+<script src="app/services/Schedule.js"></script>
+<script src="app/services/sci.svc.js"></script>
+<script src="app/services/timeline.svc.js"></script>
+<script src="app/services/HeatMap.svc.js"></script>
+<script src="app/services/Monitors.svc.js"></script>
+<script src="app/services/resource.svc.js"></script>
+<script src="app/services/SensorGraph.svc.js"></script>
+<script src="app/services/confirmation.svc.js"></script>
+<script src="app/directives/Clock.jsx"></script>
+<script src="app/directives/ControllerList.jsx"></script>
+<script src="app/directives/Navigation.js"></script>
+<script src="app/directives/SimpleMap.js"></script>
+<script src="app/directives/SimpleMapLayer.js"></script>
+<script src="app/directives/FeatureRenderer.js"></script>
+<script src="app/directives/ControllerLabel.js"></script>
+<script src="app/directives/ConnectionRate.js"></script>
+<script src="app/directives/LastResponse.js"></script>
+<script src="app/directives/TimeLag.js"></script>
+<script src="app/directives/cameraBlock.directive.js"></script>
+<script src="app/directives/ControllerSimpleBlock.js"></script>
+<script src="app/directives/teleSignal.directive.js"></script>
+<script src="app/directives/controller-scheme.directive.js"></script>
+<script src="app/directives/CornerCounter.js"></script>
+<script src="app/directives/ControlPane.js"></script>
+<script src="app/directives/RDPBlock.js"></script>
+<script src="app/directives/ControllerPopup.js"></script>
+<script src="app/directives/counterInputs.directive.jsx"></script>
+<script src="app/directives/ControllerBlockAlarm.js"></script>
+<script src="app/directives/breadcrumbs.js"></script>
+<script src="app/directives/GroupMapLayer.js"></script>
+<script src="app/directives/filterBadge.js"></script>
+<script src="app/directives/fixedHeader.js"></script>
+<script src="app/directives/serverStatus.js"></script>
+<script src="app/directives/SimpleMapSearch.js"></script>
+<script src="app/directives/controllerZoom.js"></script>
+<script src="app/directives/controllerRegime.js"></script>
+<script src="app/directives/groups.directive.js"></script>
+<script src="app/directives/scheduleTable.js"></script>
+<script src="app/directives/controllerBlock.jsx"></script>
+<script src="app/directives/sunLevel.js"></script>
+<script src="app/directives/connStatus.js"></script>
+<script src="app/directives/admin-button.js"></script>
+<script src="app/directives/journal.directive.js"></script>
+<script src="app/directives/if-has-control.directive.js"></script>
+<script src="app/directives/timeline.directive.js"></script>
+<script src="app/directives/remote-command.directive.jsx"></script>
+<script src="app/directives/rdp-remote-command.directive.js"></script>
+<script src="app/directives/controller-description.directive.js"></script>
+<script src="app/directives/dimmer.directive.js"></script>
+<script src="app/directives/kulon-graphs.directive.js"></script>
+<script src="app/directives/ahp-kulon-scheme.directive.js"></script>
+<script src="app/directives/kulon-graph.directive.js"></script>
+<script src="app/directives/telemetry.directive.js"></script>
+<script src="app/directives/lightSensors.directive.jsx"></script>
+<script src="app/directives/dep-editor.directive.js"></script>
+<script src="app/directives/ahp-kulon-editor.directive.js"></script>
+<script src="app/filters/percent.js"></script>
+<script src="app/filters/serverdate.js"></script>
+<script src="app/filters/moment.js"></script>
+<script src="app/i18n/angular-locale_ru-ru-strap.js"></script>
+<!-- endbuild -->
+
+<script>
+  (function () {
+    'use strict';
+
+    var everGis = document.createElement('script');
+    everGis.setAttribute('src', 'http://dev1.everpoint.ru/EverGIS/HTML5/005/evergis.js');
+    everGis.setAttribute('async', true);
+
+    var s0 = document.getElementsByTagName('script')[0];
+    s0.parentNode.insertBefore(everGis, s0);
+  })();
+</script>
+</body>
+</html>

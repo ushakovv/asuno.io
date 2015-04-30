@@ -1,0 +1,8 @@
+.idea/
+.tmp/
+bower_components/
+node_modules/
+dist/
+coverage/
+dist.tar.gz
+tags

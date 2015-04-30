@@ -1,0 +1,161 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+
+.navbar.is-choice {
+  background-color : transparent;
+  border-bottom    : none;
+}
+
+.is-choice .header-row {
+  position   : fixed !important;
+  top        : 0;
+  transition : none;
+}
+
+.header-row {
+  padding-bottom   : 3px;
+  background-color : transparent;
+
+  position         : fixed;
+  width            : 100%;
+  top              : -130px;
+  transition       : top 0.5s ease;
+  z-index          : 999999;
+
+  @media (max-width : $screen-sm) {
+    top : -173px;
+  }
+
+  &.show {
+    top : 0;
+  }
+
+  .logo-row {
+    background-color : #ffffff;
+    padding          : 11px 1px;
+
+    @media (max-width : $screen-sm) {
+      padding : 0;
+    }
+
+    .logo {
+      display : inline-block;
+      float   : left;
+    }
+
+    @media (max-width : $screen-sm) {
+      .logo {
+        display : none;
+      }
+    }
+
+    .logo + .logo {
+      padding-left : 14px;
+    }
+
+    .system-name {
+      padding : 18px 30px 0 150px;
+      height  : 59px;
+      > a {
+        width       : 34em;
+        font-weight : bold;
+        font-size   : 16px;
+        color       : #333333;
+
+        &:hover, &:active {
+          color           : #333333;
+          text-decoration : none;
+        }
+      }
+
+      @media (max-width : $screen-sm) {
+        padding-left : 15px;
+        text-align   : center;
+      }
+    }
+
+    .login {
+      table {
+        > tbody > tr > td {
+          vertical-align : middle;
+          padding        : 3px 0;
+        }
+      }
+
+      font-size : 14px;
+
+      .nav-column {
+        width     : 100px;
+        min-width : 100px;
+      }
+
+      .login-name {
+        text-decoration : underline;
+        color           : #2500EA;
+        span {
+          text-transform : capitalize;
+          font-weight    : bold;
+          color          : #333333;
+        }
+      }
+
+      .icon-wrapper {
+        opacity          : 0.7;
+        background-color : #0071BC;
+        display          : block;
+        float            : left;
+        height           : 26px;
+
+        .icon-logout {
+          background-image    : url(/assets/img/sprite-nav.png);
+          background-position : 0 -26px !important;
+          display             : inline-block;
+          height              : 26px;
+          width               : 26px;
+        }
+
+        .icon-help {
+          background-image    : url(/assets/img/sprite-nav.png);
+          background-position : 0 0 !important;
+          display             : inline-block;
+          height              : 26px;
+          width               : 26px;
+        }
+      }
+
+      .navigation-item {
+        &, &:hover, &:active {
+          color : #333333;
+        }
+
+        &:hover {
+          .icon-wrapper {
+            background-color : #0071BC;
+            opacity          : 0.85;
+          }
+        }
+
+        span {
+          float   : left;
+          padding : 3px 0 3px 10px;
+        }
+      }
+    }
+  }
+
+  .choice-row {
+    min-height       : 25px;
+    background-color : #E0E0E0;
+
+    .navbar-nav {
+      > li > a {
+        padding : 12px 5px;
+        color   : #333333;
+        outline : none;
+
+        &:hover, &:active {
+          color : #333333;
+        }
+      }
+    }
+  }
+}

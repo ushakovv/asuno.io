@@ -1,0 +1,30 @@
+.camera {
+
+  border           : 1px solid #e5e5e5;
+  margin-bottom    : 5px;
+  background-color : #ffffff;
+
+  &__name {
+    padding : 0 5px;
+  }
+
+  &__description {
+    padding    : 5px;
+    border-top : 1px solid #e5e5e5;
+  }
+
+  &__actions {
+    padding    : 5px;
+    border-top : 1px solid #e5e5e5;
+  }
+
+  &__remove {
+    color  : red;
+    cursor : pointer;
+    float  : right;
+
+    &:hover {
+      color : darken(red, 15%);
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Пункты питания РДП
+      <a ui-sref="core.rdp({rdp: rdp.slug})">{{rdp.name}}</a>
+      <button ng-click="addController()" class="btn btn-sm btn-primary" if-has-control>
+        <span class="glyphicon glyphicon-plus-sign"></span>
+        Добавить
+      </button>
+    </h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" fixed-header>
+    <table class="table table-condensed table-bordered">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Адрес</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="controller in controllers">
+        <td>
+          <a ng-click="remove(controller)" style="margin-right: 1em;" if-has-control>
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+          <a ui-sref="adm.controller.scheme({rdp: rdp.slug, controller: controller.id})">{{controller.name}}</a>
+        </td>
+        <td>{{controller.address}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

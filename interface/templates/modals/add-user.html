@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4>Добавить пользователя</h4>
+</div>
+<div class="modal-body alert-danger" ng-if="error">
+  <strong>{{ error }}</strong>
+</div>
+<div class="modal-body">
+  <form name="userAdd">
+    <div class="form-group" ng-class="{'has-error': userAdd.fio.$invalid}">
+      <label class="control-label" for="fio">ФИО</label>
+      <input type="text" class="form-control" id="fio" name="fio" ng-minlength="3" ng-model="newUser.name" required/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': userAdd.username.$invalid}">
+      <label class="control-label" for="username">Логин</label>
+      <input type="text" class="form-control" id="username" name="username" ng-minlength="1"
+             ng-model="newUser.username" required/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': userAdd.password.$invalid}">
+      <label class="control-label" for="password">Пароль</label>
+      <input type="password" name="password" id="password" class="form-control" ng-model="newUser.password"
+             ng-minlength="6" required/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': userAdd.role.$invalid}">
+      <label class="control-label" for="role">Роль</label>
+      <select name="role" id="role" class="form-control" ng-model="newUser.role"
+              ng-options="role.name for role in roles" required></select>
+    </div>
+    <div class="form-group" ng-show="newUser.role.slug == 'dispatcher'" ng-class="{'has-error': userAdd.rdp.$invalid}">
+      <label class="control-label" for="rdp">РДП</label>
+      <select name="rdp" id="rdp" class="form-control" ng-model="newUser.rdp" ng-options="rdp.name for rdp in rdps"
+              ng-required="newUser.role.slug == 'dispatcher'"></select>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div class="pull-right">
+    <button class="btn btn-primary" ng-disabled="loading || userAdd.$invalid" ng-click="newUserAdm.createUser(newUser)">
+      {{ loading ? 'Подождите' : 'Сохранить' }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="graphs">
+  <h5 class="graphs__names">
+    <a class="graphs__name" ng-click="kulon.setCurrent('U')" ng-class="{'graphs__name--active': kulon.currentGraph === 'U'}">
+      Напряжение на фазах
+    </a>
+    <a class="graphs__name" ng-click="kulon.setCurrent('I')" ng-class="{'graphs__name--active': kulon.currentGraph === 'I'}">
+      Ток на фазах
+    </a>
+    <a class="graphs__name" ng-click="kulon.setCurrent('R')" ng-class="{'graphs__name--active': kulon.currentGraph === 'R'}">
+      Нагрузка на фазах
+    </a>
+  </h5>
+
+  <div ng-switch="kulon.currentGraph" class="graphs__graph">
+    <div ng-switch-when="U" kulon-graph="kulon.controller" monitor="U" dimension="В" forcey="[0,240]"></div>
+    <div ng-switch-when="I" kulon-graph="kulon.controller" monitor="I" dimension="А" forcey="[0, 100]"></div>
+    <div ng-switch-when="R" kulon-graph="kulon.controller" monitor="R" dimension="Ом" forcey="[0,5000]"></div>
+  </div>
+</div>

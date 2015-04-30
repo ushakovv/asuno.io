@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-md-12">
+    <h3>Состояния</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12" fixed-header>
+    <table class="table table-condensed table-bordered">
+      <thead>
+      <tr>
+        <th>Название</th>
+        <th>Тег</th>
+        <th>Значение</th>
+        <th>Приоритет</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="state in states track by state.id" class="priority-row"
+          ng-class="{'priority-row--low': state.priority > 7, 'priority-row--average': state.priority <=7 && state.priority > 4, 'priority-row--high': state.priority <=4 && state.priority > 0, 'priority-row--highest': state.priority == 0}">
+        <td>{{state.hr_name}}</td>
+        <td>{{state.tag}}</td>
+        <td>{{state.value}}</td>
+        <td>
+          <input type="number" ng-model="state.priority" min="0" max="10" ng-change="savePriority(state)"
+                 class="form-control input-sm input-block priority-row__priority" if-has-control/>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

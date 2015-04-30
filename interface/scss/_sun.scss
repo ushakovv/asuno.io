@@ -1,0 +1,42 @@
+@keyframes sun-alert {
+  from {
+    opacity : 0.2;
+  }
+}
+
+.sun {
+  background-color : #e0e0e0;
+  padding          : 5px 10px;
+
+  &--online {
+    cursor: pointer;
+  }
+
+  &__alert {
+    float     : left;
+    font-size : 14px;
+    color     : red;
+    padding   : 5px 10px 5px 0;
+
+    &__icon {
+      animation           : sun-alert 1s ease-in-out infinite;
+      animation-direction : alternate;
+    }
+  }
+
+  &__counter {
+    font-size : 14px;
+    color     : darkblue;
+    float     : left;
+    padding   : 5px 10px 5px 0;
+
+    &--offline {
+      color : red;
+    }
+  }
+
+  &__sun-icon {
+    height : 30px;
+    width  : 30px;
+  }
+}

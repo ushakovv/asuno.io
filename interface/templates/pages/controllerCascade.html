@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <ol breadcrumbs="crumbs"></ol>
+    <div class="well well-sm controller-label-container">
+      <div controller-label="controller" rdp="rdp"></div>
+    </div>
+  </div>
+</div>
+<div class="row head-row">
+  <div class="controller-list controller-list--centered" controller-block="controller" choose="selectController"></div>
+</div>
+<div class="row" style="padding-top: 50px" ng-repeat="row in rows track by $index">
+  <div class="col-md-12 controller-list controller-list--condensed controller-list--centered">
+    <div controller-simple-block class="child" controller="child" ng-attr-data-parent-id="{{child.parentId}}"
+         ng-repeat="child in row track by $index" ng-click="selectController(child)"></div>
+  </div>
+</div>
+<script>
+  setTimeout(function () {
+    var instance = jsPlumb.getInstance();
+
+    instance.importDefaults({
+      Anchors    : ["BottomCenter", "TopCenter"],
+      PaintStyle : {
+        lineWidth    : 1,
+        strokeStyle  : "#333",
+        outlineColor : "black",
+        outlineWidth : 0
+      },
+      Connector  : ["Flowchart"],
+      Endpoint   : ["Dot", {radius : 2}]
+    });
+
+    $('.parent').each(function () {
+      var self = this;
+      $('.child[data-parent-id="' + $(this).data('id') + '"]').each(function () {
+        instance.connect({source : self, target : this})
+      })
+
+    });
+
+    $(window).resize(function () {
+      window.requestAnimationFrame(instance.repaintEverything, document.body)
+    })
+  }, 500)
+</script>

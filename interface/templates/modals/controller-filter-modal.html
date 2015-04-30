@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h3>Фильтрация пунктов питания</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label class="col-md-2" for="controllerType">Тип</label>
+
+          <div class="col-md-10">
+            <select name="controllerType" id="controllerType" class="form-control"
+                    ng-options="type.name for type in types" ng-model="selectedType">
+              <option value=""></option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox">
+            <label style="font-size: 14px;">
+              <input type="checkbox" ng-model="hideUnknown"> Скрыть неподключенные пункты питания
+            </label>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="submitFilters(selectedType, hideUnknown)">
+    Установить
+  </button>
+  <button class="btn btn-primary" ng-click="$close()">Сбросить</button>
+  <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>

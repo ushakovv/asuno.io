@@ -1,0 +1,68 @@
+<div class="col-md-12" style="height:100%">
+  <h4>{{ journal.name }}</h4>
+
+  <form class="form-inline journal-form">
+    <div class="form-group" ng-if="journal.rdp">
+      <label>РДП</label>
+      <select name="rdp" id="rdp" ng-model="journal.filters.rdp" class="form-control"
+              ng-options="rdp.sid as rdp.name for rdp in journal.rdps">
+        <option value="">-- РДП --</option>
+      </select>
+    </div>
+    <div class="form-group" ng-if="journal.rdpName">
+      <label>РДП</label>
+      <select name="rdpName" id="rdpName" ng-model="journal.filters.rdp" class="form-control"
+              ng-options="rdp.name as rdp.name for rdp in journal.rdps">
+        <option value="">-- РДП --</option>
+      </select>
+    </div>
+    <div class="form-group" ng-if="journal.controllers">
+      <input type="text" class="form-control input-sm" style="display: inline; width: auto;"
+             placeholder="Пункт питания" ng-model="journal.filters.controller"
+             typeahead="controller.sid as controller.name for controller in controllers| filter:{'name': $viewValue} | limitTo:6 |orderBy:'name'"/>
+    </div>
+    <div class="form-group" ng-if="journal.time">
+      <label>С</label>
+      <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+             ng-model="journal.filters.dateFrom" date-format="dd.MM.yyyy" max-date="filters.dateTo"
+             placement="bottom-left"/>
+      <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker
+             ng-model="journal.filters.dateFrom"
+             placement="bottom"/>
+    </div>
+    <div class="form-group" ng-if="journal.time">
+      <label>По</label>
+      <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+             ng-model="journal.filters.dateTo" date-format="dd.MM.yyyy" min-date="filters.dateFrom" max-date="today"
+             placement="bottom-left"/>
+      <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker
+             ng-model="journal.filters.dateTo"
+             placement="bottom"/>
+    </div>
+    <div class="form-group" ng-if="journal.time">
+      <button class="btn btn-default btn-sm" ng-click="journal.filterToday()"
+              ng-class="{'active': journal.filters.filterToday}">
+        Сегодня
+      </button>
+    </div>
+    <div class="form-group" ng-if="journal.kvit">
+      <button class="btn btn-default btn-sm" ng-click="journal.filterUnacknowledged()"
+              ng-class="{'active': journal.filters.unacknowledged === 1}">
+        Неквитированные аварии
+      </button>
+      <label ng-show="report.loading"><span class="fa fa-refresh fa-spin"></span></label>
+    </div>
+    <div class="form-group">
+      <label ng-show="journal.report.loading"><span class="fa fa-refresh fa-spin"></span></label>
+    </div>
+    <div class="form-group pull-right" ng-if="journal.kvit">
+      <button class="btn btn-primary btn-sm" ng-show="journal.selectedEvents.length"
+              ng-click="journal.massKvit(journal.selectedEvents)" ng-disabled="journal.kvitLoading">
+        {{ journal.kvitLoading ? 'Подождите...' : 'Квитировать (' + journal.selectedEvents.length + ')' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="gridStyle" style="height:85%" ng-class="{'gridStyle--loading': journal.report.loading}"
+       ng-grid="journal.options"></div>
+</div>

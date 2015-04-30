@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h4>Добавить пункт питания</h4>
+</div>
+<div class="modal-body" ng-if="ncc.message" ng-class="{'alert-danger': ncc.message.type === 'error', 'alert-success': ncc.message.type === 'success'}">
+  {{ ncc.message.text }}
+</div>
+<div class="modal-body" ng-show="!ncc.success">
+  <form name="addControllerForm">
+    <div class="form-group" ng-class="{'has-error': addControllerForm.name.$invalid}">
+      <label class="control-label" for="name">Наименование пункта питания</label>
+      <input class="form-control" type="text" id="name" name="name" ng-model="ctrl.name" required/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': addControllerForm.type.$invalid}">
+      <label class="control-label" for="type">Тип контроллера</label>
+      <select class="form-control" name="type" id="type" ng-model="ctrl.type" required>
+        <option value="">-- выберите тип контроллера --</option>
+        <option value="dep">ДЭП</option>
+        <option value="niitm">НИИТМ</option>
+        <option value="kulon">КУЛОН</option>
+        <option value="saturn">САТУРН</option>
+      </select>
+    </div>
+    <div class="form-group" ng-class="{'has-error': addControllerForm.address.$invalid}">
+      <label class="control-label" for="address">Адрес</label>
+      <input class="form-control" type="text" id="address" name="address" ng-minlength="8" ng-model="ctrl.address"
+             required/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': addControllerForm.toir.$invalid}">
+      <label class="control-label" for="toir">Контроллер УФАП ТОиР</label>
+      <input class="form-control" type="text" id="toir" name="toir" ng-model="ctrl.ufap"
+             typeahead="profile as profile.pp_name for profile in ncc.search($viewValue)"
+             typeahead-on-select="ncc.updateController(ctrl, $item)"
+             typeahead-template-url="/assets/templates/typeahead/ufap.typeahead.html"/>
+    </div>
+    <div class="form-group" ng-class="{'has-error': addControllerForm.tag.$invalid}">
+      <label class="control-label" for="tag">Префикс пункта питания на сервере сбора данных</label>
+      <input class="form-control" type="text" id="tag" name="tag" ng-minlength="3"
+             ng-model="ctrl.tag" required/>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default pull-left" ng-click="$dismiss()">Закрыть</button>
+  <button class="btn btn-success" ng-disabled="addControllerForm.$invalid || ncc.loading" ng-click="ncc.save(ctrl)" ng-show="!ncc.success">
+    {{ ncc.loading ? 'Подождите...' : 'Сохранить' }}
+  </button>
+</div>

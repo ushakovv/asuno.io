@@ -1,0 +1,5 @@
+<h6 class="connection-rate" ng-class="{'connection-rate--offline': cr.isDisconnected()}">
+  <span class="glyphicon glyphicon-signal"></span>
+  <span ng-if="cr.isDisconnected()">Уровень сигнала GSM: {{0|percent}}</span>
+  <span ng-if="!cr.isDisconnected()">Уровень сигнала GSM: {{cr.rate|percent}}</span>
+</h6>

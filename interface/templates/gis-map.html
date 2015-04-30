@@ -1,0 +1,57 @@
+<div class="map">
+  <div id="map">
+    <button class="map__layer-menu-button btn btn-default" ng-click="showLayerMenu = true" ng-show="!hideLayers">
+      <span class="glyphicon glyphicon-align-justify"></span>
+    </button>
+  </div>
+  <aside class="map__layer-menu" ng-class="{'map__layer-menu--show': showLayerMenu}" ng-show="!hideLayers">
+    <a href="javascript:void(0)" class="map__layer-menu__close" ng-click="showLayerMenu = false"></a>
+
+    <div class="map__layer-menu__tabs">
+      <button class="btn btn-default">Слои</button>
+    </div>
+    <div class="map__layer-menu__layers">
+      <div class="map__layer-menu__layers__layer" ng-repeat="l in layersArray">
+        <div class="checkbox" ng-if="l.layer.gis_data.filter" ng-controller="l.layer.gis_data.controller">
+          <label>
+            <input type="checkbox" ng-model="l.layer.is_visible"
+                   ng-change="l.layer.is_visible ? enableLayer(l.id) : disableLayer(l.id)">
+            <img ng-src="{{l.layer.gis_data.icon}}">
+            {{l.layer.gis_data.name}}
+          </label>
+          <span class="glyphicon glyphicon-filter map__layer-menu__layers__layer__filter" ng-click="showFilter()"
+                ng-class="{'map__layer-menu__layers__layer__filter--active': l.layer.filter}"
+                title="Настроить фильтры"></span>
+        </div>
+        <div class="checkbox" ng-if="!l.layer.gis_data.filter">
+          <label>
+            <input type="checkbox" ng-model="l.layer.is_visible"
+                   ng-change="l.layer.is_visible ? enableLayer(l.id) : disableLayer(l.id)">
+            <img ng-src="{{l.layer.gis_data.icon}}">
+            {{l.layer.gis_data.name}}
+          </label>
+        </div>
+      </div>
+
+      <div class="panel panel-default map__layer-menu__layers__layer map__layer-menu__layers__layer--group"
+           ng-repeat="l in groupLayersArray">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="l.layer.is_visible"
+                   ng-change="l.layer.is_visible ? enableLayer(l.id) : disableLayer(l.id)">
+            <a href="javascript:void(0)" ng-click="visible = !visible">{{l.layer.gis_data.name}}</a>
+          </label>
+        </div>
+        <ul class="list-group" collapse="!visible">
+          <li class="list-group-item" ng-repeat="la in l.layer.gis_data.layers"
+              ng-init="visible = isSubLayerVisible(l.id, la.num)">
+            <input type="checkbox" ng-model="visible"
+                   ng-change="visible ? enableSubLayer(l.id, la.num) : disableSubLayer(l.id, la.num)">
+            {{la.name}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+  <div ng-transclude></div>
+</div>

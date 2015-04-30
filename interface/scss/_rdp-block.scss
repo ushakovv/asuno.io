@@ -1,0 +1,48 @@
+@import "../../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap/variables";
+
+.container__rdp {
+  padding         : 5px 5px 0 0;
+  text-decoration : none !important;
+}
+
+.rdp {
+  padding : 0;
+  border  : 1px solid #ddd;
+
+  * {
+    color : #333333;
+  }
+
+  &__name {
+    width         : 100%;
+    padding       : 0 2px;
+    font-weight   : bold;
+    text-align    : center;
+    border-bottom : 2px solid #ddd;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+  }
+
+  &__address {
+    width         : 100%;
+    padding       : 0 2px;
+    border-bottom : 1px solid #ddd;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+  }
+
+  &__alarms {
+    display : table;
+    width   : 100%;
+
+    &__alarm {
+      display : table-cell;
+      width   : percentage(1/5);
+      padding : 5px;
+
+      > .corner-counter {
+        margin : auto;
+      }
+    }
+  }
+}

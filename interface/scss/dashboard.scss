@@ -1,0 +1,194 @@
+@import "bootstrap";
+@import "ng-grid";
+@import "corner-counters";
+@import "bottom-journal";
+@import "clock";
+@import "controller-block";
+@import "control-pane";
+@import "btnImg";
+@import "rdp-block";
+@import "condense";
+@import "table";
+@import "logo-row";
+@import "login";
+@import "connection-rate";
+@import "map";
+@import "sidebar";
+@import "svg";
+@import "controller-telemetry";
+@import "fht";
+@import "priority";
+@import "navigation";
+@import "sun";
+@import "filters";
+@import "tooltip";
+@import "progress-items";
+@import "adm";
+@import "tele-signal";
+@import "camera-block";
+@import "controller-alarm-icon";
+@import "input-button-group";
+@import "ufap";
+@import "schedule";
+@import "time-line";
+@import "remote-command";
+@import "meta";
+@import "graphs";
+@import "direction-popup";
+@import "light-sensor";
+
+.well {
+  margin-bottom : 10px !important;
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top : 0;
+    &.margin {
+      margin-top : 9px;
+    }
+  }
+}
+
+.well-sm {
+  padding-bottom : 4px
+}
+
+body {
+  padding-top : 73px;
+
+  &.has-timeline {
+    padding-top : 106px;
+  }
+
+  &.three-rows {
+    padding-top : 104px;
+
+    &.has-timeline {
+      padding-top : 137px;
+    }
+  }
+
+  &.one-row {
+    padding-top : 41px;
+
+    &.has-timeline {
+      padding-top : 74px;
+    }
+  }
+
+  @media (max-width : $screen-sm) {
+    padding-top : 50px !important;
+  }
+}
+
+.map {
+  height  : 100%;
+  padding : 0;
+}
+
+html, body {
+  height : 100%;
+}
+
+.container-fluid, .app-container, .map-container {
+  height : 100%;
+}
+
+.alert-panel {
+  position   : relative;
+  min-height : 50px;
+  border     : 1px solid transparent;
+}
+
+.popup-inner-wrapper {
+  white-space : nowrap;
+}
+
+.alert-message + .alert-message {
+  margin-top : 2px;
+}
+
+.titleButton.close, .titleButton.maximize {
+  display : none;
+}
+
+.tab-content {
+  margin-top : 10px
+}
+
+table.table-main {
+  z-index          : 3000;
+  background-color : #ffffff;
+
+  th {
+    font-weight : bold;
+  }
+
+  > thead, > tbody {
+    > tr > td, > tr > th {
+      padding-top    : 2px;
+      padding-bottom : 2px;
+    }
+
+    > tr > td[rowspan] {
+      vertical-align : middle;
+      text-align     : center;
+      font-weight    : bold;
+    }
+  }
+}
+
+.breadcrumb {
+  margin-bottom : 5px;
+}
+
+@media (max-width : $screen-xs) {
+  .hide-xs {
+    display : none;
+  }
+}
+
+@media (max-width : $screen-sm) {
+  .hide-sm {
+    display : none;
+  }
+}
+
+li.disabled .badge {
+  background-color : lighten($badge-bg, 40%);
+}
+
+.pivot-icon {
+  cursor     : pointer;
+  float      : left;
+  margin-top : 3px;
+}
+
+header, .bottom-journal, .body-pane {
+  transform : translate3d(0, 0, 0);
+}
+
+.btn-no-outline {
+  outline : none !important;
+
+  &:active, &:focus {
+    outline : none !important;
+  }
+}
+
+@font-face {
+  font-family : "slick";
+  src         : url("/assets/fonts/slick.eot");
+  src         : url("/assets/fonts/slick.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/slick.woff") format("woff"), url("/assets/fonts/slick.ttf") format("truetype"), url("/assets/fonts/slick.svg#slick") format("svg");
+  font-weight : normal;
+  font-style  : normal;
+}
+
+.slick-prev, .slick-next {
+  &:before {
+    color : #333333;
+  }
+}
+
+a[ng-click] {
+  cursor : pointer;
+}

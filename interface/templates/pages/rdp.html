@@ -1,0 +1,118 @@
+<div class="row" style="height: 100%" ng-if="show.showMap && !show.showBlocks">
+  <div simple-map sm-center="center" sm-zoom="14">
+    <div group-map-layer="atd"></div>
+    <div simple-map-layer="districts" sml-parent-scope="child"></div>
+    <div simple-map-layer="cameras" sml-parent-scope="child"></div>
+    <div simple-map-layer="controllers" sml-points="controllers"
+         sml-point-click="selectController" sml-point-filter="pointFilter" sml-point-connect="pointConnect"
+         sml-popup-template="<div controller-popup controller='point' events='events'></div>" sml-parent-scope="child"
+         sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+      <div feature-renderer fr-extractor="ctrlExtract" fr-default-symbol="/assets/img/pp_default.png">
+        <div renderer-setting rs-value="-1" rs-symbol="/assets/img/pp_unknown.png"></div>
+        <div renderer-setting rs-value="0" rs-symbol="/assets/img/pp_disabled.png"></div>
+        <div renderer-setting rs-value="1" rs-symbol="/assets/img/pp_night.png"></div>
+        <div renderer-setting rs-value="2" rs-symbol="/assets/img/pp_evening.png"></div>
+        <div renderer-setting rs-value="-2" rs-symbol="/assets/img/alarm.png"></div>
+      </div>
+    </div>
+    <div simple-map-layer="rdps" sml-points="rdps"
+         sml-point-click="selectRdp" sml-popup-template-url="/assets/templates/rdp-popup.html"
+         sml-title-template="<span><span ng-if='point'>[[point.name]]</span><span ng-if='!point'>[[attributes.db_NAME]]</span></span>"
+         sml-point-connect="rdpConnect" sml-parent-scope="child">
+    <div feature-renderer fr-extractor="rdpExtract" fr-default-symbol="/assets/img/rdp_grey.png">
+      <div renderer-setting rs-value="-1" rs-symbol="/assets/img/alarm.png"></div>
+      <div renderer-setting rs-value="0" rs-symbol="/assets/img/rdp_red.png"></div>
+      <div renderer-setting rs-value="1" rs-symbol="/assets/img/rdp_green.png"></div>
+    </div>
+    </div>
+    <div simple-map-search></div>
+  </div>
+</div>
+<div class="row body-pane" ng-if="!show.showMap && show.showBlocks">
+  <div class="col-md-12">
+    <ol breadcrumbs="crumbs"></ol>
+
+    <div controller-list="selectController"></div>
+  </div>
+</div>
+<div class="row body-pane" ng-if="!show.showMap && !show.showBlocks">
+  <div class="col-md-12">
+    <ol breadcrumbs="crumbs"></ol>
+    <table class="table table-condensed table-bordered report-table" style="height: 80%">
+      <thead style="">
+      <tr>
+        <th>Название ПП</th>
+        <th><img src="/assets/img/fire14.png" alt="" style="height: 14px;"/> Пожар</th>
+        <th><img src="/assets/img/disconnect.png" alt="" style="height: 14px;"/> Нет связи</th>
+        <th><img src="/assets/img/door.png" alt="" style="height: 14px;"/> Открыта дверь</th>
+        <th><img src="/assets/img/input14.png" alt="" style="height: 14px;"/> Авария</th>
+        <th><img src="/assets/img/block14.png" alt="" style="height: 14px;"/> Блокирован</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="controller in controllers|filter:filterController track by controller.id">
+        <td>
+          <a ui-sref="core.controller({rdp: rdp.slug, controller: controller.id})">{{controller.name}}</a>
+        </td>
+        <td>{{ lastAction(controller.alarms.fire)|serverDate|date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        <td>{{ lastAction(controller.alarms.connection)|serverDate|date:'dd.MM.yyyy HH:mm:ss' }}</t)d>
+        <td>{{ lastAction(controller.alarms.door)|serverDate|date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        <td>{{ lastAction(controller.alarms.common_alarm)|serverDate|date:'dd.MM.yyyy HH:mm:ss' }}</td>
+        <td>{{ lastAction(controller.alarms.lock)|serverDate|date:'dd.MM.yyyy HH:mm:ss' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row bottom-journal" ng-if="!show.showMap" ng-class="{'bottom-journal--expanded': journalExpanded}">
+  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()">
+    <span class="fa" ng-class="{'fa-compress': journalExpanded, 'fa-expand': !journalExpanded}"></span>
+  </button>
+
+  <div class="col-md-12">
+    <h4>Оперативный журнал аварий по ПП в РДП {{rdp.name}}</h4>
+
+    <form class="form-inline journal-form">
+      <div class="form-group">
+        <input type="text" class="form-control input-sm" style="display: inline; width: auto;"
+               placeholder="Пункт питания" ng-model="__controller"
+               typeahead="controller as controller.name for controller in controllers| filter:{'name': $viewValue} | limitTo:6 |orderBy:'name'"
+               typeahead-on-select="selectJournalController($item)"/>
+      </div>
+      <div class="form-group">
+        <label>С</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateFrom" max-date="filters.dateTo" placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateFrom"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <label>По</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateTo" min-date="filters.dateFrom" max-date="today"
+               placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateTo"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterToday()" ng-class="{'active': filters.filterToday}">
+          Сегодня
+        </button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterUnacknowledged()"
+                ng-class="{'active': filters.unacknowledged === 1}">
+          Неквитированные аварии
+        </button>
+        <label ng-show="report.loading"><span class="fa fa-refresh fa-spin"></span></label>
+      </div>
+      <div class="form-group pull-right" if-has-control>
+        <button class="btn btn-primary btn-sm" ng-if="selectedEvents.length" ng-click="massMute()"
+                ng-disabled="muteLoading">Квитировать ({{selectedEvents.length||0}})
+        </button>
+      </div>
+    </form>
+
+    <div class="gridStyle" ng-grid="alertsGridOptions" ng-class="{'gridStyle--loading': report.loading}"></div>
+  </div>
+</div>

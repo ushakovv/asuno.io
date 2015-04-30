@@ -1,0 +1,14 @@
+<div>
+  <div class="row" ng-init="activeTab = 'rdps'">
+    <div class="col-md-12 sidebar__tabs-select">
+      <div class="btn-group btn-group-sm">
+        <label class="btn btn-default" ng-model="activeTab" btn-radio="'rdps'">РДП</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" ng-show="activeTab === 'rdps'">
+      <div navigation rdps="rdps"></div>
+    </div>
+  </div>
+</div>

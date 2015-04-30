@@ -1,0 +1,8 @@
+<a ui-sref="sensors.light" class="navbar-right sun" ng-class="{'tooltipped tooltipped-w': sun.offline, 'sun--online': sun.sensor}" data-tooltip="нет связи">
+  <div class="sun__alert tooltipped tooltipped-w" data-tooltip="{{ sun.alarmTooltip() }}" ng-if="sun.alarmTooltip()">
+    <i class="sun__alert__icon fa fa-exclamation-triangle"></i>
+  </div>
+  <strong class="sun__counter" ng-class="{'sun__counter--offline': sun.offline}">
+    {{ sun.sensor.current_reading|number:0}}</strong>
+  <img src="/assets/img/sun.svg" class="sun__sun-icon"/>
+</a>

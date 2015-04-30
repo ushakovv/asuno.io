@@ -1,0 +1,200 @@
+@import "variables";
+
+.controller-container {
+  width   : percentage(6/12);
+  padding : 0 5px 0 0;
+  float   : left;
+
+  @media (min-width : $screen-sm) {
+    width : percentage(4/12);
+  }
+
+  @media (min-width : $screen-md) {
+    width : percentage(3/12);
+  }
+
+  @media (min-width : $screen-lg) {
+    width : percentage(2/12);
+  }
+}
+
+.controller {
+  position    : relative;
+  display     : inline-block;
+  text-align  : center;
+  cursor      : pointer;
+  line-height : 1;
+  width       : 100%;
+  overflow    : hidden;
+  margin      : 0;
+  padding     : 1px;
+  border      : 2px solid;
+  user-select : none;
+
+  &--cascade::before {
+    content          : " ";
+    position         : absolute;
+    right            : 0;
+    top              : 0;
+    border-width     : 0 22px 22px 0;
+    border-style     : solid;
+    border-color     : #c2c2c2 #c2c2c2 #ffffff #ffffff;
+    background-color : #d3d3d3;
+    display          : block;
+  }
+
+  &--maintenance::after {
+    position               : absolute;
+    top                    : 1px;
+    right                  : 1px;
+    display                : inline-block;
+    font-family            : 'Glyphicons Halflings';
+    font-style             : normal;
+    font-weight            : normal;
+    line-height            : 1;
+    -webkit-font-smoothing : antialiased;
+    content                : "\e136";
+  }
+
+  &--description::after {
+    position               : absolute;
+    top                    : 1px;
+    right                  : 1px;
+    display                : inline-block;
+    font-family            : 'Glyphicons Halflings';
+    font-style             : normal;
+    font-weight            : normal;
+    line-height            : 1;
+    -webkit-font-smoothing : antialiased;
+    content                : "\e111";
+  }
+
+  &__alarm {
+    width   : percentage(1/5);
+    display : inline-block;
+
+    .controller-alarm-icon {
+      height : 14px;
+    }
+  }
+
+  &--disconnected {
+    border-color     : #808080 !important;
+    background-color : $table-bg-hover;
+
+    &.controller--cascade::before {
+      border-color : #c2c2c2 #c2c2c2 $table-bg-hover $table-bg-hover;
+    }
+  }
+
+  &--maintenance {
+    .controller__name {
+      width : 90%;
+    }
+  }
+
+  &--enabled {
+    border-color : red;
+  }
+
+  &--disabled {
+    border-color : green;
+  }
+
+  &--autonomous {
+    border-color     : orange !important;
+    background-color : transparentize(orange, 0.9);
+  }
+
+  &__maintenance {
+    text-align  : right;
+    position    : absolute;
+    white-space : nowrap;
+    font-size   : 9px;
+  }
+
+  &__name {
+    width         : 100%;
+    white-space   : nowrap;
+    font-weight   : bold;
+    text-align    : left;
+    overflow      : hidden;
+    text-overflow : ellipsis;
+
+    &__selector {
+      margin : 0 2px 0 0 !important;
+      float  : left;
+    }
+  }
+
+  &__address {
+    line-height   : 22px;
+    height        : 22px;
+    max-width     : 100%;
+    overflow      : hidden;
+    white-space   : nowrap;
+    text-overflow : ellipsis;
+  }
+}
+
+.controller-list {
+  &--condensed {
+    .controller-container {
+      font-size     : 5px;
+      padding-right : 2px;
+
+      @media (min-width : $screen-md) {
+        width : percentage(2/12);
+      }
+
+      @media (min-width : $screen-lg) {
+        width : percentage(1/12);
+      }
+
+      @media (min-width : 1600px) {
+        width : percentage(1/16);
+      }
+    }
+
+    .controller {
+      font-size : 10px;
+
+      &--cascade::before {
+        border-width : 0 12px 12px 0;
+      }
+
+      &__address {
+        display : none;
+
+        &--show {
+          display : block;
+        }
+      }
+
+      &__maintenance {
+        position : absolute;
+        top      : 0;
+        right    : 0;
+      }
+
+      &__alarm {
+        .controller-alarm-icon {
+          height : 10px;
+        }
+      }
+    }
+  }
+
+  &--centered {
+    text-align : center;
+
+    .controller-container {
+      float   : none;
+      display : inline-block !important;
+    }
+  }
+}
+
+.controller--maintenance.controller--description::after {
+  content : "\e111 \e136" !important;
+}

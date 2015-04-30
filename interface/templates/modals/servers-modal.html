@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h3>Состояние серверов</h3>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-12">
+      <h6 ng-repeat="point in server.monitors track by point.id">
+        <span class="glyphicon" ng-style="{color: point.online ? 'green' : 'red'}"
+              ng-class="{'glyphicon-ok': point.online, 'glyphicon-warning-sign': !point.online}"></span>
+        {{ point.name }}
+        <small>{{point.last_response | serverDate | date: 'dd.MM.yyyy HH:mm:ss'}}</small>
+      </h6>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>

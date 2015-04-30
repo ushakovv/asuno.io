@@ -1,0 +1,32 @@
+<table style="width: 100%" class="table-only-in-tag">
+  <tbody ng-if="point">
+  <tr>
+    <td colspan="5" style="width: 60%"><strong>{{attributes.db_ADDRESS}}</strong></td>
+  </tr>
+  <tr>
+    <td style="width: 20%; padding-top: 5px;">
+      <div corner-counter="/assets/img/fire.png" cc-value="{{point.fire}}" cc-compare="{{rdp.fire_acknowledged}}"></div>
+    </td>
+    <td style="width: 20%; padding-top: 5px;">
+      <div corner-counter="/assets/img/disconnect.png" cc-value="{{point.connection}}"
+           cc-compare="{{rdp.connection_acknowledged}}"></div>
+    </td>
+    <td style="width: 20%; padding-top: 5px;">
+      <div corner-counter="/assets/img/door.png" cc-value="{{point.door}}" cc-compare="{{rdp.door_acknowledged}}"></div>
+    </td>
+    <td style="width: 20%; padding-top: 5px;">
+      <div corner-counter="/assets/img/input.png" cc-value="{{point.common_alarm}}"
+           cc-compare="{{rdp.common_alarm_acknowledged}}"></div>
+    </td>
+    <td style="width: 20%; padding-top: 5px;">
+      <div corner-counter="/assets/img/block.png" cc-value="{{point.lock}}"
+           cc-compare="{{rdp.lock_acknowledged}}"></div>
+    </td>
+  </tr>
+  </tbody>
+  <tbody ng-if="!point">
+  <tr>
+    <td style="text-align: center"><strong>НЕ ПОДКЛЮЧЕНО</strong></td>
+  </tr>
+  </tbody>
+</table>

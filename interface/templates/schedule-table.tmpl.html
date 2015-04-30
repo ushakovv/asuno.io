@@ -1,0 +1,23 @@
+<table class="table table-condensed table-bordered schedule">
+  <thead>
+  <tr>
+    <th>Дата</th>
+    <th>Время включения</th>
+    <th>Время отключения</th>
+    <th>Продолжительность горения в тёмное время суток</th>
+  </tr>
+  </thead>
+  <tbody ng-repeat="month in st.schedule track by month.mon" class="schedule__month"
+         ng-class="{'schedule__month--hide': !month.is_current}">
+  <tr class="schedule__month__name">
+    <td colspan="4">{{ ::month.mon|moment:'MMMM':'M' }}</td>
+  </tr>
+  <tr ng-repeat="day in month.days track by day.date" class="schedule__month__day"
+      ng-class="{'schedule__month__day--current': day.is_current}">
+    <td>{{ ::day.date|date:'dd.MM.yyyy' }}</td>
+    <td>{{ ::day.datetime_on|date:'HH:mm' }}</td>
+    <td>{{ ::day.datetime_off|date:'HH:mm' }}</td>
+    <td>{{ ::day.dark_time }}</td>
+  </tr>
+  </tbody>
+</table>

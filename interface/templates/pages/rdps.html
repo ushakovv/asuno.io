@@ -1,0 +1,114 @@
+<div class="row" style="height: 100%" ng-if="show.showMap && !show.showBlocks">
+  <div simple-map class="col-md-12">
+    <div group-map-layer="atd"></div>
+    <div simple-map-layer="districts" sml-parent-scope="child"></div>
+    <div simple-map-layer="cameras" sml-parent-scope="child"></div>
+    <div simple-map-layer="rdps" sml-points="rdps"
+         sml-point-click="selectRdp" sml-point-connect="pointConnect" sml-parent-scope="child"
+         sml-popup-template-url="/assets/templates/rdp-popup.html"
+         sml-title-template="<span><span ng-if='point'>[[point.name]] ([[point.enabled||0]]/[[point.controllers||0]])</span><span ng-if='!point'>[[attributes.db_NAME]]</span></span>">
+      <div feature-renderer fr-extractor="rdpExtract" fr-default-symbol="/assets/img/rdp_grey.png">
+        <div renderer-setting rs-value="-1" rs-symbol="/assets/img/alarm.png"></div>
+        <div renderer-setting rs-value="0" rs-symbol="/assets/img/rdp_red.png"></div>
+        <div renderer-setting rs-value="1" rs-symbol="/assets/img/rdp_green.png"></div>
+      </div>
+    </div>
+    <div simple-map-search></div>
+  </div>
+</div>
+<div class="row body-pane" ng-if="!show.showMap && !show.showBlocks">
+  <div class="col-md-12">
+    <ol breadcrumbs="crumbs"></ol>
+    <table class="table table-condensed table-bordered report-table" style="height: 80%">
+      <thead style="">
+      <tr>
+        <th>Название РДП</th>
+        <th>Всего</th>
+        <th>Включено</th>
+        <th>События</th>
+        <th>Квитировано</th>
+        <th><img src="/assets/img/fire14.png" alt=""/> Пожар</th>
+        <th><img src="/assets/img/disconnect14.png" alt=""/> Нет связи</th>
+        <th><img src="/assets/img/door14.png" alt=""/> Открыта дверь</th>
+        <th><img src="/assets/img/input14.png" alt=""/> Авария</th>
+        <th><img src="/assets/img/block14.png" alt=""/> Блокировано</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="rdp in rdps|filter:filterRdp|filter:search.term track by rdp.slug">
+        <td>
+          <a ui-sref="core.rdp({rdp: rdp.slug})">{{rdp.name}}</a>
+        </td>
+        <td>{{rdp.controllers||0}}</td>
+        <td>{{rdp.enabled||0}}</td>
+        <td>{{rdp.events||0}}</td>
+        <td>0</td>
+        <td>{{rdp.fire||0}}</td>
+        <td>{{rdp.connection||0}}</td>
+        <td>{{rdp.door||0}}</td>
+        <td>{{rdp.common_alarm||0}}</td>
+        <td>{{rdp.lock||0}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row body-pane" ng-if="!show.showMap && show.showBlocks">
+  <div class="col-md-12">
+    <ol breadcrumbs="crumbs"></ol>
+    <div ng-repeat="rdp in rdps|filter:filterRdp|filter:search.term track by rdp.slug" rdp-block="rdp"
+         on-select="selectRdp"></div>
+  </div>
+</div>
+<div class="row bottom-journal" ng-if="!show.showMap" ng-class="{'bottom-journal--expanded': journalExpanded}">
+  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()">
+    <span class="fa" ng-class="{'fa-compress': journalExpanded, 'fa-expand': !journalExpanded}"></span>
+  </button>
+
+  <div class="col-md-12">
+    <h4>Оперативный журнал аварий по всем РДП</h4>
+
+    <form class="form-inline journal-form">
+      <div class="form-group">
+        <select name="rdp" id="rdp" class="form-control input-sm" ng-model="filters.rdp"
+                ng-options="rdp.name for rdp in rdps">
+          <option value="">-- Все РДП --</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>С</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateFrom" max-date="filters.dateTo" placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateFrom"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <label>По</label>
+        <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
+               ng-model="filters.dateTo" min-date="filters.dateFrom" max-date="today"
+               placement="top-left"/>
+        <input type="text" class="form-control input-sm" placeholder="чч:мм" bs-timepicker ng-model="filters.dateTo"
+               placement="top"/>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterToday()" ng-class="{'active': filters.filterToday}">
+          Сегодня
+        </button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-default btn-sm" ng-click="filterUnacknowledged()"
+                ng-class="{'active': filters.unacknowledged === 1}">
+          Неквитированные аварии
+        </button>
+        <label ng-show="report.loading"><span class="fa fa-refresh fa-spin"></span></label>
+      </div>
+      <div class="form-group pull-right">
+        <button class="btn btn-primary btn-sm" ng-if="selectedEvents.length" ng-click="massMute()"
+                ng-disabled="muteLoading">Квитировать ({{selectedEvents.length||0}})
+        </button>
+      </div>
+    </form>
+
+    <div class="gridStyle" ng-grid="alertsGridOptions" ng-class="{'gridStyle--loading': report.loading}"></div>
+  </div>
+</div>

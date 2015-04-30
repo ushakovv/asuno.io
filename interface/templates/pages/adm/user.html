@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-md-4">
+    <form name="userEdit">
+      <fieldset>
+        <legend>Пользователь</legend>
+        <div class="form-group">
+          <div alert type="danger" close="closeErrors()" ng-if="userError">
+            {{ userError }}
+          </div>
+          <div alert type="success" close="closeErrors()" ng-if="userMessage">
+            {{ userMessage }}
+          </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.fio.$invalid}">
+          <label class="control-label" for="fio">ФИО</label>
+          <input type="text" class="form-control" id="fio" name="fio" ng-minlength="3"
+                 ng-model="user.name" required/>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.username.$invalid}">
+          <label class="control-label">Логин</label>
+
+          <p class="form-control-static">
+            {{ user.username }}
+          </p>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.userRole.$invalid}">
+          <label class="control-label">Роль</label>
+
+          <select name="userRole" id="userRole" ng-options="role.slug as role.name for role in roles" class="form-control" ng-model="current.role" required></select>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.userRdp.$invalid}" ng-if="current.role === 'dispatcher'">
+          <select name="userRdp" id="userRdp" class="form-control" ng-model="current.rdp_id" ng-options="rdp.id as rdp.name for rdp in rdps"></select>
+        </div>
+        <div class="form-group clearfix" if-has-control>
+          <div class="pull-right">
+            <button class="btn btn-primary" ng-disabled="loading || userEdit.$invalid"
+                    ng-click="updateUser(user)">
+              {{ loading ? 'Подождите' : 'Сохранить' }}
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <form name="passwordEdit">
+      <fieldset>
+        <legend>Смена пароля</legend>
+        <div class="form-group">
+          <div alert type="danger" close="closeErrors()" ng-if="passwordError">
+            {{ passwordError }}
+          </div>
+          <div alert type="success" close="closeErrors()" ng-if="passwordMessage">
+            {{ passwordMessage }}
+          </div>
+        </div>
+        <div class="form-group"
+             ng-class="{'has-error': passwordEdit.password.$invalid && passwordEdit.password.$dirty}">
+          <label class="control-label" for="password">Новый пароль</label>
+          <input type="password" name="password" id="password" class="form-control" ng-model="user.password"
+                 ng-minlength="6" required/>
+        </div>
+        <div class="form-group clearfix" if-has-control>
+          <div class="pull-right">
+            <button class="btn btn-primary" ng-disabled="loadingPassword || passwordEdit.$invalid"
+                    ng-click="resetPassword(user.password)">
+              {{ loadingPassword ? 'Подождите' : 'Сохранить пароль' }}
+            </button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

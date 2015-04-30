@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h3>Снимки камеры "{{ camera.address }}" (снимков: {{ photos.length }})</h3>
+</div>
+<div class="modal-body" ng-if="photos && photos.length">
+  <div class="row">
+    <div class="col-md-12" style="padding: 0 45px;" >
+      <slick dots="true" infinite="false">
+        <div ng-repeat="photo in photos|orderBy:'-id' track by photo.id">
+          <img ng-src="/storage/{{ photo.file_path }}" style="margin: auto;"/>
+        </div>
+      </slick>
+    </div>
+  </div>
+</div>
+<div class="modal-body" ng-if="!photos || !photos.length">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <span>Снимков не сделано</span>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="pull-left" if-has-control>
+    <a class="btn btn-default" ng-if="!showArchive" ng-click="getSnapshot()">
+      Сделать снимок
+    </a>
+  </div>
+  <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>
