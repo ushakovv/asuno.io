@@ -10,12 +10,9 @@
 
   <!-- build:css /assets/css/index.html.style.css -->
   <link rel="stylesheet" href="vendor/arcgis_3.10/js/esri/css/esri.css"/>
-  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css"/>
   <link rel="stylesheet" href="../bower_components/ng-grid/ng-grid.css"/>
   <link rel="stylesheet" href="../bower_components/bootstrap-additions/dist/bootstrap-additions.min.css"/>
   <link rel="stylesheet" href="../bower_components/Fixed-Header-Table/css/defaultTheme.css"/>
-  <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick.css"/>
-  <link rel="stylesheet" href="../bower_components/slick-carousel/slick/slick-theme.css">
   <link rel="stylesheet" href="../bower_components/seiyria-bootstrap-slider/css/bootstrap-slider.css"/>
   <link rel="stylesheet" href="../bower_components/nvd3/build/nv.d3.min.css">
   <link rel="stylesheet" href="../.tmp/css/dashboard.css">
@@ -257,14 +254,12 @@
 <script src="../bower_components/Fixed-Header-Table/jquery.fixedheadertable.js"></script>
 <script src="../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
 <script src="../bower_components/lodash/lodash.js"></script>
-<script src="../bower_components/slick-carousel/slick/slick.js"></script>
 <script src="../bower_components/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
 <script src="../bower_components/d3/d3.js"></script>
 <script src="../bower_components/nvd3/build/nv.d3.js"></script>
 <script src="../bower_components/angular/angular.js"></script>
 <script src="../bower_components/angular-resource/angular-resource.js"></script>
 <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="../bower_components/angular-animate/angular-animate.js"></script>
 <script src="../bower_components/angular-i18n/angular-locale_ru-ru.js"></script>
 <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -273,8 +268,7 @@
 <script src="../bower_components/ng-grid/ng-grid-2.0.13.debug.js"></script>
 <script src="../bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 <script src="../bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js"></script>
-<script src="../bower_components/jsplumb/dist/js/jquery.jsPlumb-1.7.2.js"></script>
-<script src="../bower_components/angular-slick/dist/slick.js"></script>
+<script src="../bower_components/jsplumb/dist/js/jquery.jsPlumb-1.7.5.js"></script>
 <script src="../bower_components/angular-bootstrap-slider/slider.js"></script>
 <script src="../bower_components/react/react-with-addons.js"></script>
 <script src="../bower_components/eventEmitter/EventEmitter.js"></script>
@@ -290,7 +284,7 @@
 
 <!-- build:js /assets/js/index.html.app.js -->
 <script src="app/app.js"></script>
-<script src="app/components/ngInjectMixin.js"></script>
+<script src="app/components/ngInjectMixin.jsx"></script>
 <script src="app/components/Clock.jsx"></script>
 <script src="app/components/ControllerBlockAlarm.jsx"></script>
 <script src="app/components/ControllerBlock.jsx"></script>
@@ -355,7 +349,7 @@
 <script src="app/services/auth/TokenInterceptor.js"></script>
 <script src="app/services/Mutex.js"></script>
 <script src="app/services/MassOperations.js"></script>
-<script src="app/services/ControllerCreator.js"></script>
+<script src="app/services/ControllerFactory.js"></script>
 <script src="app/services/ClockStore.js"></script>
 <script src="app/services/Servers.store.js"></script>
 <script src="app/services/Sensors.store.js"></script>
@@ -424,6 +418,7 @@
 <script src="app/directives/lightSensors.directive.jsx"></script>
 <script src="app/directives/dep-editor.directive.js"></script>
 <script src="app/directives/ahp-kulon-editor.directive.js"></script>
+<script src="app/directives/delayRender.directive.js"></script>
 <script src="app/filters/percent.js"></script>
 <script src="app/filters/serverdate.js"></script>
 <script src="app/filters/moment.js"></script>

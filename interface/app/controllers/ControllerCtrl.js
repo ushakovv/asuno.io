@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, $state, $q, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerCreator, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
+  function ControllerCtrl($rootScope, $scope, $state, $q, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -14,11 +14,19 @@
 
     $scope.controller = controller;
 
+    $scope.showDirectionsInfo = false;
+    $timeout(() => $scope.showDirectionsInfo = true, 500);
+
     // TODO убрать нафиг когда Лёха поправит сервер
     $rootScope._rdpId = rdp.id;
     $scope.rdp = rdp;
 
-    $scope.filters = {};
+    const _dateBegin = moment();
+    const _defaultDateFrom = _dateBegin.add(-7, 'd').startOf('d').toDate();
+
+    $scope.filters = {
+      dateFrom: _defaultDateFrom
+    };
 
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
@@ -172,7 +180,7 @@
       begin = _begin;
       end = _end;
       $scope.main.globalLocked = true;
-      _initialController = ControllerCreator.copyController($scope.controller);
+      _initialController = ControllerFactory.copyController($scope.controller);
 
       var timelineStart = moment(begin).add(-1, 'd').toDate();
 
@@ -223,7 +231,7 @@
       var ticked = _(timeline);
 
       if (initial) {
-        $scope.controller = ControllerCreator.copyController(_initialController);
+        $scope.controller = ControllerFactory.copyController(_initialController);
         _applyTick(pastTimeline);
         _applyInitialState(begin);
         ticked = ticked.filter((item) => item.timestamp <= nextTick);
@@ -240,7 +248,7 @@
 
     var timelineStop = function () {
       if (_initialController.id) {
-        $scope.controller = ControllerCreator.copyController(_initialController);
+        $scope.controller = ControllerFactory.copyController(_initialController);
       }
       $scope.main.globalLocked = false;
       $scope.$broadcast('asuno-refresh-all');
@@ -310,7 +318,7 @@
         delete $scope.filters.filterToday;
 
         angular.extend($scope.filters, {
-          dateFrom: null,
+          dateFrom: _defaultDateFrom,
           dateTo: null
         });
       }
@@ -349,6 +357,8 @@
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
     });
+
+    $scope.$applyAsync();
   }
 
   angular.module('asuno').controller('ControllerCtrl', ControllerCtrl);

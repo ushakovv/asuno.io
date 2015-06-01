@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  function ControllerCreator($log) {
+  function ControllerFactory($log) {
 
     function _getPayloads(ids, monitors) {
       return _(monitors)
@@ -231,96 +231,107 @@
         this.sensors = sensors[0];
         this.other_sensors = sensors[1];
 
-        var self = this;
+        this.regime = this.regime.bind(this);
+        this.contactors = this.contactors.bind(this);
+        this.contactor = this.contactor.bind(this);
+        this.contactorIds = this.contactorIds.bind(this);
+        this._phases = this._phases.bind(this);
+        this.phases = this.phases.bind(this);
+        this.phase = this.phase.bind(this);
+        this.kvits = this.kvits.bind(this);
+        this.kvit = this.kvit.bind(this);
+        this.isMaintenance = this.isMaintenance.bind(this);
+        this.monitor = this.monitor.bind(this);
+        this.sensorValue = this.sensorValue.bind(this);
 
-        this.regime = function () {
-          if (self.type === 'niitm') {
-            switch (self.monitorValue('LIGHT')) {
-              case 1:
-                return 'ВЫКЛ';
-              case 2:
-                return 'ВЕЧЕР';
-              case 3:
-                return 'НОЧЬ';
-              case 4:
-                return 'ВЕЧЕР+ПОДСВЕТКА';
-              default:
-                return 'НЕ ОПРЕДЕЛЕНО';
-            }
-          } else if (self.enabled) {
-            return 'НОЧЬ';
-          } else {
-            return 'ВЫКЛ';
+        this.monitorValue = this.monitorValue.bind(this);
+        this.isEnabled = this.isEnabled.bind(this);
+        this.directionList = this.directionList.bind(this);
+        this.direction = this.direction.bind(this);
+      }
+
+      regime() {
+        if (this.type === 'niitm') {
+          switch (this.monitorValue('LIGHT')) {
+            case 1:
+              return 'ВЫКЛ';
+            case 2:
+              return 'ВЕЧЕР';
+            case 3:
+              return 'НОЧЬ';
+            case 4:
+              return 'ВЕЧЕР+ПОДСВЕТКА';
+            default:
+              return 'НЕ ОПРЕДЕЛЕНО';
           }
-        };
+        } else if (this.enabled) {
+          return 'НОЧЬ';
+        } else {
+          return 'ВЫКЛ';
+        }
+      }
 
-        this.contactors = function () {
-          return _(self.structure.children)
-            .filter((child) => child.type === 'contactor')
-            .map((contactor) => new Contactor(contactor, self))
-            .value();
-        };
+      contactors() {
+        return _(this.structure.children)
+          .filter((child) => child.type === 'contactor')
+          .map((contactor) => new Contactor(contactor, this))
+          .value();
+      }
 
-        this.contactor = function (number) {
-          return _(self.contactors())
-            .filter((contactor) => contactor.number === number)
-            .first();
-        };
+      contactor(number) {
+        return _(this.contactors())
+          .filter((contactor) => contactor.number === number)
+          .first();
+      }
 
-        this.contactorIds = function () {
-          return _(self.contactors())
-            .map((contactor) => contactor.id);
-        };
+      contactorIds() {
+        return _(this.contactors())
+          .map((contactor) => contactor.id);
+      }
 
-        this._phases = function () {
-          const children = self.type === 'ahp_kulon' ? _.find(self.structure.children, (c) => c.name === 'ШУНО').children : self.structure.children;
+      _phases() {
+        const children = this.type === 'ahp_kulon' ? _.find(this.structure.children, (c) => c.name === 'ШУНО').children : this.structure.children;
 
-          return _(children)
-            .filter((child) => child.type === 'phase')
-            .map((phase) => new Phase(phase, self))
-            .value();
-        };
+        return _(children)
+          .filter((child) => child.type === 'phase')
+          .map((phase) => new Phase(phase, this))
+          .value();
+      }
 
-        this.phase = function (phaseName) {
-          return _(self._phases())
-            .find((phase) => phase.phase === phaseName);
-        };
+      phase(phaseName) {
+        return _(this._phases())
+          .find((phase) => phase.phase === phaseName);
+      }
 
-        this.phases = function () {
-          return _(_phaseOrder)
-            .map((name) => self.phase(name));
-        };
+      phases() {
+        return _(_phaseOrder)
+          .map((name) => this.phase(name));
+      }
 
-        this.kvits = function () {
-          return _(self.structure.children)
-            .filter((child) => child.type === 'kvit')
-            .map((child) => new Node(child, self))
-            .value();
-        };
+      kvits() {
+        return _(this.structure.children)
+          .filter((child) => child.type === 'kvit')
+          .map((child) => new Node(child, this))
+          .value();
+      }
 
-        this.kvit = function (idx) {
-          return self.kvits()[idx];
-        };
+      kvit(idx) {
+        return this.kvits()[idx];
+      }
 
-        this.isMaintenance = function () {
-          return self.maintenance && moment().isBetween(self.maintenance.date_from, self.maintenance.date_to);
-        };
+      isMaintenance() {
+        return this.maintenance && moment().isBetween(this.maintenance.date_from, this.maintenance.date_to);
+      }
 
-        this.monitor = function (id) {
-          return _.find(self.monitors, (m) => m.id === id);
-        };
+      monitor(id) {
+        return _.find(this.monitors, (m) => m.id === id);
+      }
 
-        this.sensorValue = (suffix) => {
-          const sensor = _(this.sensors.concat(this.other_sensors))
-            .find((sensor) => sensor.tag.includes(suffix));
+      sensorValue(suffix) {
+        const sensor = _(this.sensors.concat(this.other_sensors))
+          .find((sensor) => sensor.tag.includes(suffix));
 
-          return sensor ? sensor.current_reading : void 0;
-        };
-
-        this.monitorValue = Node.prototype.monitorValue.bind(this);
-        this.isEnabled = Node.prototype.isEnabled.bind(this);
-        this.directionList = Node.prototype.directionList.bind(this);
-        this.direction = Node.prototype.direction.bind(this);
+        return sensor ? sensor.current_reading : void 0;
       }
     }
 
@@ -335,5 +346,5 @@
     };
   }
 
-  angular.module('asuno.services').service('ControllerCreator', ControllerCreator);
+  angular.module('asuno.services').service('ControllerFactory', ControllerFactory);
 })();

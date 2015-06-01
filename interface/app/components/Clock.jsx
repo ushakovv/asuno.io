@@ -5,52 +5,70 @@
     return value < 10 ? '0' + value : value;
   }
 
-  window.REACT = window.REACT || {};
+  const R = window.REACT = window.REACT || {};
 
-  window.REACT.Clock = React.createClass({
-    getTime              : function () {
-      return {timestamp : this.props.store.getTime()};
-    },
-    getInitialState      : function () {
-      return this.getTime();
-    },
-    getDefaultProps      : function () {
-      return {
-        clock_style : {fontSize : '15px'},
-        date_style  : {fontSize : '14px'}
-      };
-    },
-    componentWillMount   : function () {
+  class Clock extends React.Component {
+
+    constructor(props) {
+      super(props);
+
+      this.getTime = this.getTime.bind(this);
+      this.updateTs = this.updateTs.bind(this);
+
+      this.state = this.getTime();
+    }
+
+    getTime() {
+      return {timestamp : this.props.ClockStore.getTime()};
+    }
+
+    componentWillMount() {
       this.reload = setInterval(this.updateTs, 1000);
-    },
-    updateTs             : function () {
-      this.setState(this.getTime());
-    },
-    render               : function () {
-      var hours = fill(this.state.timestamp.getHours());
-      var minutes = fill(this.state.timestamp.getMinutes());
-      var seconds = fill(this.state.timestamp.getSeconds());
-      var date = fill(this.state.timestamp.getDate());
-      var month = fill(this.state.timestamp.getMonth() + 1);
-      var year = fill(this.state.timestamp.getFullYear());
+    }
 
-      var classes = classNames('clock clock--animated', this.props.className);
+    updateTs() {
+      this.setState(this.getTime());
+    }
+
+    render() {
+      const hours = fill(this.state.timestamp.getHours());
+      const minutes = fill(this.state.timestamp.getMinutes());
+      const seconds = fill(this.state.timestamp.getSeconds());
+      const date = fill(this.state.timestamp.getDate());
+      const month = fill(this.state.timestamp.getMonth() + 1);
+      const year = fill(this.state.timestamp.getFullYear());
+
+      const classes = classNames('clock', this.props.className);
 
       return <div className={classes}>
-          <div className="clock__time" style={this.props.clock_style}>
+          <div className="clock__time" style={this.props.clockStyle}>
             <span className="time__hours">{hours}</span>
             <span className="time__point">:</span>
             <span className="time__minutes">{minutes}</span>
             <span className="time__point">:</span>
             <span className="time__seconds">{seconds}</span>
           </div>
-          <div className="clock__date" style={this.props.date_style}>
+          <div className="clock__date" style={this.props.dateStyle}>
             <strong>{date}.{month}.{year}</strong>
           </div>
         </div>;
-    },
-    componentWillUnmount : function () {
+    }
+
+    componentWillUnmount() {
       clearInterval(this.reload);
     }
-  });
+  }
+
+  Clock.propTypes = {
+    ClockStore: React.PropTypes.object.isRequired,
+    clockStyle: React.PropTypes.object,
+    dateStyle: React.PropTypes.object
+  };
+
+  Clock.defaultProps = {
+    clockStyle : {fontSize : '15px'},
+    dateStyle  : {fontSize : '14px'}
+  };
+
+  R.Clock = R.ngInjectProps(Clock, ['ClockStore']);
 })();

@@ -27,7 +27,7 @@
                           </dl>`;
 
  const _phases = ['A', 'B', 'C'];
- const _contactors = [0, 1, 2, 3, 4, 5];
+ const _contactors = [1, 2, 3, 4, 5, 6];
  const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
  function _icon() {
@@ -245,7 +245,7 @@
         function drawContactor(contactorNum) {
           var contactorElement = element.find('.contactor-num.contactor-num-' + contactorNum);
 
-          var contactor = scope.controller.contactors()[contactorNum];
+          var contactor = scope.controller.contactor(contactorNum);
 
           element.find('.contactor-group.contactor-group-' + contactorNum).show();
 
@@ -263,7 +263,7 @@
         function drawContactorMode(contactorNum) {
           var contactorModeElement = element.find('.contactor-mod-num.contactor-mod-num-' + contactorNum);
 
-          var contactor = scope.controller.contactors()[contactorNum];
+          var contactor = scope.controller.contactor(contactorNum);
 
           contactorModeElement.text(contactor ? contactor.regime() : 'не определено');
         }
@@ -273,7 +273,7 @@
           var contactorPhaseElement = element.find('.phase-contactor.phase-contactor-' + phaseName + '.phase-contactor-num-' + contactorNum);
 
           var phase = scope.controller.phase(phaseName);
-          var contactor = scope.controller.contactors()[contactorNum];
+          var contactor = scope.controller.contactor(contactorNum);
 
           if (!phase || !contactor) {
             return contactorPhaseElement.css('fill', GREY_GRAD);

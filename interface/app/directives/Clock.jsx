@@ -18,14 +18,14 @@
    </file>
    </example>
    */
-  function Clock(ClockStore) {
+  function Clock($injector) {
     return {
       replace  : true,
       template : '<div/>',
       scope    : true,
       link     : function (scope, element) {
         React.render(
-          <REACT.Clock store={ClockStore} />,
+          <REACT.Clock ngInjector={$injector} />,
           element[0]
         );
 

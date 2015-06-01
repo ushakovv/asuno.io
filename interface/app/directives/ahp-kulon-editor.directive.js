@@ -30,8 +30,6 @@
           function drawDirection(directionNum) {
             const directionElement = element.find(`.direction.direction-${directionNum}`);
 
-            console.log(directionElement);
-
             const direction = scope.controller.direction(directionNum);
 
             if (!direction) {

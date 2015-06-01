@@ -9,9 +9,12 @@
     var cc = this;
 
     cc.showVideo = function () {
+      const $child = $scope.$new();
+      $child.source = `http://GOST_GR_Pronyayev:17596777@195.208.65.189:8087/embed?id=${$scope.attributes.Id}&toolbar=1&allowControl=1`;
+
       $modal.open({
         templateUrl : '/assets/templates/modals/camera-modal.html',
-        scope       : $scope.$new()
+        scope       : $child
       });
     };
 

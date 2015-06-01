@@ -5,19 +5,19 @@
 (function () {
   'use strict';
 
-  function Controllers(resource, ControllerCreator) {
+  function Controllers(resource, ControllerFactory) {
     return resource('/api/controllers/:controller', {}, {
         query          : {
           method            : 'GET', url : '/api/controllers', isArray : true,
           transformResponse : function (data) {
             return (angular.fromJson(data).controllers || [])
-              .map((controller) => ControllerCreator.createController(controller));
+              .map((controller) => ControllerFactory.createController(controller));
           }
         },
         get            : {
           method : 'GET', transformResponse : function (data) {
             var controller = angular.fromJson(data).controller;
-            return ControllerCreator.createController(controller);
+            return ControllerFactory.createController(controller);
           }
         },
         poll           : {method : 'POST', url : '/api/controllers/:controller/poll'},

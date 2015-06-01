@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "fontawesome";
 @import "ng-grid";
 @import "corner-counters";
 @import "bottom-journal";
@@ -172,20 +173,6 @@ header, .bottom-journal, .body-pane {
 
   &:active, &:focus {
     outline : none !important;
-  }
-}
-
-@font-face {
-  font-family : "slick";
-  src         : url("/assets/fonts/slick.eot");
-  src         : url("/assets/fonts/slick.eot?#iefix") format("embedded-opentype"), url("/assets/fonts/slick.woff") format("woff"), url("/assets/fonts/slick.ttf") format("truetype"), url("/assets/fonts/slick.svg#slick") format("svg");
-  font-weight : normal;
-  font-style  : normal;
-}
-
-.slick-prev, .slick-next {
-  &:before {
-    color : #333333;
   }
 }
 

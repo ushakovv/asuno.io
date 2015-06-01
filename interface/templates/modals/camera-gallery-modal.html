@@ -3,12 +3,12 @@
 </div>
 <div class="modal-body" ng-if="photos && photos.length">
   <div class="row">
-    <div class="col-md-12" style="padding: 0 45px;" >
-      <slick dots="true" infinite="false">
-        <div ng-repeat="photo in photos|orderBy:'-id' track by photo.id">
-          <img ng-src="/storage/{{ photo.file_path }}" style="margin: auto;"/>
-        </div>
-      </slick>
+    <div class="col-md-12">
+      <carousel>
+        <slide ng-repeat="photo in photos|orderBy:'-id'" active="photo.active">
+          <img ng-src="/assets/{{ photo.file_path }}" style="margin: auto;"/>
+        </slide>
+      </carousel>
     </div>
   </div>
 </div>

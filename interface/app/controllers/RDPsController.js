@@ -16,7 +16,12 @@
 
     $scope.child = $scope.$new();
 
-    $scope.filters = {};
+    const _dateBegin = moment();
+    const _defaultDateFrom = _dateBegin.add(-7, 'd').toDate();
+
+    $scope.filters = {
+      dateFrom: _defaultDateFrom
+    };
 
     var setFilters = function () {
       FilterSvc.clear();
@@ -97,8 +102,8 @@
         delete $scope.filters.filterToday;
 
         angular.extend($scope.filters, {
-          dateFrom : null,
-          dateTo   : null
+          dateFrom: _defaultDateFrom,
+          dateTo: null
         });
       }
     };

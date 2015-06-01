@@ -20,3 +20,8 @@
 .well {
   box-shadow : none;
 }
+
+// FIXME: track libsass (https://github.com/sass/libsass/issues/1115)
+.breadcrumb > li + li:before {
+  content: "/\00a0";
+}

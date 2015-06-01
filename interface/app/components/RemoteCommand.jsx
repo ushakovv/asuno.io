@@ -3,73 +3,84 @@
 
   var R = window.REACT = window.REACT || {};
 
-  R.RemoteCommand = React.createClass({
-    mixins                    : [R.ngInjectMixin(React)],
-    propTypes                 : {
-      command : React.PropTypes.object.isRequired
-    },
-    getInitialState           : function () {
-      this.RemoteCommandActions = this.ngInject('RemoteCommandActions');
+  class RemoteCommand extends React.Component {
+    constructor(props) {
+      super(props);
 
-      this.COMMANDS = this.ngInject('COMMANDS');
+      this.toggleButtons = this.toggleButtons.bind(this);
+      this.toggleCancel = this.toggleCancel.bind(this);
+      this.handleCancel = this.handleCancel.bind(this);
+      this.handleReject = this.handleReject.bind(this);
+      this.handleCancelComment = this.handleCancelComment.bind(this);
 
-      var $filter = this.ngInject('$filter');
+      const { Auth, $filter } = this.props;
+
       this.serverDateFilter = $filter('serverDate');
       this.dateFilter = $filter('date');
 
-      return {
-        isSupervisor : this.ngInject('Auth').isSupervisor(),
-        command      : this.props.command
+      this.state = {
+        isSupervisor: Auth.isSupervisor()
       };
-    },
-    componentWillReceiveProps : function (nextProps) {
-      this.setState({command : nextProps.command});
-    },
-    toggleButtons             : function () {
-      if (this.state.command.get('state') === 'waiting') {
+    }
+
+    toggleButtons() {
+      if (this.props.command.get('state') === 'waiting') {
         this.setState({showButtons : !this.state.showButtons});
       }
-    },
-    toggleCancel              : function () {
+    }
+
+    toggleCancel() {
       this.setState({showCancelComment : !this.state.showCancelComment});
-    },
-    handleCancelComment       : function (event) {
+    }
+
+    handleCancelComment(event) {
       this.setState({cancelComment : event.target.value});
-    },
-    handleExecute             : function () {
-      this.RemoteCommandActions.executeCommand(this.state.command.get('id'));
+    }
+
+    handleExecute() {
+      const { RemoteCommandActions, command } = this.props;
+
+      RemoteCommandActions.executeCommand(command.get('id'));
       this.setState({showButtons : false});
-    },
-    handleCancel              : function () {
-      this.RemoteCommandActions.cancelCommand(this.state.command.get('id'));
+    }
+
+    handleCancel() {
+      const { RemoteCommandActions, command } = this.props;
+
+      RemoteCommandActions.cancelCommand(command.get('id'));
       this.setState({showButtons : false});
-    },
-    handleReject              : function () {
+    }
+
+    handleReject() {
+      const { RemoteCommandActions, command } = this.props;
+
       if (this.state.cancelComment) {
-        this.RemoteCommandActions.rejectCommand(this.state.command.get('id'), this.state.cancelComment);
+        RemoteCommandActions.rejectCommand(command.get('id'), this.state.cancelComment);
         this.setState({showButtons : false});
       }
-    },
-    shouldComponentUpdate     : function (nextProps, nextState) {
-      return nextState.command !== this.state.command || nextState.cancelComment !== this.state.cancelComment
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+      return nextProps.command !== this.props.command || nextState.cancelComment !== this.state.cancelComment
              || nextState.showButtons !== this.state.showButtons
              || nextState.showCancelComment !== this.state.showCancelComment;
-    },
-    render                    : function () {
-      var command = this.state.command;
+    }
 
-      var commandClass = classNames('remote-command', {
+    render() {
+      const { command, COMMANDS } = this.props;
+
+      const commandClass = classNames('remote-command', {
         'remote-command--finished' : command.get('state') !== 'waiting',
         'remote-command--executed' : command.get('state') === 'executed',
         'remote-command--rejected' : command.get('state') === 'rejected'
       });
 
-      var commandTypeClass = classNames('remote-command__description__command__type', {
+      const commandTypeClass = classNames('remote-command__description__command__type', {
         'remote-command__description__command__type--safe'   : command.get('command') === 'mode:switch_off',
         'remote-command__description__command__type--danger' : command.get('command') !== 'mode:switch_off'
       });
 
-      var message, commandDescription, buttons, comment;
+      let message, commandDescription, buttons, comment;
 
       if (command.get('message')) {
         message = <div className="remote-command__description__object__comment">
@@ -79,9 +90,9 @@
       }
 
       if (command.get('command') === 'dimmer:set_level') {
-        commandDescription = <span>{this.COMMANDS[command.get('command')]} на {command.getIn(['parameters', 0])} В</span>;
+        commandDescription = <span>{COMMANDS[command.get('command')]} на {command.getIn(['parameters', 0])} В</span>;
       } else {
-        commandDescription = <span>{this.COMMANDS[command.get('command')]}</span>;
+        commandDescription = <span>{COMMANDS[command.get('command')]}</span>;
       }
 
       if (this.state.showCancelComment) {
@@ -139,5 +150,7 @@
           {this.state.showButtons ? buttons : null}
         </div>;
     }
-  });
+  }
+
+  R.RemoteCommand = R.ngInjectProps(RemoteCommand, ['Auth', 'RemoteCommandActions', 'COMMANDS', '$filter']);
 })();

@@ -22,13 +22,14 @@
 
   angular.module('asuno.services', ['ngResource', 'ngCookies', 'asuno.confirmation']);
 
-  angular.module('asuno', ['ngResource', 'ngCookies', 'ngAnimate', 'ui.router', 'ngGrid',
+  angular.module('asuno', ['ngResource', 'ngCookies', 'ui.router', 'ngGrid',
                            'ui.bootstrap.buttons', 'ui.bootstrap.modal', 'ui.bootstrap.tabs',
                            'ui.bootstrap.typeahead', 'ui.bootstrap.tpls', 'ui.bootstrap.accordion',
                            'ui.bootstrap.alert', 'ui.bootstrap.progressbar', 'ui.bootstrap.dropdown',
+                           'ui.bootstrap.carousel',
                            'mgcrea.ngStrap.datepicker', 'mgcrea.ngStrap.timepicker', 'mgcrea.ngStrap.tooltip',
                            'mgcrea.ngStrap.helpers.dimensions', 'mgcrea.ngStrap.helpers.dateParser',
-                           'mgcrea.ngStrap.popover', 'angular-storage', 'slick', 'ui.bootstrap-slider',
+                           'mgcrea.ngStrap.popover', 'angular-storage', 'ui.bootstrap-slider',
                            'nvd3ChartDirectives',
                            'asuno.services'])
     .config(function ($httpProvider, $stateProvider, $urlRouterProvider, $rootScopeProvider, $locationProvider, $sceDelegateProvider, $compileProvider, $logProvider, $tooltipProvider, $datepickerProvider) {
@@ -40,7 +41,8 @@
 
       angular.extend($datepickerProvider.defaults, {
         dateFormat: 'dd.MM.yyyy',
-        startWeek: 1
+        startWeek: 1,
+        autoclose: true
       });
 
       $locationProvider.html5Mode(false);
@@ -495,6 +497,9 @@
     .constant('tickEvent', 'asuno.tick')
     .run(function ($rootScope, $interval, $http, $state, $modal, $sci, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, tickEvent, RemoteCommandActions, RemoteCommandSocket) {
 
+      let counter = 0;
+      let tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
+
       $rootScope.$state = $state;
       $rootScope.timelineState = {};
 
@@ -515,6 +520,18 @@
         if ($rootScope.sidebar) {
           $rootScope.sidebar.show = false;
         }
+
+        if (tick) {
+          $interval.cancel(tick);
+        }
+        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
+      });
+
+      $rootScope.$on('$stateChangeError', function () {
+        if (tick) {
+          $interval.cancel(tick);
+        }
+        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
       });
 
       var authTokenRefresh;
@@ -523,6 +540,10 @@
         if (!Auth.isLoggedIn() && authTokenRefresh) {
           $interval.cancel(authTokenRefresh);
           authTokenRefresh = null;
+        }
+
+        if (tick) {
+          $interval.cancel(tick);
         }
 
         if (toState.name !== 'login' && !Auth.isLoggedIn()) {
@@ -563,11 +584,7 @@
         }
       });
 
-      var counter = 0;
-
       $rootScope.$broadcast(tickEvent, counter++);
-
-      var tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
 
       $rootScope.$on('$destroy', () => $interval.cancel(tick));
 

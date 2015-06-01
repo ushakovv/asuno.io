@@ -31,6 +31,8 @@
   border      : 2px solid;
   user-select : none;
 
+  transform: translate3d(0, 0, 0);
+
   &--cascade::before {
     content          : " ";
     position         : absolute;
@@ -138,6 +140,19 @@
 }
 
 .controller-list {
+
+  &__type-name {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #d5d5d5;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    &__handle {
+      margin-right: 0.25rem;
+    }
+  }
+
   &--condensed {
     .controller-container {
       font-size     : 5px;

@@ -6,8 +6,9 @@
   'use strict';
 
   angular.module('asuno.services').constant('EmitEvents', {
-      CONTROLLERS_CHANGE   : 'CONTROLLERSCHANGE',
-      CONTROLLER_SELECTION : 'CONTROLLERSELECTION'
+      CONTROLLERS_CHANGE: 'CONTROLLERSCHANGE',
+      CONTROLLER_SELECTION: 'CONTROLLERSELECTION',
+      CONTROLLERS_CLEAR: 'CONTROLLERSCREAR'
     }
   );
 })();

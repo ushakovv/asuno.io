@@ -83,6 +83,12 @@
         return controllers;
       },
 
+      getControllersByType() {
+        const controllers = this.getControllers();
+
+        return _(controllers).groupBy('type').value();
+      },
+
       getAllControllers: function () {
         return _controllers;
       },
@@ -157,8 +163,7 @@
 
         case ControllersStoreConstants.CLEAR_CONTROLLERS:
           clear();
-          controllersStoreInstance.emit(EmitEvents.CONTROLLERS_CHANGE);
-          controllersStoreInstance.emit(EmitEvents.CONTROLLER_SELECTION);
+          controllersStoreInstance.emit(EmitEvents.CONTROLLERS_CLEAR);
           break;
 
         case ControllersStoreConstants.SET_SHOW_AUTONOMOUS:

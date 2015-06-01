@@ -2,7 +2,7 @@
   'use strict';
 
   const _phases = ['A', 'B', 'C'];
-  const _contactors = [0, 1, 2, 3, 4, 5];
+  const _contactors = [1, 2, 3, 4, 5, 6];
   const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   const _popoverTemplate = `
@@ -44,7 +44,7 @@
           function drawContactor(contactorNum) {
             const contactorElement = element.find(`.contactor-group.contactor-group-${contactorNum}`);
 
-            const contactor = scope.controller.contactors()[contactorNum];
+            const contactor = scope.controller.contactor(contactorNum);
 
             if (contactor) {
               element.find(`.contactor-group.contactor-group-${contactorNum}`).css('opacity', 1);
@@ -67,11 +67,11 @@
               scope.$apply();
 
               $(this).find('text[font-size=24]').popover({
-                title: `Контактор ${contactorNum === 1 ? '"Вечер"' : '"Ночь"'}`,
+                title: `Контактор ${contactorNum === 2 ? '"Вечер"' : '"Ночь"'}`,
                 html: true,
                 content: content,
                 container: 'body',
-                placement: contactorNum === 1 ? 'right' : 'left'
+                placement: contactorNum === 2 ? 'right' : 'left'
               });
 
               $timeout(() => {
@@ -91,6 +91,7 @@
               directionElement.find('.direction-contactor').css('opacity', 0);
               directionElement.css('opacity', 0.5);
             } else {
+              directionElement.css('opacity', 1);
               const contactorIds = scope.controller.contactorIds();
 
               contactorNum = contactorIds.indexOf(direction.contactor_id);
@@ -169,7 +170,7 @@
           action = Scheme.delete_contactor({id: $scope.controller.id, contactor_id : $scope.contactor.id}).$promise;
         } else {
           action = Scheme.add_contactor({id : $scope.controller.id}, {
-            name : contactorNum === 1 ? 'Вечер' : 'Ночь', number : contactorNum
+            name : contactorNum === 2 ? 'Вечер' : 'Ночь', number : contactorNum
           }).$promise;
         }
 

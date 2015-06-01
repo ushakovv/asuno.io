@@ -3,66 +3,65 @@
 
   var R = window.REACT = window.REACT || {};
 
-  R.RemoteCommandList = React.createClass({
-    mixins                    : [R.ngInjectMixin(React)],
-    propTypes                 : {
-      rdp    : React.PropTypes.number,
-      $close : React.PropTypes.func
-    },
-    getDefaultProps           : function () {
-      return {
-        showFinished : false
-      };
-    },
-    getInitialState           : function () {
-      this.RemoteCommandStore = this.ngInject('RemoteCommandStore');
+  class RemoteCommandList extends React.Component {
+    constructor(props) {
+      super(props);
 
-      return {
+      this.changeListener = this.changeListener.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.toggleShowFinished = this.toggleShowFinished.bind(this);
+
+      const { rdp, Auth, RemoteCommandStore } = this.props;
+
+      this.state = {
         limit        : 10,
-        rdp          : this.props.rdp,
-        showFinished : this.props.showFinished,
-        isSupervisor : this.ngInject('Auth').isSupervisor(),
-        pendingCount : this.RemoteCommandStore.getPendingCount(),
-        commands     : this.RemoteCommandStore.getCommands(this.props.showFinished, this.props.rdp)
+        showFinished : false,
+        isSupervisor : Auth.isSupervisor(),
+        pendingCount : RemoteCommandStore.getPendingCount(),
+        commands     : RemoteCommandStore.getCommands(false, rdp)
       };
-    },
-    componentWillReceiveProps : function (nextProps) {
+    }
+
+    componentWillReceiveProps(nextProps, nextState) {
+      const { RemoteCommandStore } = this.props;
+
       this.setState({
-        rdp          : nextProps.rdp,
-        showFinished : !!nextProps.showFinished,
-        commands     : this.RemoteCommandStore.getCommands(!!nextProps.showFinished, nextProps.rdp)
+        commands: RemoteCommandStore.getCommands(!!nextState.showFinished, nextProps.rdp)
       });
-    },
-    changeListener            : function () {
+    }
+
+    componentWillMount() {
+      this.props.RemoteCommandStore.addChangeListener(this.changeListener);
+    }
+
+    changeListener() {
+      const { RemoteCommandStore, rdp } = this.props;
+
       this.setState({
-        commands     : this.RemoteCommandStore.getCommands(this.state.showFinished, this.state.rdp),
-        pendingCount : this.RemoteCommandStore.getPendingCount()
+        commands     : RemoteCommandStore.getCommands(this.state.showFinished, rdp),
+        pendingCount : RemoteCommandStore.getPendingCount()
       });
-    },
-    componentWillMount        : function () {
-      this.RemoteCommandStore.addChangeListener(this.changeListener);
-    },
-    componentWillUnmount      : function () {
-      this.RemoteCommandStore.removeChangeListener(this.changeListener);
-    },
-    handleClose               : function () {
-      if (this.RemoteCommandStore.getPendingCount() === 0) {
-        this.props.$close();
+    }
+
+    handleClose() {
+      const { RemoteCommandStore, $close } = this.props;
+      if (RemoteCommandStore.getPendingCount() === 0) {
+        $close();
       } else {
-        this.setState({commands : this.RemoteCommandStore.getCommands(this.props.showFinished, this.props.rdp)});
+        this.setState({commands : RemoteCommandStore.getCommands(this.state.showFinished, this.props.rdp)});
       }
-    },
-    toggleShowFinished        : function (event) {
-      this.setProps({showFinished : event.target.checked});
-    },
-    render                    : function () {
-      var self = this;
+    }
 
-      var commands = this.state.commands.map(function (command) {
-        return <REACT.RemoteCommand command={command} key={command.get('id')} ngInjector={self.props.ngInjector} />;
+    toggleShowFinished(event) {
+      this.setState({showFinished : event.target.checked});
+    }
+
+    render() {
+      const commands = this.state.commands.map((command) => {
+        return <R.RemoteCommand command={command} key={command.get('id')} />;
       });
 
-      var footer;
+      let footer;
 
       if (this.state.isSupervisor) {
         footer = <div className="modal-footer">
@@ -95,5 +94,12 @@
           {footer}
         </div>;
     }
-  });
+
+    componentWillUnmount() {
+      this.props.RemoteCommandStore.removeChangeListener(this.changeListener);
+    }
+  }
+
+  R.RemoteCommandList = R.ngInjectProps(RemoteCommandList, ['Auth', 'RemoteCommandStore']);
+
 })();

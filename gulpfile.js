@@ -39,7 +39,7 @@ gulp.task('copy templates', function () {
 });
 
 gulp.task('copy bootstrap fonts', function () {
-  gulp.src(['bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*', 'bower_components/font-awesome/fonts/*', 'bower_components/slick-carousel/slick/fonts/*'])
+  gulp.src(['bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*', 'bower_components/font-awesome/fonts/*'])
     .pipe(cache('bf'))
     .pipe(gulp.dest(statik + '/fonts'));
 });
@@ -71,7 +71,6 @@ gulp.task('sass', function () {
 var simpleAnnotate = lazypipe()
   .pipe(sourcemaps.init)
   .pipe(babel, {loose: true, compact: true})
-  .pipe(ngAnnotate)
   .pipe(sourcemaps.write);
 
 var fullAnnotate = lazypipe()

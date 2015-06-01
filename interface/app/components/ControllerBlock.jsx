@@ -27,51 +27,56 @@
     return _.any(controller.alarms.connection, (monitor) => monitor.payload === 'emergency');
   }
 
-  window.REACT.ControllerBlock = React.createClass({
-    mixins                : [R.ngInjectMixin(React)],
-    propTypes             : {
-      choose     : React.PropTypes.func.isRequired,
-      controller : React.PropTypes.object.isRequired
-    },
-    getInitialState       : function () {
-      this.ControllersStore = this.ngInject('ControllersStore');
-      this.ControllersActions = this.ngInject('ControllersActions');
-      this.EE = this.ngInject('EmitEvents');
+  class ControllerBlock extends React.Component {
+    constructor(props, context) {
+      super(props, context);
 
-      return {is_selected : this.ControllersStore.isControllerSelected(this.props.controller.id)};
-    },
-    handleBlockSelect     : function (e) {
+      this.handleSelection = this.handleSelection.bind(this);
+      this.handleBlockSelect = this.handleBlockSelect.bind(this);
+      this.handleBlockClick = this.handleBlockClick.bind(this);
+
+      this.state = {
+        is_selected : this.props.ControllersStore.isControllerSelected(this.props.controller.id)
+      };
+    }
+
+    componentDidMount() {
+      this.props.ControllersStore.addListener(this.props.EmitEvents.CONTROLLER_SELECTION, this.handleSelection);
+    }
+
+    handleSelection() {
+      this.setState({is_selected : this.props.ControllersStore.isControllerSelected(this.props.controller.id)});
+    }
+
+    handleBlockSelect(e) {
       e.stopPropagation();
-      this.ControllersActions.toggleControllerSelection(!this.state.is_selected, this.props.controller.id);
-    },
-    handleBlockClick      : function () {
+      this.props.ControllersActions.toggleControllerSelection(!this.state.is_selected, this.props.controller.id);
+    }
+
+    handleBlockClick() {
       this.props.choose(this.props.controller);
-    },
-    componentDidMount     : function () {
-      this.ControllersStore.addListener(this.EE.CONTROLLER_SELECTION, this._handleSelection);
-    },
-    componentWillUnmount  : function () {
-      this.ControllersStore.removeListener(this.EE.CONTROLLER_SELECTION, this._handleSelection);
-    },
-    shouldComponentUpdate : function (nextProps, nextState) {
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
       var controller = this.props.controller;
       var next = nextProps.controller;
       var result = compareControllers(controller, next) && this.state.is_selected === nextState.is_selected;
       return !result;
-    },
-    render                : function () {
-      var controller = this.props.controller;
+    }
 
-      var icons = this.ngInject('STATUS_ICONS').map(function (icon) {
-        var event = controller.alarms[icon.key];
+    render() {
+      const { controller, STATUS_ICONS } = this.props;
+
+      const icons = STATUS_ICONS.map((icon) => {
+        const event = controller.alarms[icon.key];
         return <div className="controller__alarm" key={icon.key}>
-            <R.ControllerBlockAlarm src={icon.srcSm} srcNokvit={icon.srcNokvit} event={event} ngInjector={this.props.ngInjector}/>
+            <R.ControllerBlockAlarm src={icon.srcSm} srcNokvit={icon.srcNokvit} event={event} />
           </div>;
-      }, this);
+      });
 
-      var isMaintenance = controller.isMaintenance();
+      const isMaintenance = controller.isMaintenance();
 
-      var controllerClasses = classNames('controller', {
+      const controllerClasses = classNames('controller', {
         'controller--enabled'      : controller.enabled,
         'controller--disabled'     : !controller.enabled,
         'controller--disconnected' : isDisconnected(controller),
@@ -81,11 +86,11 @@
         'controller--autonomous'   : controller.is_autonomous
       });
 
-      var containerClasses = classNames('controller-container parent', {
+      const containerClasses = classNames('controller-container parent', {
         'tooltipped tooltipped-n'     : isMaintenance || controller.description
       });
 
-      var tooltip;
+      let tooltip;
       if (controller.description) {
         tooltip = controller.description;
       } else if (isMaintenance) {
@@ -106,9 +111,21 @@
             </div>
           </div>
         </div>;
-    },
-    _handleSelection      : function () {
-      this.setState({is_selected : this.ControllersStore.isControllerSelected(this.props.controller.id)});
     }
-  });
+
+    componentWillUnmount() {
+      this.props.ControllersStore.removeListener(this.props.EmitEvents.CONTROLLER_SELECTION, this.handleSelection);
+    }
+  }
+
+  ControllerBlock.propTypes = {
+    choose: React.PropTypes.func.isRequired,
+    controller: React.PropTypes.object.isRequired,
+    ControllersStore: React.PropTypes.object.isRequired,
+    ControllersActions: React.PropTypes.object.isRequired,
+    EmitEvents: React.PropTypes.object.isRequired,
+    STATUS_ICONS: React.PropTypes.array.isRequired
+  };
+
+  R.ControllerBlock = R.ngInjectProps(ControllerBlock, ['ControllersStore', 'ControllersActions', 'EmitEvents', 'STATUS_ICONS']);
 })();

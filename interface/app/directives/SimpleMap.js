@@ -123,7 +123,7 @@
               scalebarUnit : 'metric'
             });
 
-            var baseLayer = new WebTiledLayer('http://95.31.222.219:83/proxy.ashx?http://10.127.0.45/ArcGIS/rest/services/egko_belle/MapServer/tile/${level}/${row}/${col}',
+            var baseLayer = new WebTiledLayer('http://87.245.154.112/ArcGIS/rest/services/egko_belle/MapServer/tile/${level}/${row}/${col}',
               {
                 id            : '123321',
                 initialExtent : new Extent({

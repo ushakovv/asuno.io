@@ -17,7 +17,7 @@
   <g>
     <title>Layer 1</title>
     <g id="main-group">
-      <g id="svg_61" class="contactor-group contactor-group-1">
+      <g id="svg_61" class="contactor-group contactor-group-2">
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="152.16432" y1="196" x2="152.16432" y2="222.65618"
               id="svg_3"/>
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="153.14181" y1="324.53518" x2="198.75772"
@@ -38,8 +38,8 @@
         <text transform="matrix(0.9774976372718811,0,0,1,825.8388097518532,164.0352) " font-family="'Tahoma'"
               font-size="10.6825" id="svg_316" y="-147.34382" x="-228.02107" fill="black">Вечер
         </text>
-        <g class="contactor-group-mini contactor-group-mini-1">
-          <text id="svg_48" class="contactor-mod-num contactor-mod-num-1"
+        <g class="contactor-group-mini contactor-group-mini-2">
+          <text id="svg_48" class="contactor-mod-num contactor-mod-num-2"
                 transform="matrix(0.9774976372718811,0,0,1,353.05594877429286,460.5137) " font-family="Monospace"
                 font-size="12" y="-249.34382" x="-201.42253" fill="black" text-anchor="start">не определено</text>
           <text transform="rotate(90 219.47213745117185,256.91015625000006) " xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="24" y="265.00388" x="219.47213" stroke-width="0" stroke="#000000" fill="#000000" id="svg_9">вечер</text>
@@ -103,15 +103,15 @@
         </g>
         <g id="svg_108">
           <circle id="svg_50" cx="153.0616" cy="324.00389" r="6.41434"
-                  class="phase-contactor phase-contactor-A phase-contactor-num-1"/>
+                  class="phase-contactor phase-contactor-A phase-contactor-num-2"/>
         </g>
         <g id="svg_110">
           <circle id="svg_51" cx="175.80308" cy="324.00389" r="6.41434"
-                  class="phase-contactor phase-contactor-B phase-contactor-num-1"/>
+                  class="phase-contactor phase-contactor-B phase-contactor-num-2"/>
         </g>
         <g id="svg_113">
           <circle id="svg_52" cx="198.54457" cy="324.00389" r="6.41434"
-                  class="phase-contactor phase-contactor-C phase-contactor-num-1"/>
+                  class="phase-contactor phase-contactor-C phase-contactor-num-2"/>
         </g>
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="249.43146" y1="255.32318" x2="278.71142"
               y2="255.32318" id="svg_35_1"/>
@@ -134,7 +134,7 @@
         <line fill="none" stroke-miterlimit="10" x1="125" y1="196" x2="152" y2="196" fill-opacity="1" stroke-opacity="1"
               stroke="#666666" id="svg_59"/>
       </g>
-      <g id="svg_60" class="contactor-group contactor-group-0">
+      <g id="svg_60" class="contactor-group contactor-group-1">
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="99.06339701171873" y1="196" x2="99.06339701171873"
               y2="222.65618" id="svg_4"/>
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="100.46414701171875" y1="277.90618"
@@ -177,7 +177,7 @@
         <text transform="matrix(0.9774976372718811,0,0,1,276.8473982294289,564.75) " fill="#ed1c24"
               font-family="'Tahoma-Bold'" font-size="12" id="svg_255" y="-249.34382" x="-191.18165272435152">C
         </text>
-        <g class="contactor-group-mini contactor-group-mini-0">
+        <g class="contactor-group-mini contactor-group-mini-1">
           <rect x="54.49634701171874" y="222.58518" fill="#424242" width="49.36363" height="67.75" id="svg_387"/>
           <g id="svg_388">
             <polygon fill="#595959"
@@ -219,7 +219,7 @@
           <rect id="svg_53" class="contactor-num contactor-num-0" x="68.91443701171875" y="245.96018" fill="#00A88D"
                 width="20.52745" height="21"/>
           <text transform="rotate(-90 35.48254394531251,255.91009521484375) " xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="24" y="264.00388" x="35.48256701171874" stroke-width="0" stroke="#000000" fill="#000000" id="svg_5">ночь</text>
-          <text id="svg_57" fill="black" class="contactor-mod-num contactor-mod-num-0"
+          <text id="svg_57" fill="black" class="contactor-mod-num contactor-mod-num-1"
                 transform="matrix(0.9774976372718811,0,0,1,222.51847054891266,460.5137) " font-family="Monospace"
                 font-size="12" y="-249.34382" x="-129.80043272435162" text-anchor="end">не определено</text>
         </g>
@@ -233,15 +233,15 @@
         </g>
         <g id="svg_101">
           <circle id="svg_54" cx="55.39552701171874" cy="324.00388" r="6.414340019226074"
-                  class="phase-contactor phase-contactor-A phase-contactor-num-0"/>
+                  class="phase-contactor phase-contactor-A phase-contactor-num-1"/>
         </g>
         <g id="svg_103">
           <circle id="svg_55" cx="100.48256701171874" cy="324.00389" r="6.414340019226074"
-                  class="phase-contactor phase-contactor-C phase-contactor-num-0"/>
+                  class="phase-contactor phase-contactor-C phase-contactor-num-1"/>
         </g>
         <g id="svg_105">
           <circle id="svg_56" cx="77.57500701171875" cy="324.00389" r="6.414340019226074"
-                  class="phase-contactor phase-contactor-B phase-contactor-num-0"/>
+                  class="phase-contactor phase-contactor-B phase-contactor-num-1"/>
         </g>
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="77.72266701171873" y1="390" x2="284.1420870117188"
               y2="390" id="svg_17"/>

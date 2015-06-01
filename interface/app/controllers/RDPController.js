@@ -36,7 +36,12 @@
       name: $scope.rdp.name
     }]);
 
-    $scope.filters = {};
+    const _dateBegin = moment();
+    const _defaultDateFrom = _dateBegin.add(-7, 'd').startOf('d').toDate();
+
+    $scope.filters = {
+      dateFrom: _defaultDateFrom
+    };
 
     var setControllers = function (controllers) {
       FilterSvc.clear();
@@ -163,7 +168,7 @@
         delete $scope.filters.filterToday;
 
         angular.extend($scope.filters, {
-          dateFrom: null,
+          dateFrom: _defaultDateFrom,
           dateTo: null
         });
       }

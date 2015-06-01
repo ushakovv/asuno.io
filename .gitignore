@@ -6,3 +6,4 @@ dist/
 coverage/
 dist.tar.gz
 tags
+*.log

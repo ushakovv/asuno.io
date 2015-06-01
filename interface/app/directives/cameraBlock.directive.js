@@ -53,11 +53,15 @@
       };
 
       $scope.showGallery = function () {
+        const $child = $rootScope.$new();
+        $child.camera = $scope.camera;
+
         $modal.open({
           templateUrl : '/assets/templates/modals/camera-gallery-modal.html',
+          animation   : false,
           size        : 'lg',
-          scope       : $scope.$new(),
-          controller  : function ($rootScope, $scope, $log, Cameras) {
+          scope       : $child,
+          controller  : function ($rootScope, $scope, $log, $timeout, Cameras) {
             function loadCameras() {
               Cameras.get({id : $scope.camera.id}, (camera) => $scope.photos = camera.snapshots);
             }
@@ -70,6 +74,7 @@
 
             $scope.getSnapshot = function () {
               Cameras.snapshot({id : $scope.camera.id}, {}, () => inform('Снимок будет сделан в скором времени'));
+              $timeout(loadCameras, 2000);
             };
           }
         });
