@@ -1,10 +1,18 @@
 <div class="controller-telemetry__counters">
   <h5>Показания счетчика</h5>
 
+
   <div class="row">
     <div class="col-md-12">
-      <div ng-if="telemetry.controller.sensors.length" counter-inputs="telemetry.controller.sensors" open-graph="telemetry.openSensorGraphModal"></div>
-      <strong ng-if="!telemetry.controller.sensors.length">Счетчик не подключен</strong>
+        <div ng-if="telemetry.controller.sensors.length" counter-inputs="telemetry.controller.sensors" open-graph="telemetry.openSensorGraphModal"></div>
+        <strong ng-if="!telemetry.controller.sensors.length">Счетчик не подключен</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <button class="btn btn-primary btn-xs btn-block controller-telemetry__change-counters" ng-click="telemetry.changeSensors()">
+        {{ telemetry.controller.sensors.length > 0 ? 'Удалить счетчик' : 'Добавить счетчик' }}
+      </button>
     </div>
   </div>
 </div>

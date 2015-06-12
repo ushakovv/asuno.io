@@ -27,7 +27,9 @@
         patch          : {method : 'PATCH', url : '/api/controllers/:id'},
         maintenance    : {method : 'POST', url : '/api/controllers/:controller/maintenance'},
         direction_edit : {method : 'PATCH', url : '/api/direction/:id'},
-        add_camera     : {method : 'POST', url : '/api/controllers/:id/cameras'}
+        add_camera     : {method : 'POST', url : '/api/controllers/:id/camras'},
+        add_sensore    : {method : 'POST', url : '/api/controllers/:id/sensors/add'},
+        delete_sensore : {method : 'DELETE', url : '/api/controllers/:id/sensors/delete'}
       }
     );
   }

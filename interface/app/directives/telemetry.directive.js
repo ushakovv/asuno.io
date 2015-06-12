@@ -13,17 +13,21 @@
         controller: 'TelemetryController as telemetry'
       };
     })
-    .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph) {
+    .controller('TelemetryController',
+
+      function TelemetryController($rootScope, SensorGraph) {
 
       this.showGraph = false;
 
       this.openSensorGraphModal = SensorGraph.open;
+
+      this.changeSensors = $rootScope.changeSensors;
+
     })
     .controller('GraphModalController', function GraphModalController($scope, $log, Sensors, sensor) {
       const graphModal = this;
 
       this.sensor = sensor;
-
       this.load = function (conf) {
         graphModal.loading = true;
         graphModal.between = [conf.dateFrom.getTime(), conf.dateTo.getTime()];
