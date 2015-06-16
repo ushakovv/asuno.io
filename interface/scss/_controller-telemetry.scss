@@ -54,6 +54,9 @@
   &__counters {
     @include simple-well;
   }
+  &__change-counters {
+    margin-bottom: 10px;
+  }
 }
 
 .telemetry-counter {

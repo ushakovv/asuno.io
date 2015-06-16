@@ -31,10 +31,12 @@
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
 
+
     if (rdp.slug.indexOf('akhp') >= 0) {
       $scope.crumbs = [{
         name: 'Объекты АХП'
       }];
+      $log.debug('Объекты АХП');
     } else if (rdp.slug === 'kulon') {
       $scope.crumbs = [{
         name: 'Групповые регуляторы'
@@ -47,7 +49,6 @@
         }
       ];
     }
-
     $scope.crumbs = $scope.crumbs.concat([
       {
         name: $scope.rdp.name,
@@ -175,6 +176,27 @@
         })
         .value();
     }
+
+    $rootScope.changeSensors = function () {
+      const params = {id: $scope.controller.id };
+
+      if( $scope.controller.sensors.length > 0) {
+
+        Controllers.delete_sensore(params, $scope.controller).$promise
+            .then(function () {
+              $scope.$broadcast('asuno-refresh-all');
+            }, function() {
+              $scope.error = 'Произошла ошибка изменения счетчика.';
+            });
+      } else {
+        Controllers.add_sensore(params, $scope.controller).$promise
+          .then(function () {
+            $scope.$broadcast('asuno-refresh-all');
+          }, function() {
+              $scope.error = 'Произошла ошибка изменения счетчика.';
+          });
+      }
+    };
 
     $rootScope.timelineInit = function (_begin, _end) {
       begin = _begin;
