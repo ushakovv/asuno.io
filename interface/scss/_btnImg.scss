@@ -36,6 +36,10 @@
     @include sprite($alarm);
   }
 
+  &--maintenance {
+    @include sprite($maintenance);
+  }
+
   &--journal {
     @include sprite($journal);
   }

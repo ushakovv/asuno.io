@@ -158,6 +158,17 @@ $window-total-width: 31px;
 $window-total-height: 496px;
 $window-image: '/assets/img/menu/sprite.png';
 $window: 0 465px 0 -465px 31px 31px 31px 496px '/assets/img/menu/sprite.png';
+$maintenance-x: 0;
+$maintenance-y: 496px;
+$maintenance-offset-x: 0;
+$maintenance-offset-y: -496px;
+$maintenance-width: 31px;
+$maintenance-height: 31px;
+$maintenance-total-width: 31px;
+$maintenance-total-height: 527px;
+$maintenance-image: '/assets/img/menu/sprite.png';
+$maintenance: 0 496px 0 -496px 31px 31px 31px 527px '/assets/img/menu/sprite.png';
+
 
 @mixin sprite-width($sprite) {
   width: nth($sprite, 5);

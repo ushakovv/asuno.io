@@ -146,10 +146,9 @@
             <button class="btn btn-img btn-img--back" onclick="window.history.back()" title="Назад">
             </button>
             <a ui-sref="report.alarmsReport" class="btn btn-img btn-img--alarm" title="Аварии"></a>
-            <a ui-sref="report.switchesReport" class="btn btn-img btn-img--journal"
-               title="Оперативный журнал переключений">
-            </a>
+            <a ui-sref="report.switchesReport" class="btn btn-img btn-img--journal" title="Оперативный журнал переключений"></a>
             <a ui-sref="report.operativeReport" class="btn btn-img btn-img--reports" title="Отчеты"></a>
+            <a ui-sref="report.maintenanceReport" class="btn btn-img btn-img--maintenance" title="Профилактики"></a>
             <a class="btn btn-img btn-img--schedule" title="Режим работы" ui-sref="schedule"></a>
             <button class="btn btn-img btn-img--timeline" title="Линейка времени"
                     ng-click="timelineState.show = !timelineState.show"
@@ -313,6 +312,7 @@
 <script src="app/controllers/SidebarCtrl.js"></script>
 <script src="app/controllers/reports/OperativeReportCtrl.js"></script>
 <script src="app/controllers/reports/AlarmsReportCtrl.js"></script>
+<script src="app/controllers/reports/MaintenanceReportCtrl.js"></script>
 <script src="app/controllers/CascadeControllerCtrl.js"></script>
 <script src="app/controllers/reports/SwitchesReportCtrl.js"></script>
 <script src="app/controllers/reports/TimeLagReportCtrl.js"></script>
@@ -332,6 +332,7 @@
 <script src="app/services/httpTemplateCache.js"></script>
 <script src="app/services/StatusIcons.const.js"></script>
 <script src="app/services/Events.js"></script>
+<script src="app/services/Maintence.js"></script>
 <script src="app/services/GISLayers.js"></script>
 <script src="app/services/Controllers.store.js"></script>
 <script src="app/services/FilterSvc.js"></script>

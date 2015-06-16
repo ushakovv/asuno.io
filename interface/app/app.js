@@ -296,6 +296,18 @@
             }
           }
         })
+        .state('report.maintenanceReport', {
+          url: '/maintenance',
+          views: {
+            '': {
+              controller: 'MaintenanceReportCtrl',
+              templateUrl: '/assets/templates/pages/maintenanceReport.html'
+            },
+            'sidebar': {
+              templateUrl: '/assets/templates/pages/journal-sidebar.html'
+            }
+          }
+        })
         .state('report.alertsReport', {
           url: '/alertsReport',
           views: {
