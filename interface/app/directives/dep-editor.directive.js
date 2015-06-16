@@ -32,7 +32,7 @@ const _contactorPopoverTemplace = `
 `;
 
 angular.module('asuno')
-    .directive('depEditor', function depEditor($rootScope, $timeout, $compile, $log) {
+    .directive('depEditor', function depEditor($rootScope, $timeout, $compile) {
       return {
         template: '<div></div>',
         scope: {
@@ -44,15 +44,11 @@ angular.module('asuno')
           scope.$on('$stateChangeStart', function () {
             $('body').find('.popover').remove();
           });
-          const cotracors = scope.controller.contactors();
-          $log.debug('cotracors:', cotracors);
 
           function drawContactor(contactorNum) {
             const contactorElement = element.find(`.contactor-group.contactor-group-${contactorNum}`);
 
             const contactor = scope.controller.contactor(contactorNum);
-
-            $log.debug('drawContactor contactorNum: ' + contactorNum, 'contactor', contactor);
 
             if (contactor) {
               element.find(`.contactor-group.contactor-group-${contactorNum}`).css('opacity', 1);
@@ -97,7 +93,7 @@ function drawDirection(phase, phaseElement, directionNum) {
 
   let contactorNum;
 
-  $log.debug('drawDirection direction:', direction);
+
 
   directionElement.find('.direction-contactor').css('opacity', 0);
 
@@ -108,9 +104,9 @@ function drawDirection(phase, phaseElement, directionNum) {
     const contactorIds = scope.controller.contactorIds();
 
     contactorNum = contactorIds.indexOf(direction.contactor_id) + 1;
-    $log.debug('direction.contactor_id: ', direction.contactor_id);
-    $log.debug('contactorIds.indexOf(direction.contactor_id): ', contactorIds.indexOf(direction.contactor_id));
-    $log.debug('contactorNum: ', contactorNum);
+
+
+
 
     directionElement.find(`.direction-contactor-${contactorNum}`).css('opacity', 1);
   }
@@ -126,7 +122,7 @@ function drawDirection(phase, phaseElement, directionNum) {
     $child.controller = scope.controller;
     $child.directionElement = directionElement;
 
-    $log.debug('directionElement click -> contactorNum: ', contactorNum);
+
     const content = $compile(_popoverTemplate)($child);
 
     scope.$apply();
