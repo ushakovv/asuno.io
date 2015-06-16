@@ -1,3 +1,4 @@
+
 /**
  * Created by vasa on 26.06.14.
  */
@@ -5,32 +6,32 @@
 (function () {
   'use strict';
 
- const GREEN = '#00A88D';
- const GREY = '#BABABA';
- const RED = '#F15A24';
+  const GREEN = '#00A88D';
+  const GREY = '#BABABA';
+  const RED = '#F15A24';
 
- const RED_GRAD = 'url(#red_grad)';
- const GREEN_GRAD = 'url(#green_grad)';
- const GREY_GRAD = 'url(#grey_grad)';
+  const RED_GRAD = 'url(#red_grad)';
+  const GREEN_GRAD = 'url(#green_grad)';
+  const GREY_GRAD = 'url(#grey_grad)';
 
- const directionTemplate = `<dl class="direction">
-                            <dt class="direction__info">Py, кВт</dt>
-                            <dd class="direction__value" ng-bind="controller.directions[i-1].p_u"></dd>
-                            <dt class="direction__info">Ip, A</dt>
-                            <dd class="direction__value" ng-bind="controller.directions[i-1].i_p"></dd>
-                            <dt class="direction__info">Iyt, mA</dt>
-                            <dd class="direction__value" ng-bind="controller.directions[i-1].i_ut"></dd>
-                            <dt class="direction__info">Напр. линии</dt>
-                            <dd class="direction__value" ng-bind="controller.directions[i-1].direction"></dd>
-                            <dt class="direction__info">Осв. приборы</dt>
-                            <dd class="direction__value" ng-bind="controller.directions[i-1].lightning"></dd>
-                          </dl>`;
+  const directionTemplate = `<dl class="direction">
+      <dt class="direction__info">Py, кВт</dt>
+  <dd class="direction__value" ng-bind="controller.directions[i-1].p_u"></dd>
+      <dt class="direction__info">Ip, A</dt>
+  <dd class="direction__value" ng-bind="controller.directions[i-1].i_p"></dd>
+      <dt class="direction__info">Iyt, mA</dt>
+  <dd class="direction__value" ng-bind="controller.directions[i-1].i_ut"></dd>
+      <dt class="direction__info">Напр. линии</dt>
+      <dd class="direction__value" ng-bind="controller.directions[i-1].direction"></dd>
+      <dt class="direction__info">Осв. приборы</dt>
+      <dd class="direction__value" ng-bind="controller.directions[i-1].lightning"></dd>
+      </dl>`;
 
- const _phases = ['A', 'B', 'C'];
- const _contactors = [1, 2, 3, 4, 5, 6];
- const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const _phases = ['A', 'B', 'C'];
+  const _contactors = [1, 2, 3, 4, 5, 6];
+  const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
- function _icon() {
+  function _icon() {
     const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
     img.setAttribute('x', 0);
     img.setAttribute('y', 0);
@@ -39,13 +40,13 @@
     return img;
   }
 
- function alarmIconImage() {
+  function alarmIconImage() {
     const img = _icon();
     img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/assets/img/input14.png');
     return img;
   }
 
- function alarmGifImage() {
+  function alarmGifImage() {
     const img = _icon();
     img.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '/assets/img/input.gif');
     return img;
@@ -71,15 +72,10 @@
 
           var contactorIds = scope.controller.contactorIds();
 
-          var idx = contactorIds.indexOf(direction.contactor_id);
+          var idx = contactorIds.indexOf(direction.contactor_id) + 1;
 
-          if (idx === 1) {
-            directionElement.find('.direction-contactor-0').css('opacity', 0);
-          } else if (idx === 0) {
-            directionElement.find('.direction-contactor-1').css('opacity', 0);
-          } else {
-            directionElement.find('.direction-contactor').css('opacity', 0);
-          }
+          directionElement.find('.direction-contactor').css('opacity', 0);
+          directionElement.find(`.direction-contactor-${idx}`).css('opacity', 1);
 
           var directionPoint = directionElement.find('circle.phase_dir');
 
@@ -283,10 +279,10 @@
 
           if (scope.controller.type === 'niitm') {
             contactorPhaseElement
-              .css('fill', contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
+                .css('fill', contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
           } else {
             contactorPhaseElement
-              .css('fill', phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
+                .css('fill', phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
           }
         }
 
@@ -346,14 +342,14 @@
                 var $this = $(this);
 
                 $this.find('circle[fill="#000000"]:first')
-                  .popover({
-                    title     : 'Направление ' + directionNum,
-                    html      : true,
-                    content   : content,
-                    container : 'body',
-                    placement : 'top'
-                  })
-                  .popover('show');
+                    .popover({
+                      title     : 'Направление ' + directionNum,
+                      html      : true,
+                      content   : content,
+                      container : 'body',
+                      placement : 'top'
+                    })
+                    .popover('show');
               }).on('mouseleave', function () {
                 $(this).find('circle[fill="#000000"]').popover('destroy');
               });
