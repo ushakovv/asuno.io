@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
   const _popoverTemplate = `
     <div ng-controller="AhpKulonEditorDirectionController">
@@ -28,8 +28,7 @@
           window._controller = scope.controller;
 
           function drawDirection(directionNum) {
-            const directionElement = element.find(`.direction.direction-${directionNum}`);
-
+            const directionElement = element.find( `.direction.direction-${directionNum}`);
             const direction = scope.controller.direction(directionNum);
 
             if (!direction) {
@@ -90,7 +89,7 @@
 
         action
           .then(() => $rootScope.$broadcast('asuno-refresh-all'))
-          .then(() => $scope.directionElement.find('circle.direction-contactor-1:first').popover('destroy'))
+          .then(() => $scope.directionElement.find(`.direction-info.direction-info-${directionNum}`).popover('destroy'))
           .finally(() => $scope.loading = false);
       };
 

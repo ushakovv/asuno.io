@@ -19,7 +19,8 @@
                           </dl>`;
 
   var _phases = ['A', 'B', 'C'];
-  var _directions = [1, 2, 3, 4, 5, 6, 7];
+  var _directions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  let _isSeconPartDirectionsOn = false;
 
   function _icon() {
     var img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
@@ -86,6 +87,10 @@
 
             if (direction) {
               directionElement.show();
+
+              if (directionNum > 8) {
+                _isSeconPartDirectionsOn = true;
+              }
             } else {
               directionElement.hide();
             }
@@ -115,12 +120,33 @@
             });
           }
 
+          function toggleSvgHeight(){
+            const svg = element.find('svg:first');
+            const mainLineGroup = element.find('.main-line-second-group');
+            let viewBoxValue = '0 131 800 300';
+            mainLineGroup.each((k, line) => {
+              line.setAttribute('style', 'display: none;');
+            });
+
+            if ( _isSeconPartDirectionsOn ) {
+              viewBoxValue = '0 131 800 600';
+              mainLineGroup.each((k, line) => {
+                line.setAttribute('style', 'display: block;');
+              });
+            }
+            svg[0].setAttribute('viewBox', viewBoxValue);
+          }
+
           scope.$watch('controller', function (next) {
             if (angular.isObject(next)) {
               _phases.forEach(drawPhase);
 
+              _isSeconPartDirectionsOn = false;
+
               _directions.forEach(drawDirection);
               _directions.forEach(drawDirectionInfo);
+
+              toggleSvgHeight();
             }
           }, true);
 

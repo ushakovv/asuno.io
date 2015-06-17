@@ -180,7 +180,7 @@
     $rootScope.changeSensors = function () {
       const params = {id: $scope.controller.id };
 
-      if( $scope.controller.sensors.length > 0) {
+      if ( $scope.controller.sensors.length > 0) {
 
         Controllers.delete_sensore(params, $scope.controller).$promise
             .then(function () {
