@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function SimpleMap($q, $http, $compile, httpTemplateCache, SPATIAL_REFERENCE, GIS_LAYERS) {
+  function SimpleMap($q, $http, $compile, httpTemplateCache, SPATIAL_REFERENCE, GIS_LAYERS, $log) {
     return {
       replace     : true,
       transclude  : true,
@@ -30,6 +30,10 @@
         this.groupLayersArray = [];
 
         this.addLayer = function (id, layer) {
+
+          if (id === 'lep') {
+            $log.debug('addLayer lep in SimpleMap');
+          }
           layer.gis_data = angular.copy(GIS_LAYERS[id]);
           layer.is_visible = layer.visible;
           this.layers[id] = layer;

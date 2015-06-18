@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS) {
+  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS, $log) {
     return {
       require    : '^simpleMap',
       replace    : true,
@@ -86,7 +86,9 @@
                 if (layerConfig.invisible && !$scope.show) {
                   featureLayer.setVisibility(false);
                 }
-
+                if ($scope.layer === 'lep') {
+                  $log.debug('lep featureLayer', featureLayer);
+                }
                 $scope.simpleMapCtrl.addLayer($scope.layer, featureLayer);
 
                 deferredFeatureLayer.resolve(featureLayer);

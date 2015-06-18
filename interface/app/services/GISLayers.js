@@ -12,6 +12,13 @@
       name           : 'Диспетчерские пункты',
       icon           : '/assets/img/dispatchCenter.png'
     },
+    lep        : {
+      url            : 'http://' + '81.88.217.69' + '/arcgis/rest/services/Mossvet/MapServer/6',
+      name           : 'ЛЭП',
+      icon           : '/assets/img/dispatchCenter.png',
+      invisible      : true,
+      tooMuchData : true
+    },
     controllers : {
       url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',
       dataAttributes : ['PP_ID', 'db_PP_NAME', 'db_STREET', 'db_DISPATCHER_ID', 'db_PP_TYPE'],
