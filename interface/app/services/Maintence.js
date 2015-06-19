@@ -6,7 +6,7 @@
     'use strict';
 
     function Maintence(resource) {
-        return resource('', {}, {
+        return resource('/api/maintenancejournal', {}, {
             query: { url: '/api/maintenancejournal' }
         });
     }

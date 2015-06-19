@@ -7,7 +7,7 @@
 
     function MaintenanceReportCtrl($scope, Maintence) {
 
-        $scope.query = Maintence.query();
+        $scope.query = Maintence.query;
 
         $scope.filters = {};
 
@@ -42,12 +42,12 @@
                     displayName : 'Причина'
                 },
                 {
-                    field : 'user_id',
+                    field : 'user_name',
                     displayName : 'Пользователь'
                 },
                 {
-                    field        : 'controller_id',
-                    displayName : 'Контоллер id'
+                    field        : 'controller_name',
+                    displayName : 'Контоллер'
                 }
             ]
         };
