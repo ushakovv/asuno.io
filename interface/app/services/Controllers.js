@@ -29,8 +29,11 @@
         direction_edit : {method : 'PATCH', url : '/api/direction/:id'},
         add_camera     : {method : 'POST', url : '/api/controllers/:id/camras'},
         add_sensore    : {method : 'POST', url : '/api/controllers/:id/sensors/add'},
-        delete_sensore : {method : 'DELETE', url : '/api/controllers/:id/sensors/delete'}
-      }
+        delete_sensore : {method : 'DELETE', url : '/api/controllers/:id/sensors/delete'},
+        max_allowed_power : {method : 'GET', url : '/api/controllers/:id/max_allowed_power'},
+        avg_power : {method : 'GET', url : '/api/controllers/:id/avg_power'}
+
+        }
     );
   }
 

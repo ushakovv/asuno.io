@@ -36,6 +36,7 @@
       <svg viewBox="0 0 500 500" style="width: 100%;"></svg>
     </nvd3-line-chart>
   </div>
+  <div class="alert alert-warning" role="alert" ng-repeat="error in graphModal.errors">{{error}}</div>
 </div>
 <div class="modal-footer">
   <button class="btn btn-default pull-right" ng-click="$close()">Закрыть</button>
