@@ -4,7 +4,8 @@
     <div simple-map-layer="districts" sml-parent-scope="child"></div>
     <div simple-map-layer="lep" sml-parent-scope="child"
          sml-popup-template="<div></div>"
-         sml-title-template="<span></span>"></div>
+         sml-title-template="<span>Cabel id: [[attributes.CABEL_ID]]</span>"
+         ></div><!--sml-point-filter="lepFilter"-->
     <div simple-map-layer="cameras" sml-parent-scope="child"></div>
     <div simple-map-layer="rdps" sml-points="rdps"
          sml-point-click="selectRdp" sml-point-connect="pointConnect" sml-parent-scope="child"

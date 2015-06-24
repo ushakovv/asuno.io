@@ -13,8 +13,9 @@
       icon           : '/assets/img/dispatchCenter.png'
     },
     lep        : {
-      url            : 'http://' + '81.88.217.69' + '/arcgis/rest/services/Mossvet/MapServer/6',
+      url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/6',
       name           : 'ЛЭП',
+      dataAttributes : ['Object_ID', 'CABEL_ID'],
       icon           : '/assets/img/dispatchCenter.png',
       titleTemplate    : '<span>Выберите ЛЕП</span>',
       invisible      : true,

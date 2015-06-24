@@ -379,6 +379,19 @@ $scope.pointFilter = function (attributes) {
   return attributes.PP_ID === $scope.controller.gis_id;
 };
 
+$log.debug('ControllerCtrl');
+let cabels = [];
+
+Controllers.all_cables({}, {}).$promise
+    .then((data) => {
+    cabels = data.cables;
+});
+
+$scope.lepFilter = function (attributes) {
+  $log.debug('lepFilter', attributes, $scope.cabels);
+  return cabels.indexOf(attributes.CABEL_ID) > 0;
+};
+
 $scope.cameraExtractor = function (graphic) {
   var cameras = $scope.controller.cameras.map(function (camera) {
     return camera.stream_uri;

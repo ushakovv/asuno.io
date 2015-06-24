@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function RDPsController($scope, $state, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent) {
+  function RDPsController($scope, $state, $log, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = true;

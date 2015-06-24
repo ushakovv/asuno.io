@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function RDPController($rootScope, $scope, $state, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, ControllersActions, Mutex, tickEvent, initial) {
+  function RDPController($rootScope, $scope, $state, $log, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, ControllersActions, Mutex, tickEvent, initial) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = false;
@@ -125,6 +125,19 @@
     $scope.pointFilter = function (attributes) {
       return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
     };
+
+    $log.debug('RDPControllerCtrl');
+    let cabels = [];
+
+    Controllers.all_cables({}, {}).$promise
+        .then((data) => {
+      cabels = data.cables;
+  });
+
+  $scope.lepFilter = function (attributes) {
+    $log.debug('lepFilter', attributes, $scope.cabels);
+    return cabels.indexOf(attributes.CABEL_ID) > 0;
+  };
 
     $scope.pointConnect = function (attributes) {
       return _.find($scope.controllers, function (controller) {

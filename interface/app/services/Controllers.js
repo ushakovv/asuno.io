@@ -14,6 +14,17 @@
               .map((controller) => ControllerFactory.createController(controller));
           }
         },
+        all_cables : {
+            method : 'GET',
+            url : '/api/controllers/all_cables',
+            transformResponse:  function (data) {
+                return {cables: (data && data.cables || []).map(function(cabel) { return cabel.cabel_id; })};
+            }
+        },
+        available_cables : {
+            method : 'GET',
+            url : '/api/controllers/:id/directions/available_cables'
+        },
         get            : {
           method : 'GET', transformResponse : function (data) {
             var controller = angular.fromJson(data).controller;
@@ -33,8 +44,8 @@
         add_sensore    : {method : 'POST', url : '/api/controllers/:id/sensors/add'},
         delete_sensore : {method : 'DELETE', url : '/api/controllers/:id/sensors/delete'},
         max_allowed_power : {method : 'GET', url : '/api/controllers/:id/max_allowed_power'},
-        avg_power : {method : 'GET', url : '/api/controllers/:id/avg_power'},
-        all_cables : {method : 'GET', url : '/api/controllers/all_cables'}
+        avg_power : {method : 'GET', url : '/api/controllers/:id/avg_power'}
+
     });
   }
 
