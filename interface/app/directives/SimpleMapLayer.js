@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS, $log) {
+  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS) {
     return {
       require    : '^simpleMap',
       replace    : true,
@@ -22,7 +22,8 @@
         popupTemplate    : '@smlPopupTemplate',
         popupTemplateUrl : '@smlPopupTemplateUrl',
         titleTemplate    : '@smlTitleTemplate',
-        parentScope      : '=smlParentScope'
+        parentScope      : '=smlParentScope',
+        closeModal  : '=smlCloseModal'
       },
       link       : function (scope, element, attributes, simpleMapCtrl) {
         $q.all([simpleMapCtrl.map, simpleMapCtrl.popup, simpleMapCtrl.element])
@@ -86,9 +87,7 @@
                 if (layerConfig.invisible && !$scope.show) {
                   featureLayer.setVisibility(false);
                 }
-                if ($scope.layer === 'lep') {
-                  $log.debug('lep featureLayer', featureLayer);
-                }
+
                 $scope.simpleMapCtrl.addLayer($scope.layer, featureLayer);
 
                 deferredFeatureLayer.resolve(featureLayer);
@@ -108,12 +107,19 @@
                   if (recalculateTemplate) {
                     var current = popup.getSelectedFeature();
                     if (current && featureLayer.graphics.indexOf(current) >= 0) {
+
                       var child = $scope.parentScope.$new();
+
                       child.attributes = current.attributes;
                       child._layer = featureLayer;
                       if (angular.isFunction($scope.pointConnect)) {
                         child.point = $scope.pointConnect(current.attributes);
                       }
+
+                      if ( angular.isFunction($scope.closeModal) ) {
+                        child.closeModal = $scope.closeModal;
+                      }
+
                       $q.when(popupTemplate).then(function (tmpl) {
                         $compile(tmpl)(child, function (content) {
                           $compile(titleTemplate)(child, function (title) {

@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3>Выберите ЛЭП</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div simple-map sm-zoom="17" sm-hide-layers="true" style="height:  300px">
+                <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
+                     sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
+                     sml-popup-template="<div controller-popup controller='point'></div>"
+                     sml-point-connect="controllerConnect"
+                     sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+                </div>
+                <div simple-map-layer="lep" sml-parent-scope="child" show="true" sml-close-modal="$dismiss"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="$dismiss()">Закрыть</button>
+</div>

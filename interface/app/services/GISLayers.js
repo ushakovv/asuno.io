@@ -16,8 +16,10 @@
       url            : 'http://' + '81.88.217.69' + '/arcgis/rest/services/Mossvet/MapServer/6',
       name           : 'ЛЭП',
       icon           : '/assets/img/dispatchCenter.png',
+      titleTemplate    : '<span>Выберите ЛЕП</span>',
       invisible      : true,
-      tooMuchData : true
+      tooMuchData : true,
+      popupTemplateUrl : '/assets/templates/gis/lep.html'
     },
     controllers : {
       url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',

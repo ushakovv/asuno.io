@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, $state, $q, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
+  function ControllerCtrl($rootScope, $scope, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -229,6 +229,44 @@ $rootScope.changeSensors = function () {
   }
 };
 
+
+$rootScope.unlinkDirection = function (directionId) {
+
+  $log.debug('unlinkDirection ', directionId);
+  let params = {id: $scope.controller.id, direction_id: directionId};
+
+  let unlink = Scheme.direction_unlink_cable(params, params).$promise;
+
+  unlink
+    .then(() => {
+      $scope.$broadcast('asuno-refresh-all');
+  }, () => {
+      $scope.error = 'Произошла ошибка сети';
+  });
+
+};
+
+
+$rootScope.setDirectionId = function(directionId) {
+  $rootScope.directionId = directionId;
+};
+$rootScope.linkDirection = function (cabelId, closeModal) {
+
+  let params = {id: $scope.controller.id, direction_id: $rootScope.directionId};
+
+  let unlink = Scheme.direction_link_cable(params, {cable_id: cabelId}).$promise;
+
+  unlink
+      .then(() => {
+    $scope.$broadcast('asuno-refresh-all');
+    closeModal();
+  }, () => {
+    $scope.error = 'Произошла ошибка сети';
+    closeModal();
+  });
+  $rootScope.directionId = null;
+};
+
 $rootScope.timelineInit = function (_begin, _end) {
   begin = _begin;
   end = _end;
@@ -351,9 +389,13 @@ $scope.cameraExtractor = function (graphic) {
   }
 };
 
-$scope.controllerConnect = function (attributes) {
-  if (attributes.PP_ID === $scope.controller.gis_id) {
-    return $scope.controller;
+$scope.cameraExtractor = function (graphic) {
+  var cameras = $scope.controller.cameras.map(function (camera) {
+    return camera.stream_uri;
+  });
+
+  if (cameras.indexOf(graphic.attributes.purl) >= 0) {
+    return 1;
   }
 };
 

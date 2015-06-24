@@ -2,7 +2,9 @@
   <div simple-map class="col-md-12">
     <div group-map-layer="atd"></div>
     <div simple-map-layer="districts" sml-parent-scope="child"></div>
-    <div simple-map-layer="lep" sml-parent-scope="child"></div>
+    <div simple-map-layer="lep" sml-parent-scope="child"
+         sml-popup-template="<div></div>"
+         sml-title-template="<span></span>"></div>
     <div simple-map-layer="cameras" sml-parent-scope="child"></div>
     <div simple-map-layer="rdps" sml-points="rdps"
          sml-point-click="selectRdp" sml-point-connect="pointConnect" sml-parent-scope="child"

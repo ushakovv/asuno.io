@@ -10,7 +10,9 @@
   };
 
   var _editTemplate = '<div ng-class="{\'has-error\': [\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)>=0 && !COL_FIELD}">\n  <input ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" type="number" required name="fieldInput"\n         ng-if="[\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)>=0"/>\n  <input ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" type="text" name="fieldInput"\n         ng-if="[\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)===-1"/>\n</div>';
-  var _cellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" bs-tooltip data-container="body"\n     data-title="{{row.getProperty(col.field)}}"\n     data-col-status="{{ row.entity[col.field] === null || row.entity[col.field] === undefined ? \'inactive\' : \'\' }}">\n  <span ng-cell-text>{{row.getProperty(col.field)}}</span>\n</div>';
+  var _cellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" bs-tooltip data-container="body"\n <span ng-switch="row.getProperty(\'field\')">\n  ' +
+      '<span ng-switch-when="cable_id" ng-controller="DirectionLepCtrl as dirLep">\n   <a href="javascript:void(0)"  ng-click="dirLep.toggleDirectionLink(row.getProperty(col.field), row.getProperty(col.field+\'number\'))" >\n    <span ng-if="!row.getProperty(col.field)">Привязать</span>\n' +
+      '<span ng-if="row.getProperty(col.field)">Отвязать</span>\n   </a></span>\n  <span ng-switch-default>{{row.getProperty(col.field)}} </span>\n   </span>\n  </div>';
 
   function ControllerDirectionsCtrl($scope, $rootScope, ngGridBase, Auth, Controllers) {
 
@@ -21,12 +23,16 @@
       {title : 'Ip, A', field : 'i_p'},
       {title : 'Iyt, mA', field : 'i_ut'},
       {title : 'Напр. линии', field : 'direction'},
-      {title : 'Осв. приборы', field : 'lightning'}
+      {title : 'Осв. приборы', field : 'lightning'},
+      {title : 'Привязка к лэп', field: 'cable_id'}
     ];
 
     $scope.$watch('controller', function (next) {
       if (angular.isArray(next.directions)) {
-        var dirs = next.directions;
+        var dirs = next.directions.map(function(dir) {
+          dir.cable_id = dir.cable_id || null;
+          return dir;
+        });
         $scope.directions = $scope.directionsMap
           .map(function (dir) {
             return {
@@ -37,6 +43,7 @@
           .map(function (dirStub) {
             dirs.forEach(function (dir, idx) {
               dirStub['value' + dir.number] = parseDirectionValue(dirs, dirStub, idx);
+              dirStub['value' + dir.number + 'number'] = dir.number;
             });
             return dirStub;
           });
