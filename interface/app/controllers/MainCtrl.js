@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $log) {
+  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent) {
     var mutex = Mutex.create();
 
     $scope.rdps = rdps;
@@ -101,7 +101,6 @@
     };
 
     $scope.isEmergency = function isEmergency(entity) {
-      $log.debug('isEmergency', entity);
       return (entity.state && entity.state.payload && entity.state.payload === 'emergency') || !!entity.emergency;
     };
 

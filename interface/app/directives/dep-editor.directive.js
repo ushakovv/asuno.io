@@ -11,13 +11,13 @@
       <button class="btn btn-default btn-block" ng-click="toggleDirection(directionNum, !!direction)" ng-disabled="loading">
       {{ direction ? 'Отключить' : 'Подключить' }}
 </button>
-<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 2)" ng-disabled="isContactorOn(2) || contactorNum === 2 || !direction || loading">
+<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 2)" ng-disabled="!isContactorOn(2) || contactorNum === 2 || !direction || loading">
     Контактор "ВЕЧЕР"
 </button>
-<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 1)" ng-disabled="isContactorOn(1) || contactorNum === 1 || !direction || loading">
+<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 1)" ng-disabled="!isContactorOn(1) || contactorNum === 1 || !direction || loading">
     Контактор "НОЧЬ"
 </button>
-<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 3)" ng-disabled="isContactorOn(3) || contactorNum === 3 || !direction || loading">
+<button class="btn btn-default btn-block" ng-click="connectToContactor(direction, 3)" ng-disabled="!isContactorOn(3) || contactorNum === 3 || !direction || loading">
     Контактор "ДЕНЬ"
 </button>
 </div>
@@ -122,7 +122,6 @@ function drawDirection(phase, phaseElement, directionNum) {
     $child.controller = scope.controller;
     $child.directionElement = directionElement;
 
-
     const content = $compile(_popoverTemplate)($child);
 
     scope.$apply();
@@ -204,7 +203,8 @@ scope.$watch('controller', function (next) {
       };
 
       $scope.isContactorOn = function (contactorNum) {
-        return !!$scope.controller.contactor(contactorNum);
+        var res = !!$scope.controller.contactor(contactorNum);
+        return res;
       };
 
       $scope.connectToContactor = function (direction, contactorNum) {

@@ -259,7 +259,7 @@
       <text id="svg_311" transform="matrix(0.9775 0 0 1 375.1826 181.5664)" font-family="'Tahoma'" font-size="9.7114">A</text>
       <text id="svg_312" transform="matrix(0.9775 0 0 1 375.2149 193.1572)" font-family="'Tahoma'" font-size="9.7114">B</text>
     </g>
-    <g id="kvits">
+    <g id="kvits" display=" none">
       <line id="svg_38" fill="none" stroke="#666666" stroke-miterlimit="10" x1="390" y1="207.9" x2="390" y2="231.5"/>
       <circle id="kvit_0" cx="390" cy="232.5" r="5.8"/>
       <line id="svg_39" fill="none" stroke="#666666" stroke-miterlimit="10" x1="410" y1="220.2" x2="410" y2="243.8"/>
