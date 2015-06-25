@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function RDPsController($scope, $state, $log, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent) {
+  function RDPsController($scope, $state, $log, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent, Controllers) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = true;
@@ -30,7 +30,21 @@
 
     setFilters();
 
-    var calculate = function () {
+    $log.debug('RDPControllerCtrl', Controllers.all_cables);
+    let cabels = [];
+
+    Controllers.all_cables({}).$promise
+        .then((data) => {
+      cabels = data.cables;
+  });
+
+  $scope.lepFilter = function (attributes) {
+    $log.debug('lepFilter', attributes, $scope.cabels);
+    return cabels.indexOf(attributes.CABEL_ID) > 0;
+  };
+
+
+  var calculate = function () {
       if (!mutex.isLocked()) {
         mutex.lock();
         RDPs.query_no(function (rdps) {

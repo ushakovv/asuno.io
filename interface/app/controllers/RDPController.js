@@ -127,17 +127,18 @@
     };
 
     $log.debug('RDPControllerCtrl');
-    let cabels = [];
+
+    let cabelsId = [];
 
     Controllers.all_cables({}, {}).$promise
         .then((data) => {
-      cabels = data.cables;
-  });
+        cabelsId = data.cables.map(function(cable) { return cable.cabel_id; });
+     });
 
-  $scope.lepFilter = function (attributes) {
-    $log.debug('lepFilter', attributes, $scope.cabels);
-    return cabels.indexOf(attributes.CABEL_ID) > 0;
-  };
+    $scope.lepFilter = function (attributes) {
+      return cabelsId.indexOf(attributes.CABEL_ID) > 0;
+    };
+
 
     $scope.pointConnect = function (attributes) {
       return _.find($scope.controllers, function (controller) {

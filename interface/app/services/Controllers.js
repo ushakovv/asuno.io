@@ -16,10 +16,7 @@
         },
         all_cables : {
             method : 'GET',
-            url : '/api/controllers/all_cables',
-            transformResponse:  function (data) {
-                return {cables: (data && data.cables || []).map(function(cabel) { return cabel.cabel_id; })};
-            }
+            url : '/api/controllers/all_cables'
         },
         available_cables : {
             method : 'GET',
@@ -54,8 +51,8 @@
       add_contactor           : {method : 'POST', url : '/api/controllers/:id/contactors'},
       delete_contactor        : {method : 'DELETE', url : '/api/controllers/:id/contactors/:contactor_id'},
       delete_direction        : {method : 'DELETE', url : '/api/controllers/:id/directions/:number'},
-      direction_unlink_cable : {method : 'POST', url : '/api/controllers/:id/directions/:direction_id/unlink_cable'},
-      direction_link_cable : {method : 'POST', url : '/api/controllers/:id/directions/:direction_id/link_with_cable'},
+      direction_unlink_cable : {method : 'POST', url : '/api/controllers/:id/direction/:direction_id/unlink_cable'},
+      direction_link_cable : {method : 'POST', url : '/api/controllers/:id/direction/:direction_id/link_with_cable'},
       add_direction           : {method : 'POST', url : '/api/controllers/:id/directions'},
       set_direction_contactor : {method : 'POST', url : '/api/controllers/:id/direction/:direction_id/link'}
     });

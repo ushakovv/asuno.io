@@ -43,7 +43,7 @@
           .map(function (dirStub) {
             dirs.forEach(function (dir, idx) {
               dirStub['value' + dir.number] = parseDirectionValue(dirs, dirStub, idx);
-              dirStub['value' + dir.number + 'number'] = dir.number;
+              dirStub['value' + dir.number + 'number'] = dir.id;
             });
             return dirStub;
           });

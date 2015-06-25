@@ -380,17 +380,18 @@ $scope.pointFilter = function (attributes) {
 };
 
 $log.debug('ControllerCtrl');
-let cabels = [];
+
+let cabelsId = [];
 
 Controllers.all_cables({}, {}).$promise
     .then((data) => {
-    cabels = data.cables;
-});
+      cabelsId = data.cables.map(function(cable) { return cable.cabel_id; });
+  });
 
 $scope.lepFilter = function (attributes) {
-  $log.debug('lepFilter', attributes, $scope.cabels);
-  return cabels.indexOf(attributes.CABEL_ID) > 0;
+  return cabelsId.indexOf(attributes.CABEL_ID) > 0;
 };
+
 
 $scope.cameraExtractor = function (graphic) {
   var cameras = $scope.controller.cameras.map(function (camera) {

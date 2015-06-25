@@ -11,7 +11,8 @@
                      sml-point-connect="controllerConnect"
                      sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
                 </div>
-                <div simple-map-layer="lep" sml-parent-scope="child" show="true" sml-close-modal="$dismiss"></div>
+                <div simple-map-layer="lep" sml-parent-scope="child" show="true" sml-close-modal="$dismiss"
+                     sml-point-filter="modalLepFilter" ></div><!--sml-point-filter="modalLepFilter"-->
             </div>
         </div>
     </div>
