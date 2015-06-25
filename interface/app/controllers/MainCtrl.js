@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent) {
+  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $log) {
     var mutex = Mutex.create();
 
     $scope.rdps = rdps;
@@ -95,6 +95,16 @@
     $scope.removeEvent = function (event) {
       $scope.selectedEvents = _.filter($scope.selectedEvents, (evt) => evt.id !== event.id);
     };
+
+    $scope.isHasIssue = function isHasIssue(entity){
+      return entity.issue && !!parseInt(entity.issue.ufap_id, 10);
+    };
+
+    $scope.isEmergency = function isEmergency(entity) {
+      $log.debug('isEmergency', entity);
+      return (entity.state && entity.state.payload && entity.state.payload === 'emergency') || !!entity.emergency;
+    };
+
     $scope.massMute = function () {
       $scope.muteLoading = true;
 
@@ -179,9 +189,9 @@
           displayName  : 'Заявка',
           width        : '*',
           cellTemplate : '<div class="ngCellText" style="text-align: center">' +
-            '<span ng-if="row.entity.emergency">' +
-              '<span ng-if="!row.entity.issue"><a href="javascript:void(0)" ng-click="createIssue(row.entity)">создать</a></span>' +
-              '<span ng-if="row.entity.issue">Отправлена №{{row.entity.issue.ufap_id}}</span>' +
+            '<span ng-if="isEmergency(row.entity)">' +
+              '<span ng-if="!isHasIssue(row.entity)"><a href="javascript:void(0)" ng-click="createIssue(row.entity)">создать</a></span>' +
+              '<span ng-if="isHasIssue(row.entity)">Отправлена №{{row.entity.issue.ufap_id}}</span>' +
             '</span>',
           sortable     : false
         }
