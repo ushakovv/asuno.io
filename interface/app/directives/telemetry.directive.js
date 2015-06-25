@@ -7,18 +7,16 @@
           replace: true,
           templateUrl: '/assets/templates/telemetry.tmpl.html',
           scope: {
-            controller: '='
+            controller: '=',
+            hideSensors: '=hideSensors',
+            hideButton: '=hideButton'
           },
           bindToController: true,
           controller: 'TelemetryController as telemetry'
         };
       })
-      .controller('TelemetryController',
-
-      function TelemetryController($rootScope, SensorGraph) {
-
+      .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph) {
         this.showGraph = false;
-
         this.openSensorGraphModal = SensorGraph.open;
 
         this.changeSensors = $rootScope.changeSensors;

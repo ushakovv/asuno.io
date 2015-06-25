@@ -17,7 +17,7 @@
       name           : 'ЛЭП',
       dataAttributes : ['Object_ID', 'CABEL_ID'],
       icon           : '/assets/img/dispatchCenter.png',
-      titleTemplate    : '<span>Выберите ЛЕП</span>',
+      titleTemplate    : '<span>Выберите ЛЭП</span>',
       invisible      : true,
       tooMuchData : true,
       popupTemplateUrl : '/assets/templates/gis/lep.html'

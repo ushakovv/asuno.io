@@ -38,29 +38,39 @@
     <div class="row" ui-view=""></div>
   </div>
   <div class="col-lg-3 col-md-12">
-    <form>
-      <fieldset>
-        <legend>Камеры</legend>
-        <div class="form-group">
-          <div class="col-md-12">
-            <div simple-map sm-zoom="19" sm-hide-layers="true">
-              <div simple-map-layer="cameras" sml-parent-scope="child" show="true"
-                   sml-popup-template-url="/assets/templates/gis/camera-for-controller.html">
-                <div feature-renderer fr-extractor="cameraExtractor" fr-default-symbol="/assets/img/camera.png">
-                  <div renderer-setting rs-value="1" rs-symbol="/assets/img/camera_green.png"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <form>
+          <fieldset>
+            <legend>Камеры</legend>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div simple-map sm-zoom="19" sm-hide-layers="true">
+                  <div simple-map-layer="cameras" sml-parent-scope="child" show="true"
+                       sml-popup-template-url="/assets/templates/gis/camera-for-controller.html">
+                    <div feature-renderer fr-extractor="cameraExtractor" fr-default-symbol="/assets/img/camera.png">
+                      <div renderer-setting rs-value="1" rs-symbol="/assets/img/camera_green.png"></div>
+                    </div>
+                  </div>
+                  <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
+                       sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
+                       sml-point-click="selectController" sml-point-connect="controllerConnect"
+                       sml-popup-template="<div controller-popup controller='point'></div>"
+                       sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+                  </div>
+                  <div simple-map-search></div>
                 </div>
               </div>
-              <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
-                   sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
-                   sml-point-click="selectController" sml-point-connect="controllerConnect"
-                   sml-popup-template="<div controller-popup controller='point'></div>"
-                   sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
-              </div>
-              <div simple-map-search></div>
             </div>
-          </div>
-        </div>
-      </fieldset>
-    </form>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <telemetry controller="controller" hide-sensors="true"></telemetry>
+      </div>
+
+    </div>
   </div>
 </div>

@@ -5,10 +5,11 @@
 (function () {
   'use strict';
 
-  function ControllerAdmCtrl($scope, $state, Controllers, Cameras, UFAP, rdp, controller) {
+  function ControllerAdmCtrl($scope, $state, Controllers, Cameras, UFAP, rdp, controller, $rootScope, $log) {
     $scope.rdp = rdp;
     $scope.controller = controller;
     $scope.controller.profile = controller.gis_id;
+    $log.debug('$scope.controller.sensors', $scope.controller.sensors);
 
     this.search = function (name) {
       return UFAP.search({name : name}).$promise.then(function (data) {
@@ -103,6 +104,27 @@
         $scope.error = 'Произошла ошибка при сохранении.';
         delete $scope.loading;
       });
+    };
+
+    $rootScope.changeSensors = function () {
+      const params = {id: $scope.controller.id };
+
+      if ( $scope.controller.sensors.length > 0) {
+
+        Controllers.delete_sensore(params, $scope.controller).$promise
+            .then(function () {
+              $scope.$broadcast('asuno-refresh-all');
+            }, function() {
+              $scope.error = 'Произошла ошибка изменения счетчика.';
+            });
+      } else {
+        Controllers.add_sensore(params, $scope.controller).$promise
+            .then(function () {
+              $scope.$broadcast('asuno-refresh-all');
+            }, function() {
+              $scope.error = 'Произошла ошибка изменения счетчика.';
+            });
+      }
     };
   }
 
