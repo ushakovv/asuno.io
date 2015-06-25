@@ -8,7 +8,8 @@
   function Events(resource) {
     return resource('/api/events', {}, {
       query: {isArray : false},
-      comment: {method : 'POST', url : '/api/events/:id/comment'}
+      comment: {method : 'POST', url : '/api/events/:id/comment'},
+      create_issue: {method : 'POST', url : '/api/events/:id/create_issue'}
     });
   }
 

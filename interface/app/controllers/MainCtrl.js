@@ -39,6 +39,7 @@
         Events.query(query, function (events) {
           if (currentLoad === _uniqueJournalLoad && !$scope.main.globalLocked) {
             $scope.totalServerCount = events.total;
+
             $scope.alarms = events.events.map(ReportFormatter.format_alarm);
             $scope.selectedEvents = [];
             delete $scope.report.loading;
@@ -83,6 +84,13 @@
     $scope.selectedEvents = [];
     $scope.addEvent = function (event) {
       $scope.selectedEvents.push(event);
+    };
+    $scope.createIssue = function (event) {
+      Events.create_issue({id : event.id}, {id : event.id})
+          .$promise
+          .finally(function () {
+            $scope.reload_alarms($scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+          });
     };
     $scope.removeEvent = function (event) {
       $scope.selectedEvents = _.filter($scope.selectedEvents, (evt) => evt.id !== event.id);
@@ -164,6 +172,17 @@
           displayName  : 'Квитировать',
           width        : '**',
           cellTemplate : '<div class="ngCellText" style="text-align: center"><span class="ok" ng-if="row.entity.silenced_by"><i class="fa fa-check"></i>{{row.entity.silenced_by}}</span><input type="checkbox" if-has-control ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="row.entity.silent_model ? addEvent(row.entity) : removeEvent(row.entity)"></div>',
+          sortable     : false
+        },
+        {
+          field        : '',
+          displayName  : 'Заявка',
+          width        : '*',
+          cellTemplate : '<div class="ngCellText" style="text-align: center">' +
+            '<span ng-if="row.entity.emergency">' +
+              '<span ng-if="!row.entity.issue"><a href="javascript:void(0)" ng-click="createIssue(row.entity)">создать</a></span>' +
+              '<span ng-if="row.entity.issue">Отправлена №{{row.entity.issue.ufap_id}}</span>' +
+            '</span>',
           sortable     : false
         }
       ]
