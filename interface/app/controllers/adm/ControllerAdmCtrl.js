@@ -6,10 +6,10 @@
   'use strict';
 
   function ControllerAdmCtrl($scope, $state, Controllers, Cameras, UFAP, rdp, controller, $rootScope, $log) {
+
     $scope.rdp = rdp;
     $scope.controller = controller;
     $scope.controller.profile = controller.gis_id;
-    $log.debug('$scope.controller.sensors', $scope.controller.sensors);
 
     this.search = function (name) {
       return UFAP.search({name : name}).$promise.then(function (data) {
@@ -114,18 +114,38 @@
         Controllers.delete_sensore(params, $scope.controller).$promise
             .then(function () {
               $scope.$broadcast('asuno-refresh-all');
-            }, function() {
+            }, function(data) {
               $scope.error = 'Произошла ошибка изменения счетчика.';
+              $log.debug('Произошла ошибка изменения счетчика.', data);
             });
       } else {
         Controllers.add_sensore(params, $scope.controller).$promise
             .then(function () {
               $scope.$broadcast('asuno-refresh-all');
-            }, function() {
+            }, function(data) {
               $scope.error = 'Произошла ошибка изменения счетчика.';
+              $log.debug('Произошла ошибка изменения счетчика.', data);
             });
       }
     };
+
+    function setController() {
+      if ( !$scope.loading ) {
+        delete $scope.error;
+        $scope.loading = true;
+        Controllers.get({
+          controller: $scope.controller.id
+        }, function (controller) {
+            $scope.controller = controller;
+            $scope.controller.profile = controller.gis_id;
+            delete $scope.loading;
+        }, function() {
+            delete $scope.loading;
+        });
+      }
+    }
+
+    $scope.$on('asuno-refresh-all', setController);
   }
 
   angular.module('asuno').controller('ControllerAdmCtrl', ControllerAdmCtrl);
