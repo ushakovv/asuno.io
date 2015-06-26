@@ -914,7 +914,10 @@
     </g>
   </g>
   <g id="maintenance-text">
-    <text id="svg_2" transform="matrix(1 0 0 1 621.878 304.7276)" font-family="'ArialMT'" font-size="10.9091">профилактика</text>
+    <text id="svg_2" transform="matrix(1 0 0 1 621.878 304.7276)" font-family="'ArialMT'" font-size="12.9091">профилактика</text>
+    <text id="maintance-off" transform="matrix(1 0 0 1 735.878 304.7276)" font-family="'ArialMT'" font-size="10.9091" fill="blue" style="
+        cursor: pointer;
+    ">снять</text>
   </g>
 </g>
 </svg>

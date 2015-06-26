@@ -34,6 +34,7 @@
         change         : {method : 'POST', url : '/api/controllers/:controller/command'},
         patch          : {method : 'PATCH', url : '/api/controllers/:id'},
         maintenance    : {method : 'POST', url : '/api/controllers/:controller/maintenance'},
+        maintenance_delete    : {method : 'DELETE', url : '/api/controllers/:controller/maintenance'},
 
         direction_edit : {method : 'PATCH', url : '/api/direction/:id'},
 

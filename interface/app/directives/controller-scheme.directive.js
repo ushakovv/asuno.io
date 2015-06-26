@@ -52,7 +52,7 @@
     return img;
   }
 
-  function controllerScheme($compile) {
+  function controllerScheme($compile, Controllers, $rootScope) {
     return {
       scope    : {
         controller : '=controllerScheme'
@@ -353,6 +353,14 @@
               }).on('mouseleave', function () {
                 $(this).find('circle[fill="#000000"]').popover('destroy');
               });
+            });
+
+            // maintance Off
+            var maintanceOffbutton = element.find('#maintance-off');
+            maintanceOffbutton.on('click', function() {
+                Controllers.maintenance_delete(
+                  { controller : scope.controller.id }, { controller : scope.controller.id }).$promise
+                    .then( () => { $rootScope.$broadcast('asuno-refresh-all'); });
             });
 
             //показатели
