@@ -2,49 +2,48 @@
   'use strict';
 
   angular.module('asuno')
-      .directive('telemetry', function telemetry() {
-        return {
-          replace: true,
-          templateUrl: '/assets/templates/telemetry.tmpl.html',
-          scope: {
-            controller: '=',
-            hideSensors: '=hideSensors',
-            hideButton: '=hideButton'
-          },
-          bindToController: true,
-          controller: 'TelemetryController as telemetry'
-        };
-      })
-      .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph) {
-        this.showGraph = false;
-        this.openSensorGraphModal = SensorGraph.open;
+    .directive('telemetry', function telemetry() {
+      return {
+        replace: true,
+        templateUrl: '/assets/templates/telemetry.tmpl.html',
+        scope: {
+          controller: '=',
+          hideSensors: '=hideSensors',
+          hideButton: '=hideButton'
+        },
+        bindToController: true,
+        controller: 'TelemetryController as telemetry'
+      };
+    })
+    .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph) {
+      this.showGraph = false;
+      this.openSensorGraphModal = SensorGraph.open;
 
-        this.changeSensors = $rootScope.changeSensors;
+      this.changeSensors = $rootScope.changeSensors;
 
-      })
-      .controller('GraphModalController', function GraphModalController($scope, $rootScope, Sensors, sensor) {
-        const graphModal = this;
-        const powerData = $rootScope.getPowerValues();
+    })
+    .controller('GraphModalController', function GraphModalController($scope, $rootScope, Sensors, sensor) {
+      const graphModal = this;
+      const powerData = $rootScope.getPowerValues();
 
-        this.sensor = sensor;
-        this.load = function (conf) {
-          graphModal.loading = true;
-          graphModal.errors = [];
-          graphModal.between = [conf.dateFrom.getTime(), conf.dateTo.getTime()];
 
-          const storageSensors = [];
-          const storageMaxPower = [];
-          const storageAvgPower = [];
+      this.sensor = sensor;
 
-          function loadData(sensor, storageSensors, powerData, storageMaxPower, storageAvgPower) {
+      this.load = function (conf) {
+        graphModal.loading = true;
+        graphModal.errors = [];
+        graphModal.between = [conf.dateFrom.getTime(), conf.dateTo.getTime()];
+        const storageSensors = [];
+        const storageMaxPower = [];
+        const storageAvgPower = [];
+        function loadData(sensor, storageSensors, powerData, storageMaxPower, storageAvgPower) {
 
-            const getSensorHistory = Sensors.history(sensor.sid, conf.dateFrom, (response) => new Date(response.data.last_date) >= conf.dateTo);
+          const getSensorHistory = Sensors.history(sensor.sid, conf.dateFrom, (response) => new Date(response.data.last_date) >= conf.dateTo);
 
-            return getSensorHistory.then((data) => {
-                  const max = _(data)
-                          .filter((item) => item.timestamp.getTime() < conf.dateTo.getTime())
-          .forEach((item) => storageSensors.push([item.timestamp.getTime(), item.value]))
-          .max('value');
+          return getSensorHistory.then((data) => {
+            const max = _(data).filter((item) => item.timestamp.getTime() < conf.dateTo.getTime())
+              .forEach((item) => storageSensors.push([item.timestamp.getTime(), item.value]))
+              .max('value');
 
             graphModal.forcey = [0, max.value || 0];
 
@@ -67,41 +66,46 @@
           });
         }
 
-
         loadData(this.sensor, storageSensors, powerData, storageMaxPower, storageAvgPower)
-            .then(() => {
-          this.data = [
-          {
-            key: this.sensor.hr_name,
-            values: storageSensors
-          }
-        ];
-        if (storageMaxPower.length > 0) {
-          this.data.push({
-            key: 'Максимально допустимая мощность',
-            values: storageMaxPower,
-            color: '#ff7f0e'
-          });
-        }
-        if (storageAvgPower.length > 0) {
-          this.data.push({
-            key: 'Средне статистическая мощность',
-            values: storageAvgPower,
-            color: '#2ca02c'
-          });
-        }
-      })
-      .then(() => graphModal.loading = false);
+          .then(() => {
+            this.data = [{
+              key: this.sensor.hr_name,
+              values: storageSensors
+            }];
+            if (storageMaxPower.length > 0) {
+              this.data.push({
+                key: 'Максимально допустимая мощность',
+                values: storageMaxPower,
+                color: '#ff7f0e'
+              });
+            }
+            if (storageAvgPower.length > 0) {
+              this.data.push({
+                key: 'Средне статистическая мощность',
+                values: storageAvgPower,
+                color: '#2ca02c'
+              });
+            }
+          })
+          .then(() => graphModal.loading = false);
 
 
 
-  this.xAxisTickFormat = function (d) {
-    return moment(d).format('DD.MM HH:mm');
-  };
+        this.xAxisTickFormat = function (d) {
+          return moment(d).format('DD.MM HH:mm');
+        };
 
-  this.yAxisTickFormat = function(d) {
-    return `${(d || 0).toFixed(2)} ${graphModal.sensor.measurement}`;
-  };
-};
-});
+        this.yAxisTickFormat = function(d) {
+          return `${(d || 0).toFixed(2)} ${graphModal.sensor.measurement}`;
+        };
+      };
+
+      this.conf = {
+        dateTo : moment().toDate(),
+        dateFrom : moment().add(-1, 'd').toDate()
+      };
+
+      this.load(graphModal.conf);
+
+  });
 })();

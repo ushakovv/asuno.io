@@ -5,25 +5,25 @@
   <form name="graphForm" class="form-inline">
     <div class="form-group" ng-class="{'has-error': graphForm.fromDate.$invalid || graphForm.fromTime.$invalid}">
       <label class="control-label">С</label>
-      <input type="text" name="fromDate" size="10" class="form-control" ng-model="conf.dateFrom" data-autoclose="1"
-             placeholder="дд.мм.гггг" data-max-date="{{conf.dateTo}}" bs-datepicker required>
+      <input type="text" name="fromDate" size="10" class="form-control" ng-model="graphModal.conf.dateFrom" data-autoclose="1"
+             placeholder="дд.мм.гггг" data-max-date="{{graphModal.conf.dateTo}}" bs-datepicker required>
     </div>
     <div class="form-group" ng-class="{'has-error': graphForm.fromDate.$invalid || graphForm.fromTime.$invalid}">
-      <input type="text" name="fromTime" size="6" class="form-control" ng-model="conf.dateFrom" data-autoclose="1" placeholder="чч:мм"
+      <input type="text" name="fromTime" size="6" class="form-control" ng-model="graphModal.conf.dateFrom" data-autoclose="1" placeholder="чч:мм"
              bs-timepicker required>
     </div>
 
     <div class="form-group" ng-class="{'has-error': graphForm.toDate.$invalid || graphForm.toTime.$invalid}">
       <label class="control-label">По</label>
-      <input type="text" name="toDate" size="10" class="form-control" ng-model="conf.dateTo" data-autoclose="1"
-             placeholder="дд.мм.гггг" data-min-date="{{conf.dateFrom}}" bs-datepicker required>
+      <input type="text" name="toDate" size="10" class="form-control" ng-model="graphModal.conf.dateTo" data-autoclose="1"
+             placeholder="дд.мм.гггг" data-min-date="{{graphModal.conf.dateFrom}}" bs-datepicker required>
     </div>
     <div class="form-group" ng-class="{'has-error': graphForm.toDate.$invalid || graphForm.toTime.$invalid}">
-      <input type="text" name="toTime" size="6" class="form-control" ng-model="conf.dateTo" data-autoclose="1" placeholder="чч:мм"
+      <input type="text" name="toTime" size="6" class="form-control" ng-model="graphModal.conf.dateTo" data-autoclose="1" placeholder="чч:мм"
              bs-timepicker required>
     </div>
     <div class="form-group">
-      <button class="btn btn-default" ng-disabled="graphForm.$invalid" ng-click="graphModal.load(conf)">построить график</button>
+      <button class="btn btn-default" ng-disabled="graphForm.$invalid" ng-click="graphModal.load(graphModal.conf)">построить график</button>
     </div>
   </form>
 </div>
