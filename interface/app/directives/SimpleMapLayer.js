@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS, $log) {
+  function simpleMapLayer($q, $compile, httpTemplateCache, GIS_LAYERS) {
     return {
       require    : '^simpleMap',
       replace    : true,
@@ -161,10 +161,6 @@
 
                 if (angular.isFunction($scope.pointFilter)) {
                   featureLayer.on('graphic-add', function (element) {
-                    if ($scope.layer === 'lep' ) {
-                      $log.debug(element, element.graphic);
-                    }
-
                     if (!$scope.pointFilter(element.graphic.attributes)) {
                       element.graphic.hide();
                     } else if (layerConfig.filter && $scope.featureLayer.filter) {

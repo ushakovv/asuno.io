@@ -8,6 +8,8 @@
   function ReportFormatter() {
     this.format_alarm = function (event) {
       var emergency = event.state.payload === 'emergency';
+      var hasIssue = event.issue && event.issue.id && (parseInt(event.issue.id, 10) > 0);
+      var ufap_id = hasIssue ? event.issue.ufap_id : 0;
       return {
         id: event.id,
         timestamp: new Date(event.timestamp),
@@ -17,6 +19,8 @@
         hr_name: event.denotation,
         description: event.denotation,
         emergency: emergency,
+        has_issue: hasIssue,
+        ufap_id: ufap_id,
         silent: event.silent,
         silenced_by: event.silenced_by,
         silent_model: emergency && event.silent,

@@ -132,7 +132,8 @@
 
     Controllers.all_cables({}, {}).$promise
         .then((data) => {
-        cabelsId = data.cables.map(function(cable) { return cable.cabel_id; });
+        cabelsId = [];
+        data.cables.forEach(function(cable) { cabelsId.push(cable.cable_id); });
      });
 
     $scope.lepFilter = function (attributes) {
