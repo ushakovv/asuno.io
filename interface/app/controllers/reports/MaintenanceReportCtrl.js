@@ -47,7 +47,8 @@
                 },
                 {
                     field        : 'controller_name',
-                    displayName : 'Контоллер'
+                    displayName : 'Контоллер',
+                    cellTemplate : '<div class="ngCellText"><a ui-sref="core.controller({rdp: row.entity.rdp_slug, controller: row.entity.controller_id})">{{row.getProperty(col.field)}}</a></div>'
                 }
             ]
         };
