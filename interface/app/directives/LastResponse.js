@@ -24,5 +24,9 @@
           .$promise
           .then(() => Controllers.sensors_poll({controller: this.controller.id}, {}));
       };
+
+      this.timeSync = () => {
+        Controllers.change({controller: this.controller.id}, {command: 'time:sync'});
+      };
     });
 })();

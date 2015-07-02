@@ -18,7 +18,8 @@
     'control_mode:autonomous' : 'Установка автономного режима',
     'dimmer:set_level'        : 'Установка диммера',
     'bypass:switch_on'        : 'Включить байпасс',
-    'bypass:switch_off'       : 'Отключить байпасс'
+    'bypass:switch_off'       : 'Отключить байпасс',
+    'time:sync'               : 'Синхронизация времени'
   };
 
   angular.module('asuno').constant('COMMANDS', _commands);
