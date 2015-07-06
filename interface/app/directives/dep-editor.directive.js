@@ -93,8 +93,6 @@ function drawDirection(phase, phaseElement, directionNum) {
 
   let contactorNum;
 
-
-
   directionElement.find('.direction-contactor').css('opacity', 0);
 
   if (!direction) {
@@ -104,9 +102,6 @@ function drawDirection(phase, phaseElement, directionNum) {
     const contactorIds = scope.controller.contactorIds();
 
     contactorNum = contactorIds.indexOf(direction.contactor_id) + 1;
-
-
-
 
     directionElement.find(`.direction-contactor-${contactorNum}`).css('opacity', 1);
   }
