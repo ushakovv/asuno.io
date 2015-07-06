@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function RDPController($rootScope, $scope, $state, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, ControllersActions, Mutex, tickEvent, initial) {
+  function RDPController($log, $rootScope, $scope, $state, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, FILTER_CONFIGS_BATCH, ControllersActions, Mutex, tickEvent, initial) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = false;
@@ -14,6 +14,9 @@
 
     // TODO убрать нафиг когда Лёха поправит сервер
     $rootScope._rdpId = initial.rdp.id;
+
+    $log.debug('RDPController');
+
 
     if (initial.rdp.slug.indexOf('akhp') >= 0) {
       $scope.crumbs = [{
@@ -115,7 +118,21 @@
 
     $scope.filterController = function (ctrl) {
       var key = FILTER_CONFIGS[ControllersStore.getFilterKey()] || 'id';
+
       var filtered = !!(ctrl[key] || ctrl.alarms[key] && ctrl.alarms[key].length);
+
+      if (filtered) {
+        switch (key) {
+          case 'connection':
+          case 'fire':
+          case 'common_alarm':
+            filtered = _.any(ctrl.alarms[key], (obj) => obj.value === 1);
+            break;
+          case 'door':
+            filtered = _.any(ctrl.alarms[key], (door) => door.value === 0);
+            break;
+        }
+      }
       if (!ControllersStore.getShowAutonomous()) {
         filtered = filtered && !ctrl.is_autonomous;
       }
