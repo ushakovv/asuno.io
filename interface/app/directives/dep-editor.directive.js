@@ -28,7 +28,7 @@
   `;
 
   angular.module('asuno')
-    .directive('depEditor', function depEditor($rootScope, $timeout, $compile) {
+    .directive('depEditor', function depEditor($rootScope, $timeout, $compile, $log) {
       return {
         template: '<div></div>',
         scope: {
@@ -98,8 +98,10 @@
 
               if (contactorNum === 1) {
                 directionElement.find('.direction-contactor-0').css('opacity', 0);
+                directionElement.find('.direction-contactor-1').css('opacity', 1);
               } else if (contactorNum === 0) {
                 directionElement.find('.direction-contactor-1').css('opacity', 0);
+                directionElement.find('.direction-contactor-0').css('opacity', 1);
               } else {
                 directionElement.find('.direction-contactor').css('opacity', 0);
               }
