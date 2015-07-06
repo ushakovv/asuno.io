@@ -240,7 +240,6 @@
 
         function drawContactor(contactorNum) {
           var contactorElement = element.find('.contactor-num.contactor-num-' + contactorNum);
-
           var contactor = scope.controller.contactor(contactorNum);
 
           element.find('.contactor-group.contactor-group-' + contactorNum).show();
