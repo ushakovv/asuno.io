@@ -25,8 +25,9 @@
         controller: 'NewControllerController as ncc',
         scope: $scope.$new()
       });
-
-      instance.result.then(function () {
+      instance.result.then(() => {
+        Controllers.query({sid : $scope.rdp.sid}, (controllers) => $scope.controllers = controllers);
+      }, () => {
         Controllers.query({sid : $scope.rdp.sid}, (controllers) => $scope.controllers = controllers);
       });
     };
@@ -53,8 +54,10 @@
         tag: ctrl.tag
       })
       .$promise
-      .then(() => this.success = true)
-      .then(() => this.message = {type: 'success', text: 'Пункт питания добавлен'})
+      .then(() => {
+        this.success = true;
+        this.message = {type: 'success', text: 'Пункт питания добавлен'};
+      })
       .catch(() => this.message = {type: 'error', text: 'Произошла ошибка'})
       .finally(() => this.loading = false);
     };
