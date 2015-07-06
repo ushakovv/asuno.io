@@ -28,7 +28,7 @@
   `;
 
   angular.module('asuno')
-    .directive('depEditor', function depEditor($rootScope, $timeout, $compile, $log) {
+    .directive('depEditor', function depEditor($rootScope, $timeout, $compile) {
       return {
         template: '<div></div>',
         scope: {

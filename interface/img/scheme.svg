@@ -82,7 +82,7 @@
           <rect x="150.93169" y="231.21018" fill="#BABABA" width="49.36363" height="50.5" id="svg_416"/>
           <rect x="162.66166" y="243.21018" width="25.90369" height="26.5" id="svg_417"/>
           <rect x="164.12791" y="244.71018" fill="#BABABA" width="22.97119" height="23.5" id="svg_418"/>
-          <rect id="svg_49" class="contactor-num contactor-num-1" x="165.34978" y="245.96018" fill="#F15A24"
+          <rect id="svg_49" class="contactor-num contactor-num-2" x="165.34978" y="245.96018" fill="#F15A24"
                 width="20.52745" height="21"/>
         </g>
         <line fill="none" stroke="#666666" stroke-miterlimit="10" x1="175.95074" y1="297.90618" x2="175.95074" y2="370"
@@ -216,7 +216,7 @@
           <rect x="54.49634701171874" y="231.21018" fill="#BABABA" width="49.36363" height="50.5" id="svg_400"/>
           <rect x="66.22631701171872" y="243.21018" width="25.90369" height="26.5" id="svg_401"/>
           <rect x="67.69256701171878" y="244.71018" fill="#BABABA" width="22.97119" height="23.5" id="svg_402"/>
-          <rect id="svg_53" class="contactor-num contactor-num-0" x="68.91443701171875" y="245.96018" fill="#00A88D"
+          <rect id="svg_53" class="contactor-num contactor-num-1" x="68.91443701171875" y="245.96018" fill="#00A88D"
                 width="20.52745" height="21"/>
           <text transform="rotate(-90 35.48254394531251,255.91009521484375) " xml:space="preserve" text-anchor="middle" font-family="Monospace" font-size="24" y="264.00388" x="35.48256701171874" stroke-width="0" stroke="#000000" fill="#000000" id="svg_5">ночь</text>
           <text id="svg_57" fill="black" class="contactor-mod-num contactor-mod-num-1"
