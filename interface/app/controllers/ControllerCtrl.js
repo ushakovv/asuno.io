@@ -28,6 +28,8 @@
       dateFrom: _defaultDateFrom
     };
 
+    $log.debug('ControllerCtrl');
+
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
 
@@ -347,14 +349,16 @@
     function setController() {
       if (!$scope.main.globalLocked && !mutex.isLocked()) {
         mutex.lock();
+
         Controllers.get({
           controller: $scope.controller.id
-        }, function (controller) {
-          if (!$scope.main.globalLocked && !$scope.editingInSession) {
-            $scope.controller = controller;
-          }
-          mutex.release();
-        });
+        }).$promise
+          .then(function (controller) {
+            if (!$scope.main.globalLocked && !$scope.editingInSession) {
+              $scope.controller = controller;
+            }
+            mutex.release();
+          });
       }
     }
 
@@ -462,6 +466,7 @@
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
     });
+
 
     $scope.$applyAsync();
   }
