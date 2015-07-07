@@ -15,7 +15,7 @@
 
   var CHANGE_EVENT = 'ServersStore.change';
 
-  function ServersActions(Mutex, Servers, AsunoDispatcher, ServersStoreConstants) {
+  function ServersActions(Mutex, Servers, AsunoDispatcher, ServersStoreConstants, ConnectionError) {
     var mutex = Mutex.create();
 
     this.reloadServers = function () {
@@ -30,6 +30,9 @@
             });
           })
           .$promise
+          .catch((data) => {
+            ConnectionError.setError(data);
+            })
           .finally(function () {
             mutex.release();
           });
