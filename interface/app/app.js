@@ -508,9 +508,15 @@
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
     .run(function ($rootScope, $interval, $http, $state, $modal, $sci, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, tickEvent, RemoteCommandActions, RemoteCommandSocket) {
-
+      let timeouts = {
+        default: 10000,
+        more: 3000,
+        getTimeout: function() {
+          return $state.is('core.rdp') || $state.is('core.controller') ? this.more : this.default;
+        }
+      };
       let counter = 0;
-      let tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
+      let tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), timeouts.getTimeout());
 
       $rootScope.$state = $state;
       $rootScope.timelineState = {};
@@ -536,14 +542,15 @@
         if (tick) {
           $interval.cancel(tick);
         }
-        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
+
+        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), timeouts.getTimeout());
       });
 
       $rootScope.$on('$stateChangeError', function () {
         if (tick) {
           $interval.cancel(tick);
         }
-        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), 10000);
+        tick = $interval(() => $rootScope.$broadcast(tickEvent, counter++), timeouts.getTimeout());
       });
 
       var authTokenRefresh;
