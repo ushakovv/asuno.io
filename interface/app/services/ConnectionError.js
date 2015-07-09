@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  const _MESSAGE_ERROR = 'Потеряно соединение с сервером. Пожалуйста, проверьте интернет соединение и перезагрузите страницу.';
+  const _MESSAGE_ERROR = 'Потеряно соединение с сервером. Пожалуйста, проверьте соединение и перезагрузите страницу.';
   let _error;
   let _errorData;
   function ConnectionError() {
