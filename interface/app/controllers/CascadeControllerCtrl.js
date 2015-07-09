@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function CascadeControllerCtrl($rootScope, $scope, $state, controller, rdp) {
+  function CascadeControllerCtrl($rootScope, $scope, $state, controller, rdp, Monitors) {
     $scope.controller = controller;
     $scope.rdp = rdp;
 
@@ -37,11 +37,13 @@
     for (var i = 0; i < controller.children.length; i++) {
       var child = controller.children[i];
       child.parentId = controller.id;
+      child.isConnected = Monitors.isActive(child.alarms.connection);
       children_rows.push(child);
       rest_rows = rest_rows.concat(setParentId(child.children, child.id));
     }
 
     $scope.rows.push(children_rows);
+
 
     while (rest_rows.length > 0) {
       $scope.rows.push(rest_rows);
