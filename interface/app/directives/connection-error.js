@@ -21,7 +21,7 @@ angular.module('asuno')
             }
         });
         $scope.$watch(ConnectionError.getErrorData, (newValue) => {
-            $log.debug('ConnectionError getErrorData updated. newValue: ', newValue);
+            $log.debug('$watch ConnectionError getErrorData updated. newValue: ', newValue);
         });
     });
 })();
