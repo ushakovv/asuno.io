@@ -15,7 +15,7 @@
     };
     this.setError = function (request) {
       _errorData = request;
-      _error = _error || (request && request.status && (request.status >= 500));
+      _error = _error || (request && request.hasOwnProperty('status') && (request.status >= 500 || request.status === 0));
     };
   }
 
