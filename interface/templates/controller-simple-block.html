@@ -1,7 +1,7 @@
 <div class="controller-container" ng-class="{'parent': controller.children.length > 0}"
      ng-attr-data-id="{{controller.id}}">
   <div class="controller"
-       ng-class="{'controller--disconnected': controller.alarms.connection.length, 'controller--enabled': controller.enabled, 'controller--disabled': !controller.enabled}">
+       ng-class="{'controller--disconnected': controller.isConnected, 'controller--enabled': controller.enabled, 'controller--disabled': !controller.enabled}">
     <div class="controller__name">{{ controller.name }}</div>
     <div class="controller__address controller__address--show">{{ controller.address }}</div>
   </div>
