@@ -43,7 +43,13 @@
     this.lastAction = function (monitors) {
       var last = _(monitors)
         .filter((m) => m.payload === 'emergency')
-        .map((m) => new Date(m.last_reading_timestamp).getTime())
+        .map((m) => {
+          var time = m.last_reading_timestamp;
+          if ( isNaN( time * 1 ) && (time.indexOf('Z') < 0) ) {
+            time = time + 'Z';
+          }
+          return new Date(time).getTime();
+        })
         .max();
 
       return last === -Infinity ? void 0 : last;
