@@ -140,6 +140,7 @@ gulp.task('tarball', function () {
 
 gulp.task('default', ['copy', 'sass', 'eslint', 'useref-full']);
 gulp.task('simple', ['copy', 'sass', 'eslint', 'useref']);
+gulp.task('simple-js', ['eslint', 'useref']);
 
 gulp.task('watch', ['copy', 'sass', 'react', 'jshint', 'eslint', 'useref'], function () {
   gulp.watch(app + '**/*', ['default']);
