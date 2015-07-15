@@ -10,9 +10,13 @@
       var emergency = event.state.payload === 'emergency';
       var hasIssue = event.issue && event.issue.id && (parseInt(event.issue.id, 10) > 0);
       var ufap_id = hasIssue ? event.issue.ufap_id : 0;
+      var timestamp = event.timestamp;
+      if ( isNaN( timestamp * 1 ) && timestamp.indexOf('Z') < 0 ) {
+        timestamp = timestamp + 'Z';
+      }
       return {
         id: event.id,
-        timestamp: new Date(event.timestamp),
+        timestamp: new Date(timestamp),
         object: event.monitor.ancestors.controller.name,
         object_id: event.monitor.ancestors.controller.id,
         rdp: event.monitor.ancestors.rdp,
@@ -33,9 +37,13 @@
 
     this.format_alarm_tl = function (event, controller, rdp) {
       var emergency = event.state.payload === 'emergency';
+      var timestamp = event.timestamp;
+      if ( isNaN( timestamp * 1 ) && timestamp.indexOf('Z') < 0 ) {
+        timestamp = timestamp + 'Z';
+      }
       return {
         id: event.id,
-        timestamp: new Date(event.timestamp),
+        timestamp: new Date(timestamp),
         object: controller ? controller.name : '',
         object_id: controller ? controller.id : null,
         rdp: rdp ? rdp : null,
