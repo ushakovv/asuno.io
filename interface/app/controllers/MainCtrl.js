@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent) {
+  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $state, $window) {
     var mutex = Mutex.create();
 
     $scope.rdps = rdps;
@@ -226,8 +226,13 @@
     };
     $rootScope.toggleJournalHeight = function () {
       if (!$rootScope.journalExpanded) {
-        $rootScope.expandJournal();
+
+        const params = $state.params;
+        params.journalExpand = true;
+        const hrefState = $state.href( $state.current.name, params);
+        $window.open(hrefState, 'blank');
       } else {
+        $state.params.journalExpand = null;
         $rootScope.constrictJournal();
       }
     };

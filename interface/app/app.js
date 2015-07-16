@@ -139,7 +139,7 @@
           }
         })
         .state('core.rdp', {
-          url: '/rdps/:rdp?x&y&rid',
+          url: '/rdps/:rdp?x&y&rid&journalExpand',
           data: {
             allowRdp: true
           },
@@ -165,7 +165,7 @@
           }
         })
         .state('core.controller', {
-          url: '/rdps/:rdp/:controller',
+          url: '/rdps/:rdp/:controller?journalExpand',
           data: {
             allowRdp: true
           },

@@ -362,6 +362,13 @@
       TimelineService.removeListener('timeline-stop', timelineStop);
     });
 
+    $scope.$on('$viewContentLoaded', function(){
+      if ( $state.params.journalExpand ) {
+        $rootScope.expandJournal();
+      } else {
+        $rootScope.constrictJournal();
+      }
+    });
 
     $scope.$applyAsync();
   }
