@@ -495,7 +495,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $interval, $http, $state, $modal, $sci, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, tickEvent, RemoteCommandActions, RemoteCommandSocket) {
+    .run(function ($rootScope, $interval, $http, $state, $modal, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, tickEvent) {
       let timeouts = {
         default: 10000,
         more: 3000,
@@ -595,15 +595,15 @@
 
       $rootScope.$on('$destroy', () => $interval.cancel(tick));
 
-      $rootScope.$on('logged-in', () => {
-        $sci.connect();
-        RemoteCommandListener.installListener();
-        RemoteCommandSocket.installListener();
-      });
+      //$rootScope.$on('logged-in', () => {
+      //  $sci.connect();
+      //  RemoteCommandListener.installListener();
+      //  RemoteCommandSocket.installListener();
+      //});
 
       $rootScope.$on('logged-out', () => {
-        RemoteCommandListener.removeListener();
-        RemoteCommandSocket.removeListener();
+        //RemoteCommandListener.removeListener();
+        //RemoteCommandSocket.removeListener();
         $state.go('login');
       });
 
@@ -613,6 +613,6 @@
         $rootScope.$broadcast('logged-in');
       }
 
-      MassOperations.installListener();
+      //MassOperations.installListener();
     });
 })();
