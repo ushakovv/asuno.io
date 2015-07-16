@@ -19,10 +19,17 @@
 
       this.openSensorGraphModal = SensorGraph.open;
     })
-    .controller('GraphModalController', function GraphModalController($scope, $log, Sensors, sensor) {
+    .controller('GraphModalController', function GraphModalController($scope, Sensors, sensor) {
       const graphModal = this;
 
       this.sensor = sensor;
+      this.minDateTo = null;
+      $scope.$watch('graphForm.fromDate.$dateValue', function (newVal) {
+        if (!newVal) {
+          return;
+        }
+        graphModal.minDateTo = moment(newVal).add(-1, 'd').toString();
+      });
 
       this.load = function (conf) {
         graphModal.loading = true;

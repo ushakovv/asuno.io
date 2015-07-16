@@ -16,7 +16,7 @@
     <div class="form-group" ng-class="{'has-error': graphForm.toDate.$invalid || graphForm.toTime.$invalid}">
       <label class="control-label">По</label>
       <input type="text" name="toDate" size="10" class="form-control" ng-model="conf.dateTo" data-autoclose="1"
-             placeholder="дд.мм.гггг" data-min-date="{{conf.dateFrom}}" bs-datepicker required>
+             placeholder="дд.мм.гггг" data-min-date="{{graphModal.minDateTo}}" bs-datepicker required>
     </div>
     <div class="form-group" ng-class="{'has-error': graphForm.toDate.$invalid || graphForm.toTime.$invalid}">
       <input type="text" name="toTime" size="6" class="form-control" ng-model="conf.dateTo" data-autoclose="1" placeholder="чч:мм"
