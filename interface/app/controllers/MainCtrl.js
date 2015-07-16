@@ -19,22 +19,29 @@
 
     $scope.report = {};
 
+    $scope.totalServerCount = 0;
+    $scope.pagingOptions = {
+      pageSizes   : [6],
+      pageSize    : 6,
+      currentPage : 1
+    };
+
     var _uniqueJournalLoad = _.uniqueId();
 
     $scope.load_alarms = function (options, page, per_page) {
+
       if (!$scope.main.globalLocked) {
         mutex.lock();
         $scope.selectedEvents = [];
         $scope.currentOptions = options;
-        $scope.pagingOptions.currentPage = page || 1;
-        $scope.pagingOptions.pageSize = per_page || 6;
+        $scope.pagingOptions.currentPage = page || $scope.pagingOptions.currentPage;
+        $scope.pagingOptions.pageSize = per_page || $scope.pagingOptions.pageSize;
         var query = angular.extend({}, options, {
           page     : $scope.pagingOptions.currentPage,
           per_page : $scope.pagingOptions.pageSize
         });
 
         var currentLoad = _uniqueJournalLoad = _.uniqueId();
-
         $scope.report.loading = true;
         Events.query(query, function (events) {
           if (currentLoad === _uniqueJournalLoad && !$scope.main.globalLocked) {
@@ -50,6 +57,7 @@
     };
 
     $scope.reload_alarms = function (page, per_page) {
+
       if (!mutex.isLocked() && !$scope.main.globalLocked) {
         mutex.lock();
         var currentLoad = _uniqueJournalLoad;
@@ -68,12 +76,7 @@
       $scope.reload_alarms($scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
     });
 
-    $scope.totalServerCount = 0;
-    $scope.pagingOptions = {
-      pageSizes   : [6],
-      pageSize    : 6,
-      currentPage : 1
-    };
+
 
     $scope.$watch('pagingOptions.currentPage', function (next, prev) {
       if (next !== prev) {
@@ -226,28 +229,34 @@
     });
 
     $rootScope.journalExpanded = false;
-
-    $rootScope.toggleJournalHeight = function () {
-      if (!$rootScope.journalExpanded) {
-        $rootScope.journalExpanded = true;
+    $rootScope.expandJournal = function expandJournal() {
+      $rootScope.journalExpanded = true;
+        $scope.pagingOptions.pageSize = 100;
+        $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
         $timeout(function () {
           $('.gridStyle').each(function () {
             var $el = $(this);
             $el.css('height', $(window).height() - $el.offset().top - 15);
           });
-          $scope.pagingOptions.pageSize = 100;
-          $scope.reload_alarms(1, $scope.pagingOptions.pageSize);
           $(window).resize();
         }, 100);
-      } else {
-        $('.gridStyle').each(function () {
+    };
+    $rootScope.constrictJournal = function constrictJournal() {
+      $('.gridStyle').each(function () {
           var $el = $(this);
           $el.css('height', '');
         });
-        $scope.pagingOptions.pageSize = 6;
-        $scope.reload_alarms(1, $scope.pagingOptions.pageSize);
-        $(window).resize();
         $rootScope.journalExpanded = false;
+        $scope.pagingOptions.pageSize = 6;
+        $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+        $(window).resize();
+
+    };
+    $rootScope.toggleJournalHeight = function () {
+      if (!$rootScope.journalExpanded) {
+        $rootScope.expandJournal();
+      } else {
+        $rootScope.constrictJournal();
       }
     };
   }
