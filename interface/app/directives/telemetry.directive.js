@@ -28,6 +28,13 @@
 
 
       this.sensor = sensor;
+      this.minDateTo = null;
+      $scope.$watch('graphForm.fromDate.$dateValue', function (newVal) {
+        if (!newVal) {
+          return;
+        }
+        graphModal.minDateTo = moment(newVal).add(-1, 'd').toString();
+      });
 
       this.load = function (conf) {
         graphModal.loading = true;
