@@ -347,7 +347,7 @@
     TimelineService.on('timeline-stop', timelineStop);
 
     function setController() {
-      if (!$scope.main.globalLocked && !mutex.isLocked()) {
+      if (!$scope.main.globalLocked && !mutex.isLocked() && !$rootScope.isJournalTab()) {
         mutex.lock();
 
         Controllers.get({

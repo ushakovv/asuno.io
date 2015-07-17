@@ -3,6 +3,9 @@
 .navbar.is-choice {
   background-color : transparent;
   border-bottom    : none;
+  &.journal-tab {
+    display: none;
+  }
 }
 
 .is-choice .header-row {
