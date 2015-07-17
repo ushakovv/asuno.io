@@ -60,6 +60,12 @@ body {
     padding-top : 106px;
   }
 
+  &.hide-header {
+    padding-top: 0;
+    &.three-rows {
+      padding-top: 0;
+    }
+  }
   &.three-rows {
     padding-top : 104px;
 
@@ -78,6 +84,10 @@ body {
 
   @media (max-width : $screen-sm) {
     padding-top : 50px !important;
+
+    &.hide-header {
+      padding-top : 0 !important;
+    }
   }
 }
 

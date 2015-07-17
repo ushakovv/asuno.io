@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $state, $window) {
+  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $state, $window, $log) {
     var mutex = Mutex.create();
 
     $scope.rdps = rdps;
@@ -201,41 +201,49 @@
     });
 
     $rootScope.journalExpanded = false;
+
     $rootScope.expandJournal = function expandJournal() {
       $rootScope.journalExpanded = true;
-        $scope.pagingOptions.pageSize = 100;
-        $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
-        $timeout(function () {
-          $('.gridStyle').each(function () {
-            var $el = $(this);
-            $el.css('height', $(window).height() - $el.offset().top - 15);
-          });
-          $(window).resize();
-        }, 100);
+      $scope.pagingOptions.pageSize = 100;
+      $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+      $timeout(function () {
+        $('.gridStyle').each(function () {
+          var $el = $(this);
+          $el.css('height', $(window).height() - $el.offset().top - 15);
+        });
+        $(window).resize();
+      }, 100);
     };
+
     $rootScope.constrictJournal = function constrictJournal() {
       $('.gridStyle').each(function () {
-          var $el = $(this);
-          $el.css('height', '');
-        });
-        $rootScope.journalExpanded = false;
-        $scope.pagingOptions.pageSize = 6;
-        $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
-        $(window).resize();
-
+        var $el = $(this);
+        $el.css('height', '');
+      });
+      $rootScope.journalExpanded = false;
+      $scope.pagingOptions.pageSize = 6;
+      $scope.load_alarms($scope.currentOptions, $scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+      $(window).resize();
     };
+
     $rootScope.toggleJournalHeight = function () {
       if (!$rootScope.journalExpanded) {
-
-        const params = $state.params;
-        params.journalExpand = true;
-        const hrefState = $state.href( $state.current.name, params);
-        $window.open(hrefState, 'blank');
+        $rootScope.expandJournal();
       } else {
-        $state.params.journalExpand = null;
         $rootScope.constrictJournal();
       }
     };
+    $rootScope.isJournalTab = function() {
+      $log.debug('isJournalTab', $state.params);
+      return $state.params.journalExpand;
+    };
+    $rootScope.openJournalInTab = function () {
+      const params = angular.copy($state.params);
+      params.journalExpand = true;
+      const hrefState = $state.href( $state.current.name, params);
+      $window.open(hrefState, 'blank');
+    };
+
   }
 
   angular.module('asuno').controller('MainCtrl', MainCtrl);

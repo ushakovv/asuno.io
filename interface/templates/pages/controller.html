@@ -108,8 +108,11 @@
   </div>
 </div>
 <div class="row bottom-journal--static" ng-class="{'bottom-journal--expanded': journalExpanded}">
-  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()">
+  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()" ng-if="!isJournalTab()">
     <span class="fa" ng-class="{'fa-compress': journalExpanded, 'fa-expand': !journalExpanded}"></span>
+  </button>
+  <button class="btn btn-default bottom-journal__open-in-tab" ng-click="openJournalInTab()" ng-if="!isJournalTab()">
+    <span class="fa fa-external-link"></span>
   </button>
 
   <div class="col-md-12">

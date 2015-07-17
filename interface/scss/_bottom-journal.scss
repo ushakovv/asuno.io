@@ -28,7 +28,13 @@
     z-index  : 1000;
     outline  : none !important;
   }
-
+  &__open-in-tab {
+    position : absolute;
+    top      : 0;
+    right    : 35px;
+    z-index  : 1000;
+    outline  : none !important;
+  }
   > .col-md-12 {
     background-color : #ffffff;
     border-top       : 1px solid #e0e0e0;
