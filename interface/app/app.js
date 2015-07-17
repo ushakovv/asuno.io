@@ -154,7 +154,7 @@
                     .then(function(rdp) {
                       return Controllers.query({sid: rdp.sid, head: 1})
                         .$promise
-                        .then((controllers) => ({rdp, controllers}));
+                        .then((controllers) => { return {rdp, controllers}; });
                     });
                 }
               }
@@ -384,7 +384,7 @@
                     .then(function(rdp) {
                       return Controllers.query({sid: rdp.sid})
                         .$promise
-                        .then((controllers) => ({rdp, controllers}));
+                        .then((controllers) => {return {rdp, controllers}; });
                     });
                 }
               }
@@ -497,10 +497,10 @@
     .constant('tickEvent', 'asuno.tick')
     .run(function ($rootScope, $sci, $interval, $http, $state, $modal, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
       let timeouts = {
-        default: 10000,
+        standart: 10000,
         more: 3000,
         getTimeout: function() {
-          return $state.is('core.rdp') || $state.is('core.controller') ? this.more : this.default;
+          return $state.is('core.rdp') || $state.is('core.controller') ? this.more : this.standart;
         }
       };
       let counter = 0;

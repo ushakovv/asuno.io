@@ -47,7 +47,7 @@
 
     this.parseRDP = function (rdp) {
       Object.keys(FILTER_CONFIGS_BATCH)
-        .map((key) => ({key, count: rdp[FILTER_CONFIGS_BATCH[key]]}))
+        .map((key) => { return {key, count: rdp[FILTER_CONFIGS_BATCH[key]]}; })
         .filter(({count}) => angular.isNumber(count))
         .forEach(({key, count}) => this.add(key, count));
     };

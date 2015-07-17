@@ -14,7 +14,7 @@ angular.module('asuno')
     .controller('ConnectionErrorController', function ConnectionErrorController($scope, ConnectionError, $log) {
         var ce = this;
         $scope.$watch(ConnectionError.isError, (newValue) => {
-            if(newValue) {
+            if (newValue) {
                 ce.error = ConnectionError.MESSAGE_ERROR;
             } else {
                 delete ce.error;
