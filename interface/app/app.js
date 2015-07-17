@@ -139,7 +139,7 @@
           }
         })
         .state('core.rdp', {
-          url: '/rdps/:rdp?x&y&rid&journalExpand',
+          url: '/rdps/:rdp?x&y&rid',
           data: {
             allowRdp: true
           },
@@ -165,7 +165,7 @@
           }
         })
         .state('core.controller', {
-          url: '/rdps/:rdp/:controller?journalExpand',
+          url: '/rdps/:rdp/:controller',
           data: {
             allowRdp: true
           },
@@ -507,7 +507,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $interval, $http, $state, $modal, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, tickEvent) {
+    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
       let timeouts = {
         default: 10000,
         more: 3000,
@@ -607,15 +607,15 @@
 
       $rootScope.$on('$destroy', () => $interval.cancel(tick));
 
-      //$rootScope.$on('logged-in', () => {
-      //  $sci.connect();
-      //  RemoteCommandListener.installListener();
-      //  RemoteCommandSocket.installListener();
-      //});
+      $rootScope.$on('logged-in', () => {
+        $sci.connect();
+        RemoteCommandListener.installListener();
+        RemoteCommandSocket.installListener();
+      });
 
       $rootScope.$on('logged-out', () => {
-        //RemoteCommandListener.removeListener();
-        //RemoteCommandSocket.removeListener();
+        RemoteCommandListener.removeListener();
+        RemoteCommandSocket.removeListener();
         $state.go('login');
       });
 
@@ -625,6 +625,6 @@
         $rootScope.$broadcast('logged-in');
       }
 
-      //MassOperations.installListener();
+      MassOperations.installListener();
     });
 })();
