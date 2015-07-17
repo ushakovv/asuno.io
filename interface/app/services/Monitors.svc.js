@@ -44,8 +44,9 @@
       var last = _(monitors)
         .filter((m) => m.payload === 'emergency')
         .map((m) => {
-          var time = m.last_reading_timestamp;
-          if ( isNaN( time * 1 ) && (time.indexOf('Z') < 0) ) {
+          let time = m.last_reading_timestamp,
+            isHasZ = time.indexOf('Z') < 0;
+          if ( isNaN( time * 1 ) && isHasZ ) {
             time = time + 'Z';
           }
           return new Date(time).getTime();

@@ -132,6 +132,8 @@
           case 'door':
             filtered = _.any(ctrl.alarms[key], (door) => door.value === 0);
             break;
+          default:
+            break;
         }
       }
       if (!ControllersStore.getShowAutonomous()) {
