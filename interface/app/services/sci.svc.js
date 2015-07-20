@@ -9,17 +9,13 @@
       //  query: `authorization=${Auth.session().access_token}`,
       //  'force new connection': true
       //});
-      this.createFake();
-      return this.socket;
-    };
-
-    this.createFake = function () {
       this.socket = {
+        socket: { connected: false },
         on: () => false,
-        emit: () => false,
-        removeListener: () => false,
-        connected: false
+        emmit: () => false,
+        removeListener: () => false
       };
+      return this.socket;
     };
   }
 
