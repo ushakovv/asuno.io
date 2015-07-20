@@ -362,6 +362,7 @@
       TimelineService.removeListener('timeline-stop', timelineStop);
     });
 
+    $rootScope.journalInOtherTab = false;
     $scope.$on('$viewContentLoaded', function(){
       if ( $state.params.journalExpand ) {
         $rootScope.expandJournal();

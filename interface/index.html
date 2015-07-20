@@ -31,7 +31,7 @@
 <body
     ng-class="{'hide-header': isJournalTab(), 'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
 <header class="navbar navbar-default navbar-fixed-top" ng-class="{'is-choice': inState('choice'), 'journal-tab': isJournalTab() }"
-        ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="!inState('login') && !isJournalTab()">
+        ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="isNavbarOn()">
   <div class="container-fluid">
     <div class="row header-row hide-sm" ng-class="{'show': showTopMenu}">
       <div class="col-md-12">

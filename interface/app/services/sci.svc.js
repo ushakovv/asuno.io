@@ -1,7 +1,7 @@
 (function () {
   'use strict';
-
-  function $sci($rootScope, $q, Auth) {
+//function $sci($rootScope, $q, Auth) {
+  function $sci() {
     this.socket = void 0;
 
     this.connect = function () {

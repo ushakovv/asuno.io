@@ -139,7 +139,7 @@
           }
         })
         .state('core.rdp', {
-          url: '/rdps/:rdp?x&y&rid',
+          url: '/rdps/:rdp?x&y&rid&journalExpand',
           data: {
             allowRdp: true
           },
@@ -165,7 +165,7 @@
           }
         })
         .state('core.controller', {
-          url: '/rdps/:rdp/:controller',
+          url: '/rdps/:rdp/:controller?journalExpand',
           data: {
             allowRdp: true
           },
@@ -495,7 +495,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
+    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
       let timeouts = {
         standart: 10000,
         more: 3000,
@@ -517,6 +517,13 @@
             return $state.is(state);
           });
         }
+      };
+
+      $rootScope.isJournalTab = function() {
+        return !!$location.search().journalExpand;
+      };
+      $rootScope.isNavbarOn = function() {
+        return !$rootScope.inState('login') && !$rootScope.isJournalTab();
       };
 
       $rootScope.$on('$stateChangeSuccess', function () {
