@@ -59,7 +59,7 @@
     setControllers(initial.controllers);
 
     var reloadControllers = function () {
-      if (!mutex.isLocked()) {
+      if (!mutex.isLocked() && !$rootScope.isJournalTab()) {
         mutex.lock();
         Controllers.query({
           sid: $scope.rdp.sid,
@@ -241,6 +241,8 @@
         unacknowledged: next.unacknowledged
       });
     }, true);
+
+    $rootScope.journalInOtherTab = false;
     $scope.$on('$viewContentLoaded', function(){
       if ( $state.params.journalExpand ) {
         $rootScope.expandJournal();

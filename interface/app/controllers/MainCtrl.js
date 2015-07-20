@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $state, $window, $log) {
+  function MainCtrl($scope, $rootScope, $q, $timeout, Auth, Events, Mute, ReportFormatter, Mutex, ngGridBase, rdps, tickEvent, $state, $window) {
     var mutex = Mutex.create();
 
     $scope.rdps = rdps;
@@ -22,7 +22,7 @@
     $scope.totalServerCount = 0;
     $scope.pagingOptions = {
       pageSizes   : [6],
-      pageSize    : 6,
+      pageSize    : $rootScope.isJournalTab() ? 100 : 6,
       currentPage : 1
     };
 
@@ -73,7 +73,9 @@
     };
 
     $scope.$on(tickEvent, function () {
-      $scope.reload_alarms($scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+      if (!$rootScope.journalInOtherTab) {
+        $scope.reload_alarms($scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
+      }
     });
 
 
@@ -229,6 +231,7 @@
     });
 
     $rootScope.journalExpanded = false;
+    $rootScope.journalInOtherTab = false;
 
     $rootScope.expandJournal = function expandJournal() {
       $rootScope.journalExpanded = true;
@@ -255,20 +258,22 @@
     };
 
     $rootScope.toggleJournalHeight = function () {
-      if (!$rootScope.journalExpanded) {
+      if ($rootScope.journalInOtherTab) {
+        $rootScope.journalInOtherTab = false;
+        $(window).resize();
+      } else if (!$rootScope.journalExpanded) {
         $rootScope.expandJournal();
       } else {
         $rootScope.constrictJournal();
       }
     };
-    $rootScope.isJournalTab = function() {
-      $log.debug('isJournalTab', $state.params);
-      return $state.params.journalExpand;
-    };
+
     $rootScope.openJournalInTab = function () {
       const params = angular.copy($state.params);
       params.journalExpand = true;
       const hrefState = $state.href( $state.current.name, params);
+
+      $rootScope.journalInOtherTab = true;
       $window.open(hrefState, 'blank');
     };
 

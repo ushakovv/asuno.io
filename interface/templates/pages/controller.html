@@ -109,17 +109,17 @@
   </div>
 </div>
 <div class="row bottom-journal--static" ng-class="{'bottom-journal--expanded': journalExpanded}">
-  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()" ng-if="!isJournalTab()">
-    <span class="fa" ng-class="{'fa-compress': journalExpanded, 'fa-expand': !journalExpanded}"></span>
+  <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()" ng-hide="isJournalTab()">
+    <span class="fa" ng-class="{'fa-compress': (!journalInOtherTab && journalExpanded), 'fa-expand': !journalExpanded, 'fa-chevron-up': (journalInOtherTab && !journalExpanded)}"></span>
   </button>
-  <button class="btn btn-default bottom-journal__open-in-tab" ng-click="openJournalInTab()" ng-if="!isJournalTab()">
-    <span class="fa fa-external-link"></span>
+  <button class="btn btn-default bottom-journal__open-in-tab" ng-click="openJournalInTab()" ng-hide="isJournalTab() || journalInOtherTab">
+    <span class="fa fa-share-square-o"></span>
   </button>
 
   <div class="col-md-12">
     <h5>Оперативный журнал аварий по {{controller.name}}</h5>
 
-    <form class="form-inline journal-form">
+    <form class="form-inline journal-form" ng-hide="journalInOtherTab">
       <div class="form-group">
         <label>С</label>
         <input type="text" class="form-control input-sm" placeholder="дд.мм.гггг" bs-datepicker lang="ru-ru-strap"
@@ -154,6 +154,6 @@
       </div>
     </form>
 
-    <div class="gridStyle" ng-grid="alertsGridOptions" ng-class="{'gridStyle--loading': report.loading}"></div>
+    <div class="gridStyle" ng-grid="alertsGridOptions" ng-class="{'gridStyle--loading': report.loading}" ng-hide="journalInOtherTab"></div>
   </div>
 </div>
