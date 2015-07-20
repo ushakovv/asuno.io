@@ -59,7 +59,7 @@
         <rect id="svg_400" x="177.7" y="366.3" fill="#BABABA" width="44.9" height="45.9"/>
         <rect id="svg_401" x="188.4" y="377.2" width="23.5" height="24.1"/>
         <rect id="svg_402" x="189.7" y="378.5" fill="#BABABA" width="20.9" height="21.4"/>
-        <rect id="svg_53" class="contactor-num contactor-num-2" x="190.8" y="379.7" fill="#F15A24" width="18.6" height="19.1"/>
+        <rect id="svg_53" class="contactor-num contactor-num-2" x="190.8" y="379.7" fill="#BABABA" width="18.6" height="19.1"/>
 
           <text id="svg_5" transform="matrix(6.123234e-17 -1 1 6.123234e-17 167.7964 414.9225)" font-family="Monospace" font-size="24">день</text>
       </g>
@@ -115,7 +115,7 @@
         <rect id="svg_416" x="341.7" y="366.3" fill="#BABABA" width="44.9" height="45.9"/>
         <rect id="svg_417" x="352.5" y="377.2" width="23.5" height="24.1"/>
         <rect id="svg_418" x="353.7" y="378.5" fill="#BABABA" width="20.9" height="21.4"/>
-        <rect id="svg_49" class="contactor-num contactor-num-1" x="354.8" y="379.7" fill="#F15A24" width="18.6" height="19.1"/>
+        <rect id="svg_49" class="contactor-num contactor-num-1" x="354.8" y="379.7" fill="#BABABA" width="18.6" height="19.1"/>
       </g>
       <line id="svg_18" fill="none" stroke="#666666" stroke-miterlimit="10" x1="364.5" y1="423.3" x2="364.5" y2="488.8"/>
       <line id="svg_19" fill="none" stroke="#666666" stroke-miterlimit="10" x1="385.2" y1="415.1" x2="385.2" y2="451.1"/>
@@ -189,7 +189,7 @@
         <rect id="svg_400_1_" x="272.3" y="366.7" fill="#BABABA" width="44.9" height="45.9"/>
         <rect id="svg_401_1_" x="282.9" y="377.6" width="23.5" height="24.1"/>
         <rect id="svg_402_1_" x="284.3" y="379" fill="#BABABA" width="20.9" height="21.4"/>
-        <rect id="svg_53_1_" class="contactor-num contactor-num-0" x="285.4" y="380.2" fill="#00A88D" width="18.6" height="19.1"/>
+        <rect id="svg_53_1_" class="contactor-num contactor-num-0" x="285.4" y="380.2" fill="#BABABA" width="18.6" height="19.1"/>
 
           <text id="svg_5_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 262.3418 415.3771)" font-family="Monospace" font-size="24">ночь</text>
         <text id="svg_57_1_" class="contactor-mod-num contactor-mod-num-1" transform="matrix(0.9775 0 0 1 226.4824 348.5176)" font-family="Monospace"
@@ -259,7 +259,7 @@
       <text id="svg_311" transform="matrix(0.9775 0 0 1 375.1826 181.5664)" font-family="'Tahoma'" font-size="9.7114">A</text>
       <text id="svg_312" transform="matrix(0.9775 0 0 1 375.2149 193.1572)" font-family="'Tahoma'" font-size="9.7114">B</text>
     </g>
-    <g id="kvits" display=" none">
+    <g id="kvits" display="none">
       <line id="svg_38" fill="none" stroke="#666666" stroke-miterlimit="10" x1="390" y1="207.9" x2="390" y2="231.5"/>
       <circle id="kvit_0" cx="390" cy="232.5" r="5.8"/>
       <line id="svg_39" fill="none" stroke="#666666" stroke-miterlimit="10" x1="410" y1="220.2" x2="410" y2="243.8"/>
