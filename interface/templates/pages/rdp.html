@@ -68,7 +68,7 @@
   <button class="btn btn-default bottom-journal__expander" ng-click="toggleJournalHeight()" ng-hide="isJournalTab()">
     <span class="fa" ng-class="{'fa-compress': (!journalInOtherTab && journalExpanded), 'fa-expand': !journalExpanded, 'fa-chevron-up': (journalInOtherTab && !journalExpanded)}"></span>
   </button>
-  <button class="btn btn-default bottom-journal__open-in-tab" ng-click="openJournalInTab()" ng-hide="isJournalTab() || journalInOtherTab">
+  <button class="btn btn-default bottom-journal__open-in-tab" ng-click="openJournalInTab()" ng-hide="isJournalTab()  || journalExpanded || journalInOtherTab">
     <span class="fa fa-share-square-o"></span>
   </button>
 
