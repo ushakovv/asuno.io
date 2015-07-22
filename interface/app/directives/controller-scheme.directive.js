@@ -51,7 +51,7 @@
     return img;
   }
 
-  function controllerScheme($compile) {
+  function controllerScheme($compile, $log) {
     return {
       scope    : {
         controller : '=controllerScheme'
@@ -131,6 +131,7 @@
         function drawPhaseInput(phaseName) {
           var inputElement = element.find('.phase-input.phase-input-' + phaseName);
 
+
           var phase = scope.controller.phase(phaseName);
 
           if (!phase) {
@@ -153,12 +154,21 @@
             inputElement.css('fill', GREY_GRAD);
           }
 
-          var svg = element.find('svg:first g#main-group');
+          var svg = element.find('svg:first g#main-group'),
+            /*suffix = 'PHASE' + phaseName + '.FAULT',*/
+            icon;
 
           svg.find('image#input_' + input.id).remove();
+          /*if (phase.monitorValue(suffix) && phase.monitorIsEmergency(suffix) ) {
 
-          if (input.isEmergency()) {
-            var icon;
+              icon = alarmIconImage();
+              icon.setAttribute('id', 'input_' + input.id);
+              icon.setAttribute('x', inputElement[0].cx.animVal.value);
+              icon.setAttribute('y', inputElement[0].cy.animVal.value - 13);
+
+              svg[0].appendChild(icon);
+          } else */
+            if (input.isEmergency()) {
 
             if (input.isSilent()) {
               icon = alarmIconImage();
@@ -274,10 +284,32 @@
           var phase = scope.controller.phase(phaseName);
           var contactor = scope.controller.contactor(contactorNum);
 
+
+
           if (!phase || !contactor) {
             return contactorPhaseElement.css('fill', GREY_GRAD);
           } else if (contactor && contactor.monitorValue('.STATE') === null) {
             return contactorPhaseElement.css('fill', GREY_GRAD);
+          }
+          $log.debug('phase ' + phaseName + ', contactorNum: ' + contactorNum, contactor);
+
+          var svg = element.find('svg:first g#main-group'),
+            alarmName = 'alarm-phase-' + phaseName + '-contactor-' + contactorNum;
+          svg.find('image#' + alarmName).remove();
+
+          var suffix = `CONTACTOR0${contactorNum}.PHASE${phaseName}.STATE`;
+          var monitor = _(contactor.controller.monitors).find((m) => m.tag.includes(suffix));
+
+          if ( monitor && monitor.value === 0 && monitor.payload === 'emergency') {
+            var icon;
+
+            icon = alarmIconImage();
+            //icon = alarmGifImage();
+            icon.setAttribute('id', alarmName);
+            icon.setAttribute('x', contactorPhaseElement[0].cx.animVal.value);
+            icon.setAttribute('y', contactorPhaseElement[0].cy.animVal.value - 13);
+
+            svg[0].appendChild(icon);
           }
 
           if (scope.controller.type === 'niitm') {

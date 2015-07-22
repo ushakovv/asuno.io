@@ -34,6 +34,25 @@
 
         return monitor.value;
       }
+      monitorIsEmergency(suffix) {
+        const monitor = this._findMonitor(suffix);
+        if (!monitor) {
+          $log.debug('NODE', this, `MONITOR NOT FOUND [${suffix}]`);
+          return null;
+        }
+
+        return monitor.payload === 'emergency';
+      }
+      monitorPayload(suffix) {
+        const monitor = this._findMonitor(suffix);
+
+        if (!monitor) {
+          $log.debug('NODE', this, `MONITOR NOT FOUND [${suffix}]`);
+          return null;
+        }
+
+        return monitor.payload;
+      }
 
       monitorKnown(suffix) {
         const monitor = this._findMonitor(suffix);
@@ -198,7 +217,9 @@
           return 'не определено';
         }
       }
-
+      isWarning() {
+        return this.monitorValue('.STATE') === 0 && this.monitorPayload('.STATE') === 'emergency';
+      }
       isEnabled() {
         if (this.controller.type === 'dep') {
           return this.controller.monitorValue('LOSTU') !== 1 && Node.prototype.isEnabled.call(this);
@@ -207,6 +228,9 @@
         } else {
           return Node.prototype.isEnabled.call(this);
         }
+      }
+      isEmergency() {
+        return Node.prototype.isEmergency.call(this);
       }
     }
 
