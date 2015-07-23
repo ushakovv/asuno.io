@@ -46,8 +46,14 @@
         .map((m) => {
           let time = m.last_reading_timestamp,
             isHasZ = time.indexOf('Z') < 0;
-          if ( isNaN( time * 1 ) && isHasZ ) {
-            time = time + 'Z';
+          if (isNaN( time * 1 )) {
+            let pos = time.indexOf('+');
+            if (pos > 0) {
+              time = time.substr(0, pos);
+            }
+            if ( isHasZ ) {
+              time = time + 'Z';
+            }
           }
           return new Date(time).getTime();
         })
