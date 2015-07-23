@@ -97,7 +97,7 @@
     class Input extends Node {
       isEnabled() {
         if (this.controller.type === 'dep') {
-          return this.controller.monitorValue('LOSTU') !== 1 && Node.prototype.isEnabled.call(this);
+          return Node.prototype.isEnabled.call(this);
         } else {
           return Node.prototype.isEnabled.call(this);
         }
@@ -105,7 +105,7 @@
 
       isEmergency() {
         if (this.controller.type === 'dep') {
-          return this.controller.monitorValue('LOSTU') === 1 || Node.prototype.isEmergency.call(this);
+          return Node.prototype.isEmergency.call(this);
         } else {
           return Node.prototype.isEmergency.call(this);
         }
@@ -124,7 +124,7 @@
 
       isEnabled() {
         if (this.controller.type === 'dep') {
-          return this.controller.monitorValue('LOSTU') !== 1 && Node.prototype.isEnabled.call(this);
+          return Node.prototype.isEnabled.call(this);
         } else if (this.controller.type === 'niitm') {
           return this.monitorValue('.STATE') === 0 || this.phase.inputEnabled() && this.monitorValue('STATE') === 5;
         } else {
@@ -143,7 +143,7 @@
     class Direction extends Node {
       isEnabled() {
         if (this.controller.type === 'dep') {
-          return this.controller.monitorValue('LOSTU') !== 1 && Node.prototype.isEnabled.call(this);
+          return Node.prototype.isEnabled.call(this);
         } else if (this.controller.type === 'niitm') {
           return this.controller.isEnabled() && [0, 5].indexOf(this.monitorValue('STATE')) >= 0 || Node.prototype.isEnabled.call(this);
         } else {
@@ -222,7 +222,7 @@
       }
       isEnabled() {
         if (this.controller.type === 'dep') {
-          return this.controller.monitorValue('LOSTU') !== 1 && Node.prototype.isEnabled.call(this);
+          return Node.prototype.isEnabled.call(this);
         } else if (this.controller.type === 'niitm') {
           return this.controller.isEnabled() && [1, 5].indexOf(this.monitorValue('STATE')) >= 0 || Node.prototype.isEnabled.call(this);
         } else {
