@@ -52,7 +52,7 @@
     return img;
   }
 
-  function controllerScheme($compile, $log, Controllers, $rootScope) {
+  function controllerScheme($compile, Controllers, $rootScope) {
     return {
       scope    : {
         controller : '=controllerScheme'
@@ -280,14 +280,11 @@
           var phase = scope.controller.phase(phaseName);
           var contactor = scope.controller.contactor(contactorNum);
 
-
-
           if (!phase || !contactor) {
             return contactorPhaseElement.css('fill', GREY_GRAD);
           } else if (contactor && contactor.monitorValue('.STATE') === null) {
             return contactorPhaseElement.css('fill', GREY_GRAD);
           }
-          $log.debug('phase ' + phaseName + ', contactorNum: ' + contactorNum, contactor);
 
           var svg = element.find('svg:first g#main-group'),
             alarmName = 'alarm-phase-' + phaseName + '-contactor-' + contactorNum;
@@ -314,6 +311,11 @@
           } else {
             contactorPhaseElement
                 .css('fill', phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
+          }
+          let fuse = phase.fuse();
+
+          if ( fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE') ) {
+            contactorPhaseElement.css('fill', GREEN_GRAD);
           }
         }
 
