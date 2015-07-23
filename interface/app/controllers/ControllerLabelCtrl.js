@@ -11,6 +11,10 @@
       return Monitors.isActive($scope.controller.alarms.connection);
     };
 
+    this.isLostVoltage = function () {
+      return Monitors.isActive($scope.controller.alarms.lost_voltage);
+    };
+
     this.openPassport = function () {
       $modal.open({
         templateUrl : '/assets/templates/modals/passport-modal.html',
