@@ -106,7 +106,7 @@
 
         operation.finished.finally(function () {
           $rootScope.$broadcast('asuno-refresh-all');
-          delete $scope.blockControl;
+          $scope.blockControl = false;
         });
       };
 
@@ -137,7 +137,7 @@
 
         operation.finished.finally(function () {
           $rootScope.$broadcast('asuno-refresh-all');
-          delete $scope.blockControl;
+          $scope.blockControl = false;
         });
 
         $rootScope.$broadcast('asuno-progress-start', operation);

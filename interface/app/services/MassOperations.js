@@ -23,7 +23,7 @@
           scope       : $rootScope.$new(),
           keyboard    : false,
           backdrop    : 'static',
-          controller  : function ($scope, $q) {
+          controller  : function ($scope, $q, $modalInstance) {
             $scope.operation = operation.name;
             $scope.allowToRdp = operation.allowToRdp;
 
@@ -63,7 +63,10 @@
                 operation.finish();
               });
             };
-
+            $scope.chancel = function () {
+              operation.finish();
+              $modalInstance.close('chancel');
+            };
             $scope.sendToRdp = function () {
               $scope.confirmed = true;
 
