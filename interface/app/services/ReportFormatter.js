@@ -10,9 +10,16 @@
       var emergency = event.state.payload === 'emergency';
       var hasIssue = event.issue && event.issue.id && (parseInt(event.issue.id, 10) > 0);
       var ufap_id = hasIssue ? event.issue.ufap_id : 0;
+
       var timestamp = event.timestamp;
-      if ( isNaN( timestamp * 1 ) && timestamp.indexOf('Z') < 0 ) {
-        timestamp = timestamp + 'Z';
+      if (isNaN( timestamp * 1 )) {
+        let pos = timestamp.indexOf('+');
+        if (pos > 0) {
+          timestamp = timestamp.substr(0, pos);
+        }
+        if ( timestamp.indexOf('Z') < 0 ) {
+          timestamp = timestamp + 'Z';
+        }
       }
       return {
         id: event.id,
@@ -38,8 +45,14 @@
     this.format_alarm_tl = function (event, controller, rdp) {
       var emergency = event.state.payload === 'emergency';
       var timestamp = event.timestamp;
-      if ( isNaN( timestamp * 1 ) && timestamp.indexOf('Z') < 0 ) {
-        timestamp = timestamp + 'Z';
+      if (isNaN( timestamp * 1 )) {
+        let pos = timestamp.indexOf('+');
+        if (pos > 0) {
+          timestamp = timestamp.substr(0, pos);
+        }
+        if ( timestamp.indexOf('Z') < 0 ) {
+          timestamp = timestamp + 'Z';
+        }
       }
       return {
         id: event.id,

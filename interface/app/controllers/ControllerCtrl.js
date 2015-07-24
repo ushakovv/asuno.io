@@ -87,6 +87,7 @@
       function _findMonitors(controller, id) {
         let monitors = _.filter($scope.controller.monitors, (m) => m.id === id);
         monitors = monitors.concat(_.filter($scope.controller.alarms.connection, (m) => m.id === id));
+        monitors = monitors.concat(_.filter($scope.controller.alarms.lost_voltage, (m) => m.id === id));
         monitors = monitors.concat(_.filter($scope.controller.alarms.fire, (m) => m.id === id));
         monitors = monitors.concat(_.filter($scope.controller.alarms.door, (m) => m.id === id));
         monitors = monitors.concat(_.filter($scope.controller.alarms.common_alarm, (m) => m.id === id));
@@ -143,6 +144,7 @@
         $scope.controller.alarms.common_alarm = $scope.controller.alarms.common_alarm.slice();
         $scope.controller.alarms.door = $scope.controller.alarms.door.slice();
         $scope.controller.alarms.connection = $scope.controller.alarms.connection.slice();
+        $scope.controller.alarms.lost_voltage = $scope.controller.alarms.lost_voltage.slice();
         $scope.controller.alarms.lock = $scope.controller.alarms.lock.slice();
       }
     }
@@ -152,21 +154,25 @@
       const pastSensors = _.filter(pastTimeline, (item) => item.__type__ === 'sensors');
 
       _($scope.controller.monitors
-              .concat($scope.controller.alarms.fire)
-              .concat($scope.controller.alarms.door)
-              .concat($scope.controller.alarms.common_alarm)
-              .concat($scope.controller.alarms.connection)
-              .concat($scope.controller.alarms.lock)
-      ).filter((m) => new Date(m.last_reading_timestamp) >= begin)
-      .filter((m) => !_.any(pastMonitors, (item) => item.monitor.id === m.id))
-      .forEach(function (monitor) {
-        monitor.payload = '';
-        monitor.value = null;
-        monitor.denotation = '';
-        monitor.last_reading_timestamp = new Date(0);
-      }).value();
+          .concat($scope.controller.alarms.fire)
+          .concat($scope.controller.alarms.door)
+          .concat($scope.controller.alarms.common_alarm)
+          .concat($scope.controller.alarms.connection)
+          .concat($scope.controller.alarms.lost_voltage)
+          .concat($scope.controller.alarms.lock)
+        )
+        .filter((m) => new Date(m.last_reading_timestamp) >= begin)
+        .filter((m) => !_.any(pastMonitors, (item) => item.monitor.id === m.id))
+        .forEach(function (monitor) {
+          monitor.payload = '';
+          monitor.value = null;
+          monitor.denotation = '';
+          monitor.last_reading_timestamp = new Date(0);
+        })
+        .value();
 
-      _($scope.controller.sensors.concat($scope.controller.other_sensors))
+      _($scope.controller.sensors
+          .concat($scope.controller.other_sensors))
         .filter((s) => new Date(s.last_reading_timestamp) >= begin)
         .filter((s) => !_.any(pastSensors, (item) => item.sensor_id === s.id))
         .forEach((sensor) => {

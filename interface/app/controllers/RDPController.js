@@ -5,8 +5,8 @@
 (function () {
   'use strict';
 
-  function RDPController($rootScope, $scope, $state, $log, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, ControllersActions, Mutex, tickEvent, initial) {
 
+  function RDPController($log, $rootScope, $scope, $state, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, FILTER_CONFIGS_BATCH, ControllersActions, Mutex, tickEvent, initial) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = false;

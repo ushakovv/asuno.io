@@ -6,7 +6,6 @@
       if (!time) {
         return void 0;
       }
-
       if (isNaN( time * 1 )) {
         let pos = time.indexOf('+');
         if (pos > 0) {

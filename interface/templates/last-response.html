@@ -1,11 +1,15 @@
 <h6>
-  <span class="glyphicon glyphicon-time"></span> Уход времени:
+  <span class="glyphicon glyphicon-time"></span>
+    Уход времени:
   <button class="btn btn-primary btn-xs" ng-click="lr.timeSync()" ng-disabled="lr.controller.connection_lost"
-          ng-attr-title="{{lr.controller.last_response|serverDate|date:'HH:mm:ss dd.MM.yyyy'}}">
+        ng-attr-title="{{lr.controller.last_response|serverDate|date:'HH:mm:ss dd.MM.yyyy'}}">
     <span class="glyphicon glyphicon-refresh"></span>
     <span class="clock--white" time-lag="lr.controller.sensorValue('BADTIMER')" timestamp="lr.controller.last_response"></span>
   </button>
-  <button class="btn btn-primary btn-xs" ng-click="lr.poll()" ng-disabled="lr.controller.connection_lost">
+  <button class="btn btn-primary btn-xs align-time-sync" ng-click="lr.poll()" ng-disabled="lr.controller.connection_lost">
     Обновить данные
+  </button>
+  <button class="btn btn-primary btn-xs align-time-sync" ng-click="lr.askServer()" ng-disabled="lr.controller.connection_lost">
+    Опросить контроллер
   </button>
 </h6>
