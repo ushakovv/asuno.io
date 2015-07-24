@@ -9,7 +9,8 @@
         scope: {
           controller: '=',
           hideSensors: '=hideSensors',
-          hideButton: '=hideButton'
+          hideButton: '=hideButton',
+          loading: '='
         },
         bindToController: true,
         controller: 'TelemetryController as telemetry'

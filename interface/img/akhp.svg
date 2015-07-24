@@ -1,4 +1,4 @@
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="wrap-all" x="0px" y="0px" viewBox="0 131 800 600" enable-background="new 0 131 800 600" xml:space="preserve" >
+<svg width="100%" height="600"  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" id="wrap-all" x="0px" y="0px" viewBox="0 131 800 600" enable-background="new 0 131 800 600" xml:space="preserve" >
   <defs id="defs11079">
   <radialGradient id="red_grad">
   <stop stop-color="#F15A24" offset="0%" id="stop11082"/>
@@ -1249,7 +1249,7 @@
   </g>
   <line id="svg_294_1_" stroke-miterlimit="10" x1="483.39999" y1="532.79999" x2="483.39999" y2="709.70001" style="fill:none;stroke:#002d8e;stroke-miterlimit:10"/>
   <line id="svg_306_1_" stroke-miterlimit="10" x1="483.39999" y1="452.29999" x2="483.39999" y2="473.5" style="fill:none;stroke:#002d8e;stroke-miterlimit:10"/>
-  <circle id="svg_316_1_" cx="483.39999" cy="450" r="3.5" style="fill:#002883" class="direction-info direction-info-11"/>
+  <circle id="svg_316_1_" cx="483.39999" cy="450" r="3.5" style="fill:#002883" class="direction-info direction-info-12"/>
   <g id="svg_412_1_">
   <rect id="svg_413_1_" x="503.20001" y="601.40002" width="15.6" height="15.6"/>
   <rect id="svg_414_1_" x="504.10001" y="602.29999" width="13.9" height="13.9" style="fill:#bababa"/>
@@ -1440,7 +1440,7 @@
   <rect id="svg_572_3_" x="620.40002" y="620.20001" width="12.4" height="12.4" style="fill:#bababa"/>
   </g>
   </g>
-  <g id="g12342" class="direction direction-10">
+  <g id="direction-9" class="direction direction-9">
   <g id="svg_74_2_">
   <rect id="svg_75_2_" x="688.59998" y="473.5" width="11.6" height="59.700001" style="fill:#a1a1a1"/>
   <rect id="svg_76_2_" x="691" y="473.5" width="11.6" height="11.6" style="fill:#e4e5e6"/>

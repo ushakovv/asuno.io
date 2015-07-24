@@ -21,29 +21,36 @@
         controller: 'AhpKulonEditorController as dep',
         link: function (scope, element) {
 
-          scope.$on('$stateChangeStart', function () {
+          scope.$on('$stateChangeStart', function() {
             $('body').find('.popover').remove();
           });
 
           window._controller = scope.controller;
 
-          function drawDirection(directionNum) {
-            const directionElement = element.find( `.direction.direction-${directionNum}`);
-            const direction = scope.controller.direction(directionNum);
+          const directionElementsList = {};
 
-            if (!direction) {
-              directionElement.css('opacity', 0.5);
-            } else {
-              directionElement.css('opacity', 1);
-            }
+          function redrawDirection(directionNum) {
+            const direction = scope.controller.direction(directionNum);
+            let opacity = !direction ? 0.5 : 1;
+            directionElementsList[directionNum].css('opacity', opacity);
+          }
+
+          function drawDirection(directionNum) {
+            const directionElement = element.find( `.direction.direction-${directionNum}`),
+              directionElementInfo = directionElement.find(`.direction-info.direction-info-${directionNum}`),
+              direction = scope.controller.direction(directionNum);
+
+            directionElementsList[directionNum] = directionElement;
+
+            let opacity = !direction ? 0.5 : 1;
+            directionElement.css('opacity', opacity);
 
             directionElement.click(function () {
-              directionElement.find(`.direction-info.direction-info-${directionNum}`).popover('destroy');
-              $('body').find('.popover').remove();
+              directionElementInfo.popover('destroy');
 
               const $child = $rootScope.$new();
               $child.directionNum = directionNum;
-              $child.direction = direction;
+              $child.direction = scope.controller.direction(directionNum);
               $child.controller = scope.controller;
               $child.directionElement = directionElement;
 
@@ -51,24 +58,31 @@
 
               scope.$apply();
 
-              directionElement.find(`.direction-info.direction-info-${directionNum}`)
-                .popover({
-                  title: `Направление ${directionNum}`,
-                  html: true,
-                  content: content,
-                  container: 'body',
-                  placement: 'top'
-                });
-
-              $timeout(() => {
-                directionElement.find(`.direction-info.direction-info-${directionNum}`).popover('show');
-              }, 100);
+              function showPopover() {
+                let popover = $('body').find('.popover');
+                if (popover.length) {
+                  popover.remove();
+                  setTimeout(showPopover, 100);
+                } else {
+                  directionElementInfo.popover({
+                    title: `Направление ${directionNum}`,
+                    html: true,
+                    content: content,
+                    container: 'body',
+                    placement: 'top'
+                  });
+                  directionElementInfo.popover('show');
+                }
+              }
+              $('body').find('.popover').remove();
+              setTimeout(showPopover, 150);
             });
           }
 
+          _directions.forEach(drawDirection);
           scope.$watch('controller', function (next) {
             if (angular.isObject(next)) {
-              _directions.forEach(drawDirection);
+              _directions.forEach(redrawDirection);
             }
           });
         }
@@ -90,18 +104,6 @@
         action
           .then(() => $rootScope.$broadcast('asuno-refresh-all'))
           .then(() => $scope.directionElement.find(`.direction-info.direction-info-${directionNum}`).popover('destroy'))
-          .finally(() => $scope.loading = false);
-      };
-
-      $scope.connectToContactor = function (direction, contactorNum) {
-        let action = Scheme.set_direction_contactor({id: $scope.controller.id, direction_id: direction.id}, {number : contactorNum + 1}).$promise;
-
-        action
-          .then(() => $rootScope.$broadcast('asuno-refresh-all'))
-          .then(() => {
-            $scope.directionElement.find('circle.direction-contactor-1:first').popover('destroy');
-            $('body').find('.popover').remove();
-          })
           .finally(() => $scope.loading = false);
       };
     });

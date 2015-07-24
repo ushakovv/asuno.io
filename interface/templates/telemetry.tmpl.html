@@ -10,7 +10,7 @@
   </div>
   <div class="row" ng-if="!telemetry.hideButton">
     <div class="col-md-6">
-      <button class="btn btn-primary btn-xs btn-block controller-telemetry__change-counters" ng-click="telemetry.changeSensors()">
+      <button class="btn btn-primary btn-xs btn-block controller-telemetry__change-counters" ng-disabled="loading" ng-click="telemetry.changeSensors()">
         {{ telemetry.controller.sensors.length > 0 ? 'Удалить счетчик' : 'Добавить счетчик' }}
       </button>
     </div>
