@@ -26,7 +26,9 @@ var gulp = require('gulp'),
   revReplace = require('gulp-rev-replace'),
   lazypipe = require('lazypipe'),
   babel = require('gulp-babel'),
-  sourcemaps = require('gulp-sourcemaps');
+  sourcemaps = require('gulp-sourcemaps'),
+  scp = require('gulp-scp2'),
+  publicKeyValue = 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC07neaRn+EVcQK0vdM2YobkNqYoUcSJp/oYcV64ilr9d11Y7ndRF4Pqv3JxcQ10v9XqwjznlaIyuob5cc+nvUfsy21u2yGCgtdl1Wy9kM3+pz0yNwMYzYZQmDLt8lmnHXbGnVDGjx40kYX/1vOIuP14kTNz/I85xqOOI3J51OTVnu1PHEkQOTXgwhLTc3mF5m+2M43yndUxu5HtXwqkKmn8FWSSS8eVOmCQCD4N13aPZ6Y439LfBkAE6ur0K2C3UmiTEq9UvfZj/ZLAk4/zX0hYKIFA6a+KRr0qSwYFK0IS+pGMmhNL7Ul6M63wKUGOYUJx142XV3BdbvK85sMfED07ezb173FD/vS10RetgSxCbWbRHmylV4iop0vGfr7DubuQT9sLUZwp3pL2rXRoAaJsInsGAPbKbMyn9zw6jtKwZFWlLuBLxAvwKbnGhEVJSfHNI0vpHgFX95pwbVN9qBROhpaG/jJHREI95QzjRa8tCr7d0ClNrgHKvMleciVyEbQCKflb03q9CO5HvuLwU88OR3Ye0wqW0IN1Uw0nMZ0FxtM/2QSPcEWDUKD72FD0IsUKCS3FNwJXMFUpl5MU1ERANwHrGTgD2c3lpF9zKG4BCaYBZTG0ImeMZdMwD9viP0WA6K1l2eH76gFoIqquKLH5+WjClRp8aKAlkCdSxcsyw== rusustyugov@gmail.com';
 
 var app = 'interface/',
   dist = 'dist/',
@@ -154,4 +156,25 @@ gulp.task('watch-simple', ['simple'], function () {
   gulp.watch(app + 'templates/**/*', ['copy']);
   gulp.watch(app + 'app/**/*', ['useref']);
   gulp.watch(app + 'scss/**/*', ['useref']);
+});
+
+
+gulp.task('scp', function() {
+  return gulp.src('dist.tar.gz')
+  .pipe(scp({
+    host: '95.215.110.99',
+    username: 'asuno',
+    dest: '/home/asuno/src/',
+    publicKey: publicKeyValue,
+    agent: process.env['SSH_AUTH_SOCK'],
+    agentForward: true,
+    watch: function(client) {
+      client.on('write', function(o) {
+        console.log('write %s', o.destination);
+      });
+    }
+  }))
+  .on('error', function(err) {
+    console.log(err);
+  });
 });
