@@ -8,8 +8,8 @@
   function ReportFormatter() {
     this.format_alarm = function (event) {
       var emergency = event.state.payload === 'emergency';
-      var hasIssue = event.issue && event.issue.id && (parseInt(event.issue.id, 10) > 0);
-      var ufap_id = hasIssue ? event.issue.ufap_id : 0;
+      var hasIssue = event.ufap_id && (parseInt(event.ufap_id, 10) > 0);
+      var ufap_id = hasIssue ? event.ufap_id : 0;
 
       var timestamp = event.timestamp;
       if (isNaN( timestamp * 1 )) {

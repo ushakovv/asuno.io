@@ -102,7 +102,7 @@
     };
 
     $scope.isHasIssue = function isHasIssue(entity){
-      return entity.issue && !!parseInt(entity.issue.ufap_id, 10);
+      return entity.ufap_id && parseInt(entity.ufap_id, 10) > 0;
     };
 
     $scope.isEmergency = function isEmergency(entity) {
@@ -195,7 +195,7 @@
           cellTemplate : '<div class="ngCellText" style="text-align: center">' +
             '<span ng-if="isEmergency(row.entity)">' +
               '<span ng-if="!isHasIssue(row.entity)"><a href="javascript:void(0)" ng-click="createIssue(row.entity)">создать</a></span>' +
-              '<span ng-if="isHasIssue(row.entity)">Отправлена №{{row.entity.issue.ufap_id}}</span>' +
+              '<span ng-if="isHasIssue(row.entity)">№{{row.entity.ufap_id}}</span>' +
             '</span>',
           sortable     : false
         }
