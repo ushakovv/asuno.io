@@ -72,10 +72,10 @@
         <circle id="svg_54" class="phase-contactor phase-contactor-A phase-contactor-num-3" cx="178.5" cy="450.6" r="5.8"/>
       </g>
       <g id="svg_1003">
-        <circle id="svg_55" class="phase-contactor phase-contactor-B phase-contactor-num-3" cx="219.5" cy="450.6" r="5.8"/>
+        <circle id="svg_55" class="phase-contactor phase-contactor-C phase-contactor-num-3" cx="219.5" cy="450.6" r="5.8"/>
       </g>
       <g id="svg_1002">
-        <circle id="svg_56" class="phase-contactor phase-contactor-C phase-contactor-num-3" cx="198.7" cy="450.6" r="5.8"/>
+        <circle id="svg_56" class="phase-contactor phase-contactor-B phase-contactor-num-3" cx="198.7" cy="450.6" r="5.8"/>
       </g>
       <line id="svg_1001" fill="none" stroke="#666666" stroke-miterlimit="10" x1="198.8" y1="510.6" x2="511.5" y2="510.6"/>
     </g>
@@ -204,10 +204,10 @@
         <circle id="svg_54_1_" class="phase-contactor phase-contactor-A phase-contactor-num-1" cx="273.1" cy="451.1" r="5.8"/>
       </g>
       <g id="svg_103_1_">
-        <circle id="svg_55_1_" class="phase-contactor phase-contactor-B phase-contactor-num-1" cx="314.1" cy="451.1" r="5.8"/>
+        <circle id="svg_55_1_" class="phase-contactor phase-contactor-C phase-contactor-num-1" cx="314.1" cy="451.1" r="5.8"/>
       </g>
       <g id="svg_105_1_">
-        <circle id="svg_56_1_" class="phase-contactor phase-contactor-C phase-contactor-num-1" cx="292.4" cy="451.1" r="5.8"/>
+        <circle id="svg_56_1_" class="phase-contactor phase-contactor-B phase-contactor-num-1" cx="292.4" cy="451.1" r="5.8"/>
       </g>
       <line id="svg_17_1_" fill="none" stroke="#666666" stroke-miterlimit="10" x1="292.5" y1="500.6" x2="480.1" y2="500.6"/>
     </g>
