@@ -6,15 +6,18 @@
       replace  : true,
       template : '<div class="row" style="margin: 0"></div>',
       scope    : {
-        choose : '=controllerList'
+        choose : '=controllerList',
+        newTab : '=newTab'
       },
       link     : function (scope, element) {
         var handleClick = function (controller) {
           scope.choose(controller);
         };
-
+        var handleRightClick = function (controller) {
+          scope.newTab(controller);
+        };
         React.render(
-          <REACT.Controllers ngInjector={$injector} choose={handleClick} />,
+          <REACT.Controllers ngInjector={$injector} choose={handleClick} openNewTab={handleRightClick} />,
           element[0]
         );
 

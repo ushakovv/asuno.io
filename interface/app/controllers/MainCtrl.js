@@ -274,7 +274,7 @@
       const hrefState = $state.href( $state.current.name, params);
 
       $rootScope.journalInOtherTab = true;
-      $window.open(hrefState, 'blank');
+      $window.open(hrefState, '_blank');
     };
 
   }

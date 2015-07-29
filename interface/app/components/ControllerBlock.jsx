@@ -34,6 +34,7 @@
       this.handleSelection = this.handleSelection.bind(this);
       this.handleBlockSelect = this.handleBlockSelect.bind(this);
       this.handleBlockClick = this.handleBlockClick.bind(this);
+      this.handleBlockRightClick = this.handleBlockRightClick.bind(this);
 
       this.state = {
         is_selected : this.props.ControllersStore.isControllerSelected(this.props.controller.id)
@@ -55,6 +56,10 @@
 
     handleBlockClick() {
       this.props.choose(this.props.controller);
+    }
+    handleBlockRightClick(e) {
+      e.preventDefault();
+      this.props.openNewTab(this.props.controller);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -97,7 +102,7 @@
         tooltip = 'Профилактика с ' + moment(controller.maintenance.date_from).format('DD.MM.YYYY HH:mm') + ' по ' + moment(controller.maintenance.date_to).format('DD.MM.YYYY HH:mm');
       }
 
-      return <div className={containerClasses} data-tooltip={tooltip} onClick={this.handleBlockClick} data-id={this.props.controller.id}>
+      return <div className={containerClasses} data-tooltip={tooltip} onClick={this.handleBlockClick} onContextMenu={this.handleBlockRightClick} data-id={this.props.controller.id}>
           <div className={controllerClasses}>
             <div className="controller__name">
               <input type="checkbox" className="controller__name__selector" checked={this.state.is_selected} readOnly={true} onClick={this.handleBlockSelect}/>
@@ -120,6 +125,7 @@
 
   ControllerBlock.propTypes = {
     choose: React.PropTypes.func.isRequired,
+    openNewTab: React.PropTypes.func.isRequired,
     controller: React.PropTypes.object.isRequired,
     ControllersStore: React.PropTypes.object.isRequired,
     ControllersActions: React.PropTypes.object.isRequired,

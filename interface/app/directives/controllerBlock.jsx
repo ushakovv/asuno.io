@@ -6,15 +6,19 @@
       replace : false,
       scope   : {
         controller : '=controllerBlock',
-        choose     : '='
+        choose     : '=',
+        openNewTab : '='
       },
       link    : function (scope, element) {
         var handleClick = function (controller) {
           scope.choose(controller);
         };
+        var handleRightClick = function (controller) {
+          scope.openNewTab(controller);
+        };
 
         React.render(
-          <REACT.ControllerBlock ngInjector={$injector} controller={scope.controller} choose={handleClick} />,
+          <REACT.ControllerBlock ngInjector={$injector} controller={scope.controller} choose={handleClick} openNewTab={handleRightClick} />,
           element[0]
         );
 

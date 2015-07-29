@@ -4,6 +4,7 @@
   width   : percentage(6/12);
   padding : 0 5px 0 0;
   float   : left;
+  cursor: pointer;
 
   @media (min-width : $screen-sm) {
     width : percentage(4/12);
