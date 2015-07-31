@@ -46,11 +46,25 @@
     $scope.filters = {
       dateFrom: _defaultDateFrom
     };
-
+    const _setContrillerLink = function _setContrillerLink(controller) {
+      let hrefState;
+      if (controller.is_cascade) {
+        hrefState = $state.href('core.controllerSpecial', {
+          rdp: $scope.rdp.slug,
+          controller: controller.id
+        });
+      } else {
+        hrefState = $state.href('core.controller', {
+          rdp: $scope.rdp.slug,
+          controller: controller.id
+        });
+      }
+      controller.href = hrefState;
+    };
     var setControllers = function (controllers) {
       FilterSvc.clear();
       controllers.forEach(FilterSvc.parseController, FilterSvc);
-
+      controllers.forEach(_setContrillerLink);
       ControllersActions.setControllers(controllers);
 
       $scope.controllers = controllers;
@@ -107,21 +121,7 @@
         });
       }
     };
-    $scope.showControllerInNewTab = function (controller) {
-      let hrefState;
-      if (controller.is_cascade) {
-        hrefState = $state.href('core.controllerSpecial', {
-          rdp: $scope.rdp.slug,
-          controller: controller.id
-        });
-      } else {
-        hrefState = $state.href('core.controller', {
-          rdp: $scope.rdp.slug,
-          controller: controller.id
-        });
-      }
-      $window.open(hrefState, '_blank');
-    };
+
     $scope.selectRdp = function (rdp, graphic) {
       $state.go('core.rdp', {
         rdp: rdp.slug,
@@ -159,8 +159,6 @@
     $scope.pointFilter = function (attributes) {
       return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
     };
-
-    $log.debug('RDPControllerCtrl');
 
     let cabelsId = [];
 

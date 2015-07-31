@@ -30,7 +30,7 @@
 
     setFilters();
 
-    $log.debug('RDPControllerCtrl', Controllers.all_cables);
+    $log.debug('RDPsController', Controllers.all_cables);
     let cabels = [];
 
     Controllers.all_cables({}).$promise

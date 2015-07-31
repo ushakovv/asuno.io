@@ -128,12 +128,19 @@
       margin : 0 2px 0 0 !important;
       float  : left;
     }
+    &__link {
+      color: #333333;
+      text-decoration: none;
+    }
   }
 
   &__address {
     line-height   : 22px;
     height        : 22px;
     max-width     : 100%;
+    display: block;
+    text-decoration: none;
+    color: #333333;
     overflow      : hidden;
     white-space   : nowrap;
     text-overflow : ellipsis;

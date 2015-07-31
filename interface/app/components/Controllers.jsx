@@ -17,11 +17,11 @@
     }
 
     render() {
-      const { controllers, choose, openNewTab } = this.props;
+      const { controllers, choose } = this.props;
       const { ngInjector } = this.context;
 
       const controllerBlocks = controllers
-        .map((ctrl) => <R.ControllerBlock ngInjector={ngInjector} controller={ctrl} choose={choose} openNewTab={openNewTab} key={ctrl.id} />);
+        .map((ctrl) => <R.ControllerBlock ngInjector={ngInjector} controller={ctrl} choose={choose} key={ctrl.id} />);
 
       return <div>
         {controllerBlocks}
@@ -31,8 +31,7 @@
 
   ControllersList.propTypes = {
     controllers: React.PropTypes.array.isRequired,
-    choose : React.PropTypes.func.isRequired,
-    openNewTab: React.PropTypes.func.isRequired
+    choose : React.PropTypes.func.isRequired
   };
 
   ControllersList.contextTypes = {
@@ -55,7 +54,7 @@
     }
 
     render() {
-      const { controllers, choose, openNewTab } = this.props;
+      const { controllers, choose } = this.props;
       const { isExpanded } = this.state;
 
       const indicatorClassName = classNames('controller-list__type-name__handle fa', {
@@ -70,7 +69,7 @@
         </h5>
 
         <div style={{display: isExpanded ? 'block' : 'none'}}>
-          <ControllersList isExpanded={isExpanded} controllers={controllers} choose={choose} openNewTab={openNewTab} />
+          <ControllersList isExpanded={isExpanded} controllers={controllers} choose={choose} />
         </div>
       </div>;
     }
@@ -78,8 +77,7 @@
 
   ControllerTypeBlock.propTypes = {
     controllers: React.PropTypes.array.isRequired,
-    choose : React.PropTypes.func.isRequired,
-    openNewTab: React.PropTypes.func.isRequired
+    choose : React.PropTypes.func.isRequired
   };
 
   class Controllers extends React.Component {

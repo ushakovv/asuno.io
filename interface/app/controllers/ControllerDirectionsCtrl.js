@@ -11,7 +11,7 @@
 
   var _editTemplate = '<div ng-class="{\'has-error\': [\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)>=0 && !COL_FIELD}">\n  <input ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" type="number" required name="fieldInput"\n         ng-if="[\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)>=0"/>\n  <input ng-class="\'colt\' + col.index" ng-input="COL_FIELD" ng-model="COL_FIELD" type="text" name="fieldInput"\n         ng-if="[\'p_u\',\'i_p\',\'i_ut\'].indexOf(row.entity.field)===-1"/>\n</div>';
   var _cellTemplate = '<div class="ngCellText" ng-class="col.colIndex()" bs-tooltip data-container="body"\n <span ng-switch="row.getProperty(\'field\')">\n  ' +
-      '<span ng-switch-when="cable_id" ng-controller="DirectionLepCtrl as dirLep">\n   <a href="javascript:void(0)"  ng-click="dirLep.toggleDirectionLink(row.getProperty(col.field), row.getProperty(col.field+\'number\'))" >\n    <span ng-if="!row.getProperty(col.field)">Привязать</span>\n' +
+      '<span ng-switch-when="cable_id" ng-controller="DirectionLepCtrl as dirLep">\n   <a href="javascript:void(0)" ng-disabled="dirLep.isLinking" ng-click="dirLep.toggleDirectionLink(row.getProperty(col.field), row.getProperty(col.field+\'number\'))" >\n    <span ng-if="!row.getProperty(col.field)">Привязать</span>\n' +
       '<span ng-if="row.getProperty(col.field)">Отвязать</span>\n   </a></span>\n  <span ng-switch-default>{{row.getProperty(col.field)}} </span>\n   </span>\n  </div>';
 
   function ControllerDirectionsCtrl($scope, $rootScope, ngGridBase, Auth, Controllers) {

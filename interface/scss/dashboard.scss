@@ -189,4 +189,8 @@ header, .bottom-journal, .body-pane {
 
 a[ng-click] {
   cursor : pointer;
+  &[disabled] {
+    cursor  : default;
+    color   : #c2ccd1;
+  }
 }

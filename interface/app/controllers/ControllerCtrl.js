@@ -181,6 +181,16 @@
         }).value();
     }
 
+
+    let _callbackList = [];
+    function _runCallbackFromList () {
+      let callback = _callbackList.pop();
+      while ( callback ) {
+        callback();
+        callback = _callbackList.pop();
+      }
+    }
+
     const _powerData = {
       maxAllowedPower : {
         value: 0,
@@ -233,42 +243,59 @@
       }
     };
 
+    $rootScope.unlinkDirection = function (directionId, callback) {
 
-    $rootScope.unlinkDirection = function (directionId) {
-
-      $log.debug('unlinkDirection ', directionId);
       let params = {id: $scope.controller.id, direction_id: directionId};
-
       let unlink = Scheme.direction_unlink_cable(params, params).$promise;
 
       unlink
         .then(() => {
+          _callbackList.push(callback);
           $scope.$broadcast('asuno-refresh-all');
       }, () => {
           $scope.error = 'Произошла ошибка сети';
+          callback();
       });
 
     };
 
-
-    $rootScope.setDirectionId = function(directionId) {
-      $rootScope.directionId = directionId;
+    $rootScope._linkingDirection = {
+      id: null,
+      callback: null
     };
+
+    $rootScope.setDirectionId = function(directionId, callback) {
+      $rootScope._linkingDirection = {
+        id: directionId,
+        callback: callback
+      };
+    };
+
     $rootScope.linkDirection = function (cabelId, closeModal) {
 
-      let params = {id: $scope.controller.id, direction_id: $rootScope.directionId};
+      let params = {id: $scope.controller.id, direction_id: $rootScope._linkingDirection.id};
 
       let unlink = Scheme.direction_link_cable(params, {cable_id: cabelId}).$promise;
-
       unlink
-          .then(() => {
-        $scope.$broadcast('asuno-refresh-all');
-        closeModal();
-      }, () => {
-        $scope.error = 'Произошла ошибка сети';
-        closeModal();
-      });
-      $rootScope.directionId = null;
+        .then(() => {
+          if ( $rootScope._linkingDirection.callback ) {
+            _callbackList.push($rootScope._linkingDirection.callback);
+          }
+          $scope.$broadcast('asuno-refresh-all');
+          closeModal();
+          $rootScope._linkingDirection = {
+            id: null,
+            callback: null
+          };
+        }, () => {
+          $scope.error = 'Произошла ошибка сети';
+          $rootScope._linkingDirection.callback();
+          closeModal();
+          $rootScope._linkingDirection = {
+            id: null,
+            callback: null
+          };
+        });
     };
 
     $rootScope.timelineInit = function (_begin, _end) {
@@ -355,13 +382,13 @@
     function setController() {
       if (!$scope.main.globalLocked && !mutex.isLocked() && !$rootScope.isJournalTab()) {
         mutex.lock();
-
         Controllers.get({
           controller: $scope.controller.id
         }).$promise
           .then(function (controller) {
             if (!$scope.main.globalLocked && !$scope.editingInSession) {
               $scope.controller = controller;
+              _runCallbackFromList();
             }
             mutex.release();
           });
@@ -384,8 +411,6 @@
     $scope.pointFilter = function (attributes) {
       return attributes.PP_ID === $scope.controller.gis_id;
     };
-
-    $log.debug('ControllerCtrl');
 
     let cabelsId = [];
 
