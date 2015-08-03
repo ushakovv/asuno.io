@@ -270,7 +270,16 @@
         callback: callback
       };
     };
-
+    $rootScope.resetDirectionId = function(runCallback) {
+      if (runCallback) {
+        $rootScope._linkingDirection.callback();
+      }
+      $log.debug('resetDirectionId');
+      $rootScope._linkingDirection = {
+        id: null,
+        callback: null
+      };
+    };
     $rootScope.linkDirection = function (cabelId, closeModal) {
 
       let params = {id: $scope.controller.id, direction_id: $rootScope._linkingDirection.id};

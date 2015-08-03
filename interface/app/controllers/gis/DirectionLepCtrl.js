@@ -8,18 +8,17 @@
 (function () {
     'use strict';
 
-    function DirectionLepCtrl($scope, $modal, $rootScope, $log) {
+    function DirectionLepCtrl($scope, $modal, $rootScope) {
         var dirLep = this;
         dirLep.isLinking = false;
 
         dirLep.showLep = function () {
             const $child = $scope.$new();
 
-            $log.debug('showLep');
             $modal.open({
                 templateUrl : '/assets/templates/modals/direction-lep-modal.html',
                 scope : $child,
-                controller: function ($rootScope, $scope, $timeout, Controllers) {
+                controller: function ($rootScope, $scope, $timeout, Controllers, $modalInstance) {
                     let cable_ids = [];
 
                     function loadFilterCabels() {
@@ -29,6 +28,10 @@
                     loadFilterCabels();
                     $scope.modalLepFilter = function (attributes) {
                         return cable_ids.indexOf(attributes.CABEL_ID) > -1;
+                    };
+                    $scope.chancel = function () {
+                        $rootScope.resetDirectionId(true);
+                        $modalInstance.dismiss();
                     };
                 }
             });
@@ -41,7 +44,6 @@
             } );
         };
         dirLep.toggleDirectionLink = function(cabelId, directionId) {
-            $log.debug('toggleDirectionLink', dirLep.isLinking);
             if (!dirLep.isLinking) {
                 dirLep.isLinking = true;
                 if ( cabelId ) {
@@ -52,7 +54,9 @@
                     $rootScope.setDirectionId(directionId, () => {
                         dirLep.isLinking = false;
                     });
-                    dirLep.showLep();
+                    dirLep.showLep(() => {
+                        dirLep.isLinking = false;
+                    });
                 }
             }
         };
