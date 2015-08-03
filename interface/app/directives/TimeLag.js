@@ -17,6 +17,7 @@
         scope       : {
           lag       : '=timeLag',
           timestamp : '=timestamp',
+          bigLag  : '=bigLag',
           once      : '@'
         },
         controller: 'TimeLagController as timeLag'
@@ -30,6 +31,12 @@
         var minutes = Math.floor(lag / 60000);
         lag = lag - minutes * 60000;
         var seconds = Math.floor(lag / 1000);
+
+        if (!$scope.bigLag && (hours > 0 || minutes >= 10)) {
+          $scope.bigLag = true;
+        } else if ($scope.bigLag && !(hours > 0 || minutes >= 10)) {
+            $scope.bigLag = false;
+        }
 
         if (hours < 10) {
           hours = '0' + hours;

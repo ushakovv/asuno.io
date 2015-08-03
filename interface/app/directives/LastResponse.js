@@ -32,5 +32,7 @@
       this.askServer = () => {
         Controllers.change({controller: this.controller.id}, {command: 'time:examine'});
       };
+
+      this.isBigLag = false;
     });
 })();
