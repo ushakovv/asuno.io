@@ -52,13 +52,64 @@
     return img;
   }
 
-  function controllerScheme($compile, Controllers, $rootScope) {
+  function controllerScheme($compile, Controllers, $rootScope, $window, $modal) {
     return {
       scope    : {
         controller : '=controllerScheme'
       },
       link     : function (scope, element) {
         var translate;
+        scope.blockControl = false;
+        // maintance Off
+        var maintanceOffbutton = element.find('#maintance-off');
+        maintanceOffbutton.on('click', function() {
+          $modal.open({
+            templateUrl : '/assets/templates/modals/progress-modal.html',
+            scope       : $rootScope.$new(),
+            keyboard    : false,
+            backdrop    : 'static',
+            controller  : function ($scope, $q, $modalInstance) {
+              $scope.operation = 'Снятие профилактики';
+              $scope.allowToRdp = false;
+
+              $scope.all = 1;
+              $scope.oks = 0;
+              $scope.fails = 0;
+
+              $scope.progressItems = [];
+
+              $scope.confirm = function () {
+                $scope.confirmed = true;
+                Controllers.maintenance_delete( { controller : scope.controller.id }, { controller : scope.controller.id })
+                .$promise
+                .then( (result ) => {
+                  $rootScope.$broadcast('asuno-refresh-all');
+                  $scope.oks = $scope.oks + 1;
+                  return {ok : true, result : result};
+                }, (reason) => {
+                  $scope.fails = $scope.fails + 1;
+                  return {ok : false, result : reason};
+                }).then(() => {
+                  $scope.finished = true;
+                });
+              };
+
+              $scope.chancel = function () {
+                $modalInstance.close('chancel');
+              };
+
+              $scope.sendToRdp = function () {};
+
+              $scope.okProgress = function () {
+                return $scope.oks * 100 / $scope.all + '%';
+              };
+
+              $scope.failProgress = function () {
+                return $scope.fails * 100 / $scope.all + '%';
+              };
+            }
+          });
+        });
 
         function drawDirection(phase, phaseElement, directionNum) {
           var directionElement = phaseElement.find('.direction-info.direction-info-' + directionNum);
@@ -386,14 +437,6 @@
               }).on('mouseleave', function () {
                 $(this).find('circle[fill="#000000"]').popover('destroy');
               });
-            });
-
-            // maintance Off
-            var maintanceOffbutton = element.find('#maintance-off');
-            maintanceOffbutton.on('click', function() {
-                Controllers.maintenance_delete(
-                  { controller : scope.controller.id }, { controller : scope.controller.id }).$promise
-                    .then( () => { $rootScope.$broadcast('asuno-refresh-all'); });
             });
 
             //показатели
