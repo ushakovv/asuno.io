@@ -11,7 +11,7 @@ angular.module('asuno')
             controller: 'ConnectionErrorController as ce'
         };
     })
-    .controller('ConnectionErrorController', function ConnectionErrorController($scope, ConnectionError, $log) {
+    .controller('ConnectionErrorController', function ConnectionErrorController($scope, ConnectionError) {
         var ce = this;
         $scope.$watch(ConnectionError.isError, (newValue) => {
             if (newValue) {
@@ -19,9 +19,6 @@ angular.module('asuno')
             } else {
                 delete ce.error;
             }
-        });
-        $scope.$watch(ConnectionError.getErrorData, (newValue) => {
-            $log.debug('$watch ConnectionError getErrorData updated. newValue: ', newValue);
         });
     });
 })();
