@@ -11,6 +11,22 @@
         controller: 'TimelineController as tl'
       };
     })
+    .controller('TimelineModalController', function($scope) {
+      var tlm = this;
+      tlm.minDateTo = tlm.minTimeTo = null;
+
+      $scope.$watch('lineForm.fromDate.$dateValue', function (newVal) {
+        if (!newVal) {
+          return;
+        }
+
+        tlm.minDateTo = moment(newVal).startOf('day').toString();
+
+        if ( moment($scope.lineForm.fromTime.$dateValue).toDate().getTime() > moment($scope.lineForm.toTime.$dateValue).toDate().getTime() ) {
+          $scope.lineForm.toTime.$invalid = $scope.lineForm.$invalid = true;
+        }
+      });
+    })
     .controller('TimelineController', function TimelineController($scope, $rootScope, $timeout, $log, $modal, TimelineService, HeatMap) {
       var tl = this;
 
@@ -31,7 +47,8 @@
 
       tl.showConfig = function () {
         var instance = $modal.open({
-          templateUrl: '/assets/templates/modals/timeline-modal.html'
+          templateUrl: '/assets/templates/modals/timeline-modal.html',
+          controller: 'TimelineModalController as tlm'
         });
 
         tl.currentId = _.uniqueId();
