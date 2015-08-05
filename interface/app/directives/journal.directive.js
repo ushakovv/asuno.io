@@ -23,7 +23,7 @@
         controller       : 'JournalController as journal'
       };
     })
-    .controller('JournalController', function JournalController($scope, RDPs, Muter, ngGridBase, Events) {
+    .controller('JournalController', function JournalController($scope, RDPs, Muter, ngGridBase, Events, $log) {
       var journal = this;
 
       var _uniqueJournalLoad;
@@ -121,11 +121,13 @@
       journal.sortInfo = {columns : [], fields : [], directions : []};
 
       journal.isEmergency = function isEmergency(entity) {
-        return (entity.state && entity.state.payload && entity.state.payload === 'emergency') || !!entity.emergency;
+        $log.debug('isEmergency', entity);
+        return entity && ( (entity.state && entity.state.payload && entity.state.payload === 'emergency') || !!entity.emergency );
       };
 
       journal.isHasIssue = function isHasIssue(entity){
-        return entity.ufap_id && parseInt(entity.ufap_id, 10) > 0;
+        $log.debug('isHasIssue', entity);
+        return entity && entity.ufap_id && parseInt(entity.ufap_id, 10) > 0;
       };
 
       journal.createIssue = function (event) {
@@ -187,9 +189,9 @@
           displayName  : 'Заявка',
           width        : '*',
           cellTemplate : '<div class="ngCellText" style="text-align: center">' +
-            '<span ng-if="journal.isEmergency(row.entity)">' +
-              '<span ng-if="!journal.isHasIssue(row.entity)"><a href="javascript:void(0)" ng-click="journal.createIssue(row.entity)">создать</a></span>' +
-              '<span ng-if="journal.isHasIssue(row.entity)">№{{row.entity.ufap_id}}</span>' +
+            '<span ng-if="row.entity.emergency">' +
+              '<span ng-if="!row.entity.ufap_id"><a href="javascript:void(0)" ng-click="journal.createIssue(row.entity)">создать</a></span>' +
+              '<span ng-if="row.entity.ufap_id">№{{row.entity.ufap_id}}</span>' +
             '</span>',
           sortable     : false
         });
