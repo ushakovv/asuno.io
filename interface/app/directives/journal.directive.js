@@ -16,13 +16,14 @@
           rdpName     : '@',
           controllers : '=',
           alarms      : '=',
-          kvit        : '@'
+          kvit        : '@',
+          order       : '@'
         },
         bindToController : true,
         controller       : 'JournalController as journal'
       };
     })
-    .controller('JournalController', function JournalController($scope, RDPs, Muter, ngGridBase) {
+    .controller('JournalController', function JournalController($scope, RDPs, Muter, ngGridBase, Events) {
       var journal = this;
 
       var _uniqueJournalLoad;
@@ -37,7 +38,7 @@
       journal.load = function (options, page, per_page) {
         var currentLoad = _uniqueJournalLoad = _.uniqueId();
 
-        journal.report.loading = true;
+        journal.report.loading = options.sid ? true : false;
         journal.currentOptions = options;
         journal.pagingOptions.currentPage = page || 1;
 
@@ -119,6 +120,22 @@
 
       journal.sortInfo = {columns : [], fields : [], directions : []};
 
+      journal.isEmergency = function isEmergency(entity) {
+        return (entity.state && entity.state.payload && entity.state.payload === 'emergency') || !!entity.emergency;
+      };
+
+      journal.isHasIssue = function isHasIssue(entity){
+        return entity.ufap_id && parseInt(entity.ufap_id, 10) > 0;
+      };
+
+      journal.createIssue = function (event) {
+        Events.create_issue({id : event.id}, {id : event.id})
+            .$promise
+            .finally(function () {
+              journal.reload();
+            });
+      };
+
       $scope.$watch('journal.pagingOptions', function (next, prev) {
         if (next.currentPage !== prev.currentPage) {
           journal.reload(next.currentPage, next.pageSize);
@@ -162,7 +179,23 @@
                             <input if-has-control type="checkbox" ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="journal.toggleKvit(row.entity, row.entity.silent_model)">
                           </div>`
         });
+      }
 
+      if (journal.order) {
+        journal.options.columnDefs.push({
+          field        : '',
+          displayName  : 'Заявка',
+          width        : '*',
+          cellTemplate : '<div class="ngCellText" style="text-align: center">' +
+            '<span ng-if="journal.isEmergency(row.entity)">' +
+              '<span ng-if="!journal.isHasIssue(row.entity)"><a href="javascript:void(0)" ng-click="journal.createIssue(row.entity)">создать</a></span>' +
+              '<span ng-if="journal.isHasIssue(row.entity)">№{{row.entity.ufap_id}}</span>' +
+            '</span>',
+          sortable     : false
+        });
+      }
+
+      if (journal.kvit || journal.order) {
         journal.options.rowTemplate = ` <div ng-repeat="col in renderedColumns" ng-class="col.colIndex()" class="ngCell {{col.cellClass}}" ng-style="{'cursor': row.cursor, 'background-color': row.entity.backgroundColor, 'font-weight': row.entity.fontWeight }">
                                           <div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }">&nbsp;</div>
                                           <div ng-cell></div>
