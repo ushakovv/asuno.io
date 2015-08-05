@@ -23,9 +23,11 @@
       {title : 'Ip, A', field : 'i_p'},
       {title : 'Iyt, mA', field : 'i_ut'},
       {title : 'Напр. линии', field : 'direction'},
-      {title : 'Осв. приборы', field : 'lightning'},
-      {title : 'Привязка к лэп', field: 'cable_id'}
+      {title : 'Осв. приборы', field : 'lightning'}
     ];
+    if ($scope.isAdmin) {
+      $scope.directionsMap.push({title : 'Привязка к лэп', field: 'cable_id'});
+    }
 
     $scope.$watch('controller', function (next) {
       if (angular.isArray(next.directions)) {
