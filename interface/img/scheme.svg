@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="475" version="1.1" id="Слой_1" x="0px" y="0px" viewBox="50 40 550 475"
-enable-background="new 0 0 550 475" xml:space="preserve">
+<svg width="100%" height="475"  viewBox="50 40 800 475"
+xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xml:space="preserve">
   <defs>
       <radialGradient id="red_grad">
         <stop stop-color="#F15A24" offset="0%"/>
@@ -14,7 +14,7 @@ enable-background="new 0 0 550 475" xml:space="preserve">
         <stop stop-color="#3B3B3B" offset="100%"/>
       </radialGradient>
   </defs>
-<g transform="translate(-130,0)">
+<g>
   <g id="main-group">
     <g id="svg-day" class="contactor-group contactor-group-3">
       <line id="svg_1024" fill="none" stroke="#666666" stroke-miterlimit="10" x1="511.9" y1="115.8" x2="817.6" y2="115.8"/>
