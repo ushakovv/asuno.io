@@ -25,7 +25,7 @@
   angular.module('asuno').constant('COMMANDS', _commands);
 
   angular.module('asuno')
-    .directive('controlPane', function controlPane($timeout, $compile, $q, httpTemplateCache) {
+    .directive('controlPane', function controlPane($timeout, $compile, $q, httpTemplateCache, $log) {
       return {
         replace    : true,
         template   : `<div class="control-pane__show" if-has-control ng-class="{'tooltipped tooltipped-n': !selectedControllers.length}" data-tooltip="{{ tooltip }}">
@@ -33,11 +33,16 @@
                       </div>`,
         scope      : true,
         link       : function (scope) {
+          var $body = $('body');
           var first = $timeout(function () {
             scope.controlPaneHtml = httpTemplateCache.get('/assets/templates/control-pane.html');
             scope.controlPaneHtml.then(function (html) {
               $compile(html)(scope.$new(), function (pane) {
-                $('body').append(pane);
+                $body.append(pane);
+                $('#control-pane').on('click', (e) => {
+                  $log.debug('click element', e);
+                  e.stopPropagation();
+                });
               });
             });
           }, 1000);
@@ -57,11 +62,11 @@
               });
           };
 
-          $('body').click(scope.hideControl);
+          $body.on('click', scope.hideControl);
 
           scope.$on('$destroy', function () {
             $timeout.cancel(first);
-            $('body').unbind('click', scope.hideControl);
+            $body.off('click', scope.hideControl);
           });
         },
         controller: 'ControlPaneController as controlPane'
