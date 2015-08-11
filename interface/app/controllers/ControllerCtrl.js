@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
+  function ControllerCtrl($rootScope, $scope, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -32,7 +32,6 @@
 
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
-
 
     if (rdp.slug.indexOf('akhp') >= 0) {
       $scope.crumbs = [{
@@ -68,6 +67,32 @@
     let begin, end;
     let _initialController = {};
 
+    const _findMonitors = function _findMonitors(controller, id) {
+      let monitors = _.filter($scope.controller.monitors, (m) => m.id === id);
+      monitors = monitors.concat(_.filter($scope.controller.alarms.connection, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.lost_voltage, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.fire, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.door, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.common_alarm, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.lock, (m) => m.id === id));
+
+      return monitors;
+    };
+
+    const _updateMonitor = function _updateMonitor(item) {
+      if (item && item.id) {
+        let monitors = _findMonitors($scope.controller, item.id);
+        $log.debug('updateMonitor', monitors, item);
+        monitors.forEach(function (monitor) {
+          monitor.payload = item.payload || monitor.payload;
+          monitor.value = item.value || monitor.value;
+          monitor.denotation = item.denotation || monitor.denotation;
+          monitor.last_reading_timestamp = item.last_reading_timestamp || monitor.last_reading_timestamp;
+          monitor.silent = item.silent || monitor.silent;
+          monitor.silenced_by = item.silenced_by || monitor.silenced_by;
+        });
+      }
+    };
     function _applyEvents(ticked) {
       var events = _(ticked)
               .filter((evt) => evt.__type__ === 'monitor')
@@ -84,17 +109,7 @@
     }
 
     function _applyTick(ticked) {
-      function _findMonitors(controller, id) {
-        let monitors = _.filter($scope.controller.monitors, (m) => m.id === id);
-        monitors = monitors.concat(_.filter($scope.controller.alarms.connection, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.lost_voltage, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.fire, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.door, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.common_alarm, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.lock, (m) => m.id === id));
 
-        return monitors;
-      }
 
       if (ticked.length) {
         ticked.forEach(function (item) {
@@ -404,7 +419,7 @@
       }
     }
 
-    $scope.$on(tickEvent, setController);
+    //$scope.$on(tickEvent, setController);
 
     $scope.$on('asuno-refresh-all', setController);
 
@@ -491,6 +506,8 @@
       }
     };
 
+
+
     $scope.$watch('filters', function (next) {
       next = next || {};
       $scope.load_alarms({
@@ -502,9 +519,21 @@
       });
     }, true);
 
+    var socket = io.connect('http://95.215.110.99');
+    socket.on('connect', function() {
+      socket.emit('connect');
+      $log.debug('socket connect');
+      socket.emit('join_controller_room', { controller_id: controller.id });
+    });
+    socket.on('response', function(data){
+      $log.debug('responce', data);
+      _updateMonitor(data);
+    });
     $scope.$on('$destroy', function () {
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
+      socket.disconnect();
+      $log.debug('desctory');
     });
 
     $rootScope.journalInOtherTab = false;
@@ -515,7 +544,6 @@
         $rootScope.constrictJournal();
       }
     });
-
     $scope.$applyAsync();
   }
 
