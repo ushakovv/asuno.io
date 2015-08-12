@@ -4,16 +4,16 @@
 
 (function () {
   'use strict';
-
+  const address = ''; // 'http://' + '81.88.217.69'
   angular.module('asuno').constant('GIS_LAYERS', {
     rdps        : {
-      url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/9',
+      url            :  address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/9',
       dataAttributes : ['db_NAME', 'db_ADDRESS', 'DISPATCHER_ID'],
       name           : 'Диспетчерские пункты',
       icon           : '/assets/img/dispatchCenter.png'
     },
     lep        : {
-      url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/6',
+      url            : address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/6',
       name           : 'ЛЭП',
       dataAttributes : ['Object_ID', 'CABEL_ID'],
       icon           : '/assets/img/dispatchCenter.png',
@@ -23,7 +23,7 @@
       popupTemplateUrl : '/assets/templates/gis/lep.html'
     },
     controllers : {
-      url            : 'http://' + '81.88.217.69' + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',
+      url            : address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',
       dataAttributes : ['PP_ID', 'db_PP_NAME', 'db_STREET', 'db_DISPATCHER_ID', 'db_PP_TYPE'],
       name           : 'Пункты питания (точки)',
       icon           : '/assets/img/electricalSubstationPoint.png',
@@ -70,7 +70,7 @@
       }]
     },
     districts   : {
-      url              : 'http://' + '81.88.217.69' + '/arcgis/rest/services/RDP_region/MapServer/0',
+      url              : address + '/arcgis/rest/services/RDP_region/MapServer/0',
       dataAttributes   : ['ID', 'DISPETCHER', 'ETR', 'FIRM'],
       name             : 'Эксплуатационнные районы',
       icon             : '/assets/img/districts.png',
@@ -79,7 +79,7 @@
       invisible        : true
     },
     cameras     : {
-      url              : 'http://' + '81.88.217.69' + '/arcgis/rest/services/Mossvet/MapServer/10',
+      url              : address + '/arcgis/rest/services/Mossvet/MapServer/10',
       dataAttributes   : ['address', 'purl', 'iurl', 'name', 'Id'],
       name             : 'Камеры видеонаблюдения',
       icon             : '/assets/img/cameras.png',
@@ -91,7 +91,7 @@
     atd         : {
       idGroup     : true,
       name        : 'АТД',
-      url         : 'http://' + '81.88.217.69' + '/arcgis/rest/services/ATD/MapServer',
+      url         : address + '/arcgis/rest/services/ATD/MapServer',
       invisible   : true,
       layers      : [
         {
