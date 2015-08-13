@@ -7,13 +7,13 @@
   const address = ''; // 'http://' + '81.88.217.69'
   angular.module('asuno').constant('GIS_LAYERS', {
     rdps        : {
-      url            :  address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/9',
+      url            :  address + '/gis/proxyServer/arcgisServer1/Mossvet/FeatureServer/9',
       dataAttributes : ['db_NAME', 'db_ADDRESS', 'DISPATCHER_ID'],
       name           : 'Диспетчерские пункты',
       icon           : '/assets/img/dispatchCenter.png'
     },
     lep        : {
-      url            : address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/6',
+      url            : address + '/gis/proxyServer/arcgisServer1/Mossvet/FeatureServer/6',
       name           : 'ЛЭП',
       dataAttributes : ['Object_ID', 'CABEL_ID'],
       icon           : '/assets/img/dispatchCenter.png',
@@ -23,7 +23,7 @@
       popupTemplateUrl : '/assets/templates/gis/lep.html'
     },
     controllers : {
-      url            : address + '/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',
+      url            : address + '/gis/proxyServer/arcgisServer1/Mossvet/FeatureServer/2',
       dataAttributes : ['PP_ID', 'db_PP_NAME', 'db_STREET', 'db_DISPATCHER_ID', 'db_PP_TYPE'],
       name           : 'Пункты питания (точки)',
       icon           : '/assets/img/electricalSubstationPoint.png',
