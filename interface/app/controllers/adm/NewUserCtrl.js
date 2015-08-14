@@ -6,6 +6,11 @@
 
     $scope.roles = roles;
     $scope.rdps = rdps;
+    $scope.companies = [];
+
+    Users.get_companies(function(data) {
+      $scope.companies = data.organizations;
+    });
 
     newUserAdm.createUser = function (user) {
       var role = user.role,
@@ -24,9 +29,9 @@
         })
         .then(function () {
           if (role.slug === 'dispatcher') {
-            return Users.set_role({id : createdUser.id}, {role: role.slug, rdp_id : rdp.id}).$promise;
+            return Users.set_role({id : createdUser.id}, {role: role.slug, rdp_id : rdp.id }).$promise;
           } else {
-            return Users.set_role({id : createdUser.id}, {role : role.slug}).$promise;
+            return Users.set_role({id : createdUser.id}, {role : role.slug }).$promise;
           }
         })
         .then(function () {

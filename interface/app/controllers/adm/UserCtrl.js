@@ -5,9 +5,16 @@
     $scope.user = user;
     $scope.roles = roles;
     $scope.rdps = rdps;
+    $scope.companies = [];
+
+    Users.get_companies(function(data) {
+      $scope.companies = data.organizations;
+    });
 
     $scope.current = {
       role: $scope.user.roles[0].slug,
+      email: $scope.user.email,
+      organization: $scope.user.organization,
       rdp_id: $scope.user.dispatcher ? $scope.user.dispatcher.rdp.id : void 0
     };
 
@@ -24,7 +31,9 @@
       Users.update({
           id: user.id
         }, {
-          name: user.name
+          name: user.name,
+          email: user.email,
+          organization: user.organization
         }).$promise
         .then(function () {
           return Users.set_role({

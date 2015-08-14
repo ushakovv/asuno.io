@@ -17,7 +17,8 @@
       set_role      : {url : '/api/users/:id/role', method : 'POST'},
       set_password   : {url : '/api/users/:id/password', method : 'POST'},
       block          : {url : '/api/users/:id/block', method : 'POST'},
-      unblock        : {url : '/api/users/:id/block', method : 'DELETE'}
+      unblock        : {url : '/api/users/:id/block', method : 'DELETE'},
+      get_companies       : {url : '/api/users/companies', method : 'GET'}
     });
   }
 
