@@ -91,7 +91,8 @@
 
       var data = {
         name    : controller.name,
-        address : controller.address
+        address : controller.address,
+        tag     : controller.tag
       };
 
       if (controller.profile) {
