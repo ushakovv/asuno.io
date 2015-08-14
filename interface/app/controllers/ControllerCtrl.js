@@ -93,6 +93,32 @@
         });
       }
     };
+    const _updateAlarms = function _updateAlarms(data) {
+      if (data && data.timestamp) {
+
+        let time = data.timestamp,
+            timeFrom = $scope.filters.dateFrom ? moment($scope.filters.dateFrom).toDate().getTime() : null,
+            timeTo = $scope.filters.dateTo ? moment($scope.filters.dateTo).toDate().getTime() : null,
+            lastTime = moment($scope.alarms[0].timestamp).toDate().getTime();
+        if (isNaN( time * 1 )) {
+          let pos = time.indexOf('+');
+          if (pos > 0) {
+            time = time.substr(0, pos);
+          }
+          if ( time.indexOf('Z') < 0 ) {
+            time = time + 'Z';
+          }
+        }
+        time = moment($scope.alarms[0].timestamp).toDate().getTime();
+
+        if ($scope.pagingOptions.currentPage === 1 && (lastTime <= time) && (!timeFrom || timeFrom <= time) && (!timeTo || timeTo >= time)) {
+          let alarms = $scope.alarms.slice(0, 5);
+          alarms.unshift( ReportFormatter.format_alarm(data) );
+          $scope.alarms = alarms;
+        }
+      }
+    };
+
     function _applyEvents(ticked) {
       var events = _(ticked)
               .filter((evt) => evt.__type__ === 'monitor')
@@ -526,17 +552,29 @@
       socket.emit('join_controller_room', { controller_id: controller.id });
     });
     socket.on('response', function(data){
+      if (data) {
+        switch (data.type) {
+          case 'svg_updates':
+            _updateMonitor(data.data);
+            break;
+          case 'reading_list_updates':
+            _updateAlarms(data.data);
+            break;
+        }
+      }
       $log.debug('responce', data);
-      _updateMonitor(data);
     });
+
     $scope.$on('$destroy', function () {
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
       socket.disconnect();
       $log.debug('desctory');
+      $rootScope.journalSocket = false;
     });
 
     $rootScope.journalInOtherTab = false;
+    $rootScope.journalSocket = true;
     $scope.$on('$viewContentLoaded', function(){
       if ( $state.params.journalExpand ) {
         $rootScope.expandJournal();
