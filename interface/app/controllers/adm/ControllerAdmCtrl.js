@@ -18,8 +18,8 @@
     };
 
     this.updateControllerData = function (ctrl, profile) {
-      ctrl.address = ctrl.address || profile.address;
-      ctrl.name = ctrl.name || profile.pp_type + ' ' + profile.pp_name;
+      ctrl.address = profile.address || ctrl.address;
+      ctrl.name = profile.pp_type + ' ' + profile.pp_name || ctrl.name;
     };
 
     $scope.child = $scope.$new();

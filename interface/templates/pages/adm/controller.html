@@ -22,7 +22,7 @@
           <label class="control-label" for="profile">Идентификатор в УФАП ТОиР</label>
           <input type="text" class="form-control" id="profile" name="profile" ng-model="controller.profile"
                  typeahead="profile as profile.id for profile in cac.search($viewValue)"
-                 typeahead-on-select="cac.updateControllerData(ctrl, $item)"
+                 typeahead-on-select="cac.updateControllerData(controller, $item)"
                  typeahead-template-url="/assets/templates/typeahead/ufap.typeahead.html"/>
         </div>
         <div class="form-group" ng-class="{'has-error': userAdd.controllerTag.$invalid}">
