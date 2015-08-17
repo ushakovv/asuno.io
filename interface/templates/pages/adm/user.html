@@ -26,9 +26,9 @@
 
         <div class="form-group" ng-class="{'has-error': userAdd.organization.$invalid}">
           <label class="control-label" for="organization">Организация</label>
-          <input type="text" class="form-control" id="organization" name="organization" ng-minlength="3"
-                 typeahead="company for company in companies | filter:$viewValue"
-                 ng-model="user.organization" required/>
+          <select class="form-control" name="organization" id="organization" ng-model="user.organization" required>
+            <option ng-repeat="company in companies" value="{{company}}" ng-selected="{{company === user.organization}}">{{company}}</option>
+          </select>
         </div>
         <div class="form-group" ng-class="{'has-error': userAdd.email.$invalid}">
           <label class="control-label" for="email">Email</label>

@@ -18,9 +18,8 @@
 
     <div class="form-group" ng-class="{'has-error': userAdd.organization.$invalid}">
       <label class="control-label" for="organization">Организация</label>
-      <input type="text" class="form-control" id="organization" name="organization" ng-minlength="1"
-             ng-model="newUser.organization" required
-             typeahead="company for company in companies | filter:$viewValue"/>
+      <select name="organization" id="organization" class="form-control" ng-model="newUser.organization"
+              ng-options="company for company in companies" required></select>
     </div>
     <div class="form-group" ng-class="{'has-error': userAdd.email.$invalid}">
       <label class="control-label" for="email">Email</label>
