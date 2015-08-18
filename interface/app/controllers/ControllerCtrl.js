@@ -83,7 +83,7 @@
       if (item && item.id) {
 
         let monitors = _findMonitors($scope.controller, item.id);
-        $log.debug(item, $scope.controller.alarms.door, monitors);
+
         monitors.forEach(function (monitor) {
           monitor.payload = item.payload;
           monitor.value = item.value;
@@ -92,7 +92,16 @@
           monitor.silent = item.silent;
           monitor.silenced_by = item.silenced_by;
         });
-        $log.debug($scope.controller.alarms.door);
+
+        $scope.controller.sensors = $scope.controller.sensors.slice();
+        $scope.controller.other_sensors = $scope.controller.other_sensors.slice();
+        $scope.controller.monitors = $scope.controller.monitors.slice();
+        $scope.controller.alarms.fire = $scope.controller.alarms.fire.slice();
+        $scope.controller.alarms.common_alarm = $scope.controller.alarms.common_alarm.slice();
+        $scope.controller.alarms.door = $scope.controller.alarms.door.slice();
+        $scope.controller.alarms.connection = $scope.controller.alarms.connection.slice();
+        $scope.controller.alarms.lost_voltage = $scope.controller.alarms.lost_voltage.slice();
+        $scope.controller.alarms.lock = $scope.controller.alarms.lock.slice();
       }
     };
     const _updateAlarms = function _updateAlarms(data) {
