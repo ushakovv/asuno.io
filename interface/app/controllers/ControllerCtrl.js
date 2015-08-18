@@ -110,7 +110,7 @@
         let time = data.timestamp,
             timeFrom = $scope.filters.dateFrom ? moment($scope.filters.dateFrom).toDate().getTime() : null,
             timeTo = $scope.filters.dateTo ? moment($scope.filters.dateTo).toDate().getTime() : null,
-            lastTime = moment($scope.alarms[0].timestamp).toDate().getTime();
+            lastTime = $scope.alarms[0] ? moment($scope.alarms[0].timestamp).toDate().getTime() : null;
         if (isNaN( time * 1 )) {
           let pos = time.indexOf('+');
           if (pos > 0) {
@@ -120,9 +120,9 @@
             time = time + 'Z';
           }
         }
-        time = moment($scope.alarms[0].timestamp).toDate().getTime();
+        time = moment(time).toDate().getTime();
 
-        if ($scope.pagingOptions.currentPage === 1 && (lastTime <= time) && (!timeFrom || timeFrom <= time) && (!timeTo || timeTo >= time)) {
+        if ($scope.pagingOptions.currentPage === 1 && (!lastTime || lastTime <= time) && (!timeFrom || timeFrom <= time) && (!timeTo || timeTo >= time)) {
           let alarms = $scope.alarms.slice(0, 5);
           alarms.unshift( ReportFormatter.format_alarm(data) );
           $scope.alarms = alarms;
