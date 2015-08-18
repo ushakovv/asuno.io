@@ -81,16 +81,18 @@
 
     const _updateMonitor = function _updateMonitor(item) {
       if (item && item.id) {
+
         let monitors = _findMonitors($scope.controller, item.id);
-        $log.debug('updateMonitor', monitors, item);
+        $log.debug(item, $scope.controller.alarms.door, monitors);
         monitors.forEach(function (monitor) {
-          monitor.payload = item.payload || monitor.payload;
-          monitor.value = item.value || monitor.value;
-          monitor.denotation = item.denotation || monitor.denotation;
-          monitor.last_reading_timestamp = item.last_reading_timestamp || monitor.last_reading_timestamp;
-          monitor.silent = item.silent || monitor.silent;
-          monitor.silenced_by = item.silenced_by || monitor.silenced_by;
+          monitor.payload = item.payload;
+          monitor.value = item.value;
+          monitor.denotation = item.denotation;
+          monitor.last_reading_timestamp = item.last_reading_timestamp;
+          monitor.silent = item.silent;
+          monitor.silenced_by = item.silenced_by;
         });
+        $log.debug($scope.controller.alarms.door);
       }
     };
     const _updateAlarms = function _updateAlarms(data) {
@@ -135,7 +137,6 @@
     }
 
     function _applyTick(ticked) {
-
 
       if (ticked.length) {
         ticked.forEach(function (item) {
