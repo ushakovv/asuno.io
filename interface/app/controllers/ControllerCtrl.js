@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
+  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -555,13 +555,7 @@
       });
     }, true);
 
-    var socket = io.connect('http://95.215.110.99');
-    socket.on('connect', function() {
-      socket.emit('connect');
-      $log.debug('socket connect');
-      socket.emit('join_controller_room', { controller_id: controller.id });
-    });
-    socket.on('response', function(data){
+    var responseRoom = function responseRoom(data){
       if (data) {
         switch (data.type) {
           case 'svg_updates':
@@ -572,25 +566,37 @@
             break;
         }
       }
-      $log.debug('responce', data);
-    });
+    };
+
+    socketIo.on('response', responseRoom);
+
+    var initSocketRoom = function() {
+      socketIo.emit('join_controller_room', { controller_id: controller.id });
+
+    };
+    var leaveSocketRoom = function () {
+      socketIo.emit('leave_controller_room', { controller_id: controller.id });
+    };
 
     $scope.$on('$destroy', function () {
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
-      socket.disconnect();
-      $log.debug('desctory');
+
+      $log.debug('$destroy');
+      leaveSocketRoom();
       $rootScope.journalSocket = false;
     });
 
     $rootScope.journalInOtherTab = false;
     $rootScope.journalSocket = true;
+
     $scope.$on('$viewContentLoaded', function(){
       if ( $state.params.journalExpand ) {
         $rootScope.expandJournal();
       } else {
         $rootScope.constrictJournal();
       }
+      initSocketRoom();
     });
     $scope.$applyAsync();
   }
