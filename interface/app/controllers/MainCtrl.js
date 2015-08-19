@@ -73,7 +73,7 @@
     };
 
     $scope.$on(tickEvent, function () {
-      if (!$rootScope.journalInOtherTab) {
+      if (!$rootScope.journalInOtherTab && !$rootScope.journalSocket) {
         $scope.reload_alarms($scope.pagingOptions.currentPage, $scope.pagingOptions.pageSize);
       }
     });

@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function teleSignal($rootScope, $modal, Monitors) {
+  function teleSignal(Monitors) {
     return {
       replace     : true,
       templateUrl : '/assets/templates/tele-signal.html',

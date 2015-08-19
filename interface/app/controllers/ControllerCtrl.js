@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, tickEvent) {
+  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -32,7 +32,6 @@
 
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
-
 
     if (rdp.slug.indexOf('akhp') >= 0) {
       $scope.crumbs = [{
@@ -68,6 +67,69 @@
     let begin, end;
     let _initialController = {};
 
+    const _findMonitors = function _findMonitors(controller, id) {
+      let monitors = _.filter($scope.controller.monitors, (m) => m.id === id);
+      monitors = monitors.concat(_.filter($scope.controller.alarms.connection, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.lost_voltage, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.fire, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.door, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.common_alarm, (m) => m.id === id));
+      monitors = monitors.concat(_.filter($scope.controller.alarms.lock, (m) => m.id === id));
+
+      return monitors;
+    };
+
+    const _updateMonitor = function _updateMonitor(item) {
+      if (item && item.id) {
+
+        let monitors = _findMonitors($scope.controller, item.id);
+
+        monitors.forEach(function (monitor) {
+          monitor.payload = item.payload;
+          monitor.value = item.value;
+          monitor.denotation = item.denotation;
+          monitor.last_reading_timestamp = item.last_reading_timestamp;
+          monitor.silent = item.silent;
+          monitor.silenced_by = item.silenced_by;
+        });
+
+        $scope.controller.sensors = $scope.controller.sensors.slice();
+        $scope.controller.other_sensors = $scope.controller.other_sensors.slice();
+        $scope.controller.monitors = $scope.controller.monitors.slice();
+        $scope.controller.alarms.fire = $scope.controller.alarms.fire.slice();
+        $scope.controller.alarms.common_alarm = $scope.controller.alarms.common_alarm.slice();
+        $scope.controller.alarms.door = $scope.controller.alarms.door.slice();
+        $scope.controller.alarms.connection = $scope.controller.alarms.connection.slice();
+        $scope.controller.alarms.lost_voltage = $scope.controller.alarms.lost_voltage.slice();
+        $scope.controller.alarms.lock = $scope.controller.alarms.lock.slice();
+      }
+    };
+    const _updateAlarms = function _updateAlarms(data) {
+      if (data && data.timestamp) {
+
+        let time = data.timestamp,
+            timeFrom = $scope.filters.dateFrom ? moment($scope.filters.dateFrom).toDate().getTime() : null,
+            timeTo = $scope.filters.dateTo ? moment($scope.filters.dateTo).toDate().getTime() : null,
+            lastTime = $scope.alarms[0] ? moment($scope.alarms[0].timestamp).toDate().getTime() : null;
+        if (isNaN( time * 1 )) {
+          let pos = time.indexOf('+');
+          if (pos > 0) {
+            time = time.substr(0, pos);
+          }
+          if ( time.indexOf('Z') < 0 ) {
+            time = time + 'Z';
+          }
+        }
+        time = moment(time).toDate().getTime();
+
+        if ($scope.pagingOptions.currentPage === 1 && (!lastTime || lastTime <= time) && (!timeFrom || timeFrom <= time) && (!timeTo || timeTo >= time)) {
+          let alarms = $scope.alarms.slice(0, 5);
+          alarms.unshift( ReportFormatter.format_alarm(data) );
+          $scope.alarms = alarms;
+        }
+      }
+    };
+
     function _applyEvents(ticked) {
       var events = _(ticked)
               .filter((evt) => evt.__type__ === 'monitor')
@@ -84,17 +146,6 @@
     }
 
     function _applyTick(ticked) {
-      function _findMonitors(controller, id) {
-        let monitors = _.filter($scope.controller.monitors, (m) => m.id === id);
-        monitors = monitors.concat(_.filter($scope.controller.alarms.connection, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.lost_voltage, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.fire, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.door, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.common_alarm, (m) => m.id === id));
-        monitors = monitors.concat(_.filter($scope.controller.alarms.lock, (m) => m.id === id));
-
-        return monitors;
-      }
 
       if (ticked.length) {
         ticked.forEach(function (item) {
@@ -404,7 +455,7 @@
       }
     }
 
-    $scope.$on(tickEvent, setController);
+    //$scope.$on(tickEvent, setController);
 
     $scope.$on('asuno-refresh-all', setController);
 
@@ -491,6 +542,8 @@
       }
     };
 
+
+
     $scope.$watch('filters', function (next) {
       next = next || {};
       $scope.load_alarms({
@@ -502,20 +555,49 @@
       });
     }, true);
 
+    var responseRoom = function responseRoom(data){
+      if (data) {
+        switch (data.type) {
+          case 'svg_updates':
+            _updateMonitor(data.data);
+            break;
+          case 'reading_list_updates':
+            _updateAlarms(data.data);
+            break;
+        }
+      }
+    };
+
+    socketIo.on('response', responseRoom);
+
+    var initSocketRoom = function() {
+      socketIo.emit('join_controller_room', { controller_id: controller.id });
+
+    };
+    var leaveSocketRoom = function () {
+      socketIo.emit('leave_controller_room', { controller_id: controller.id });
+    };
+
     $scope.$on('$destroy', function () {
       TimelineService.removeListener('timeline-tick', timelineTick);
       TimelineService.removeListener('timeline-stop', timelineStop);
+
+      $log.debug('$destroy');
+      leaveSocketRoom();
+      $rootScope.journalSocket = false;
     });
 
     $rootScope.journalInOtherTab = false;
+    $rootScope.journalSocket = true;
+
     $scope.$on('$viewContentLoaded', function(){
       if ( $state.params.journalExpand ) {
         $rootScope.expandJournal();
       } else {
         $rootScope.constrictJournal();
       }
+      initSocketRoom();
     });
-
     $scope.$applyAsync();
   }
 

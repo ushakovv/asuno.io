@@ -616,6 +616,7 @@
 
       $rootScope.$on('logged-in', () => {
         $sci.connect();
+
         RemoteCommandListener.installListener();
         RemoteCommandSocket.installListener();
       });
