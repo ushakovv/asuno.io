@@ -93,7 +93,7 @@
           monitor.silenced_by = item.silenced_by;
         });
 
-        $scope.controller.sensors = $scope.controller.sensors.slice();
+
         $scope.controller.other_sensors = $scope.controller.other_sensors.slice();
         $scope.controller.monitors = $scope.controller.monitors.slice();
         $scope.controller.alarms.fire = $scope.controller.alarms.fire.slice();
@@ -127,6 +127,22 @@
           alarms.unshift( ReportFormatter.format_alarm(data) );
           $scope.alarms = alarms;
         }
+      }
+    };
+    const _updateSensors = function _updateSensors(data) {
+      if (data && data.id) {
+        let sensors = _.filter($scope.controller.sensors, (m) => m.id === data.id);
+        if (!sensors.length) {
+          sensors = _.filter($scope.controller.other_sensors, (m) => m.id === data.id);
+        }
+        sensors.forEach(function (sensor) {
+          sensor.current_reading = data.current_reading;
+          sensor.last_reading_timestamp = data.last_reading_timestamp;
+        });
+        $scope.controller.sensors = $scope.controller.sensors.slice();
+        $scope.controller.other_sensors = $scope.controller.other_sensors.slice();
+
+        $log.debug('_updateSensors', data);
       }
     };
 
@@ -555,8 +571,9 @@
       });
     }, true);
 
-    var responseRoom = function responseRoom(data){
-      if (data) {
+    var responseRoom = function responseRoom(result){
+      if (result) {
+        let data = (result.contents) ? result.contents : result;
         switch (data.type) {
           case 'svg_updates':
             _updateMonitor(data.data);
@@ -564,6 +581,8 @@
           case 'reading_list_updates':
             _updateAlarms(data.data);
             break;
+          case 'sensor_updates':
+            _updateSensors(data.data);
         }
       }
     };

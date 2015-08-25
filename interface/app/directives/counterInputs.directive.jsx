@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function counterInputs() {
+  function counterInputs($log) {
     return {
       replace  : true,
       template : '<form class="form-horizontal"></form>',
@@ -15,6 +15,7 @@
       },
       link     : function (scope, element) {
         scope.$watch('sensors', function (next) {
+           $log.debug('sensors changes');
           React.render(<REACT.CounterInputList sensors={next} openGraph={scope.openGraph} />, element[0]);
         });
 

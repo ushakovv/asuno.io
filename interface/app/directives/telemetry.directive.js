@@ -16,10 +16,12 @@
         controller: 'TelemetryController as telemetry'
       };
     })
-    .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph) {
+    .controller('TelemetryController', function TelemetryController($rootScope, SensorGraph, $scope, $log) {
       this.showGraph = false;
       this.openSensorGraphModal = SensorGraph.open;
-
+      $scope.$watch('controller.sensors', () => {
+        $log.debug('controller.sensors change');
+      });
       this.changeSensors = $rootScope.changeSensors;
 
     })

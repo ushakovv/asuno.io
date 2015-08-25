@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  function socketIo($rootScope) {
-    var socket = io.connect('http://95.215.110.99');
+  function socketIo($rootScope, $location) {
+    var socket = io.connect($location.host());
     socket.on('connect', () => {
       socket.emit('connect');
     });
