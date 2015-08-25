@@ -52,7 +52,7 @@
     return img;
   }
 
-  function controllerScheme($compile, Controllers, $rootScope, $window, $modal) {
+  function controllerScheme($compile, Controllers, $rootScope, $modal) {
     return {
       scope    : {
         controller : '=controllerScheme'
@@ -126,17 +126,19 @@
           var idx = contactorIds.indexOf(direction.contactor_id) + 1;
 
           directionElement.find('.direction-contactor').css('opacity', 0);
-          directionElement.find(`.direction-contactor-${idx}`).css('opacity', 1);
 
           var directionPoint = directionElement.find('circle.phase_dir');
+          let color = GREY_GRAD;
+          if (idx) {
+            directionElement.find(`.direction-contactor-${idx}`).css('opacity', 1);
 
-          if (direction.isEnabled()) {
-            directionPoint.css('fill', RED_GRAD);
-          } else if (direction.monitorValue('.STATE') !== null) {
-            directionPoint.css('fill', GREEN_GRAD);
-          } else {
-            directionPoint.css('fill', GREY_GRAD);
+            if (direction.isEnabled()) {
+              color = RED_GRAD;
+            } else if (direction.monitorValue('.STATE') !== null) {
+              color = GREEN_GRAD;
+            }
           }
+          directionPoint.css('fill', color);
 
           var svg = element.find('svg:first g#main-group');
 
