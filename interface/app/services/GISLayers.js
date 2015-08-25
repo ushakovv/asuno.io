@@ -4,7 +4,7 @@
 
 (function () {
   'use strict';
-  const address = ''; // 'http://' + '81.88.217.69'
+  const address = 'http://moslight.mos.ru'; // 'http://moslight.mos.ru' + '81.88.217.69'
   angular.module('asuno').constant('GIS_LAYERS', {
     rdps        : {
       url            :  address + '/gis/proxyServer/arcgisServer1/Mossvet/FeatureServer/9',

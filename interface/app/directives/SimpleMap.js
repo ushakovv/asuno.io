@@ -98,7 +98,7 @@
 
             config.defaults.io.corsEnabledServers.push('95.31.222.219');
             config.defaults.io.corsEnabledServers.push('95.31.222.219:83');
-            config.defaults.io.corsEnabledServers.push('81.88.217.69');
+            //config.defaults.io.corsEnabledServers.push('81.88.217.69');
 
             var popup = new Popup({}, domConstruct.create('div'));
 
@@ -127,7 +127,7 @@
               scalebarUnit : 'metric'
             });
 
-            var baseLayer = new WebTiledLayer('http://87.245.154.112/ArcGIS/rest/services/egko_belle/MapServer/tile/${level}/${row}/${col}',
+            var baseLayer = new WebTiledLayer('http://moslight.mos.ru/ArcGIS/rest/services/egko_belle/MapServer/tile/${level}/${row}/${col}',
               {
                 id            : '123321',
                 initialExtent : new Extent({
