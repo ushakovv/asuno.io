@@ -36,6 +36,10 @@
         maintenance    : {method : 'POST', url : '/api/controllers/:controller/maintenance'},
         maintenance_delete    : {method : 'DELETE', url : '/api/controllers/:controller/maintenance'},
 
+        remove_parent         : {method : 'POST', url : '/api/controllers/:id/remove_parent'},
+        add_child             : {method : 'POST', url : '/api/controllers/:parent_id/add_child/:child_id'},
+        controllers_search    : {method : 'GET', url : '/api/controllers_search'},// ?query=:query
+
         direction_edit : {method : 'PATCH', url : '/api/direction/:id'},
 
         add_camera     : {method : 'POST', url : '/api/controllers/:id/camras'},

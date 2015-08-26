@@ -50,6 +50,9 @@
       @include simple-well;
     }
   }
+  &__video {
+    @include simple-well;
+  }
 
   &__counters {
     @include simple-well;
@@ -66,5 +69,15 @@
 
   &--alarm {
     color: red;
+  }
+}
+.controller-cascade {
+  margin: 0;
+
+  &__block {
+    @include simple-well;
+  }
+  &__child {
+    padding: 10px;
   }
 }

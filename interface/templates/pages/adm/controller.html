@@ -49,7 +49,6 @@
           <fieldset>
             <legend>Камеры</legend>
             <div class="form-group">
-              <div class="col-md-12">
                 <div simple-map sm-zoom="19" sm-hide-layers="true">
                   <div simple-map-layer="cameras" sml-parent-scope="child" show="true"
                        sml-popup-template-url="/assets/templates/gis/camera-for-controller.html">
@@ -65,7 +64,6 @@
                   </div>
                   <div simple-map-search></div>
                 </div>
-              </div>
             </div>
           </fieldset>
         </form>
@@ -77,6 +75,7 @@
       </div>
 
     </div>
+    <cascade-children children="controller.children" class="row" loading="loading" show-controls="true"></cascade-children>
   </div>
 </div>
 <delay-render delay="1000">

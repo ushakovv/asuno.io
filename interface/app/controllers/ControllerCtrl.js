@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $modal, $log, $timeout, $interval, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
+  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -28,7 +28,7 @@
       dateFrom: _defaultDateFrom
     };
 
-    $log.debug('ControllerCtrl');
+    $log.debug('ControllerCtrl', $scope.controller);
 
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
@@ -464,6 +464,7 @@
           .then(function (controller) {
             if (!$scope.main.globalLocked && !$scope.editingInSession) {
               $scope.controller = controller;
+              $log.debug('set controller', $scope.controller);
               _runCallbackFromList();
             }
             mutex.release();
@@ -499,16 +500,6 @@
       return cabelsId.indexOf(attributes.CABEL_ID) > 0;
     };
 
-
-    $scope.cameraExtractor = function (graphic) {
-      var cameras = $scope.controller.cameras.map(function (camera) {
-        return camera.stream_uri;
-      });
-
-      if (cameras.indexOf(graphic.attributes.purl) >= 0) {
-        return 1;
-      }
-    };
 
     $scope.cameraExtractor = function (graphic) {
       var cameras = $scope.controller.cameras.map(function (camera) {

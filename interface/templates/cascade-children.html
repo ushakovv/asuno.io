@@ -1,0 +1,26 @@
+<div>
+    <div class="col-md-12">
+        <div class="row controller-cascade__block">
+            <div class="col-md-12">
+                <h5>Каскад</h5>
+            </div>
+            <div class="col-md-6" ng-if="cascadeChildCtrl.showControls">
+                <button  class="btn btn-primary btn-xs btn-block controller-cascade__add" ng-disabled="loading" ng-click="cascadeChildCtrl.addChild()">
+                    Добавить
+                </button>
+            </div>
+            <div class="col-md-12" ng-if="!cascadeChildCtrl.children.length">
+                Не добавлены дочерние контроллеры.
+            </div>
+            <div class="col-md-12" ng-if="cascadeChildCtrl.children.length">
+                <div ng-repeat="child in cascadeChildCtrl.children">
+                    <div class="controller-cascade__child"> <strong>{{child.name}}</strong> {{child.address}}
+                        <button ng-if="cascadeChildCtrl.showControls" class="btn btn-xs controller-cascade__delete" ng-disabled="loading" ng-click="deleteChild(child.id)">
+                            удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
