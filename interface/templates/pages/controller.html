@@ -95,7 +95,9 @@
             </div>
           </div>
         </div>
-        <cascade-children children="controller.children" class="row" loading="loading"></cascade-children>
+        <div class="row">
+            <cascade-children children="controller.children" loading="loading"></cascade-children>
+        </div>
       </div>
     </div>
 
@@ -104,7 +106,6 @@
         <div class="col-md-12" ng-if="dirc.directionsGridOptions">
           <div class="gridStyle" style="height: 150px;" ng-grid="dirc.directionsGridOptions"></div>
         </div>
-
       </div>
     </delay-render>
   </div>

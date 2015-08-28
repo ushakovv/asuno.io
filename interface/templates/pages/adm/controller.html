@@ -73,9 +73,12 @@
       <div class="col-md-12">
         <telemetry controller="controller" hide-sensors="true"></telemetry>
       </div>
-
     </div>
-    <cascade-children children="controller.children" class="row" loading="loading" show-controls="true"></cascade-children>
+    <div class="row">
+      <div class="col-md-12">
+        <cascade-children children="controller.children" loading="loading" controller-id="controller.id" show-controls="true"></cascade-children>
+      </div>
+    </div>
   </div>
 </div>
 <delay-render delay="1000">

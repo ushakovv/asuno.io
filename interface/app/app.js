@@ -35,7 +35,7 @@
     .config(function ($httpProvider, $stateProvider, $urlRouterProvider, $rootScopeProvider, $locationProvider, $sceDelegateProvider, $compileProvider, $logProvider, $tooltipProvider, $datepickerProvider) {
 
       $compileProvider.debugInfoEnabled(false);
-      $logProvider.debugEnabled(true);
+      $logProvider.debugEnabled(false);
 
       $tooltipProvider.defaults.appendToBody = true;
 
