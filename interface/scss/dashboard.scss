@@ -6,7 +6,10 @@
 @import "clock";
 @import "controller-block";
 @import "control-pane";
-@import "btnImg";
+/*@import "btnImg";*/
+
+@import "header";
+
 @import "rdp-block";
 @import "condense";
 @import "table";
@@ -21,7 +24,7 @@
 @import "priority";
 @import "navigation";
 @import "sun";
-@import "filters";
+/*@import "filters";*/
 @import "tooltip";
 @import "progress-items";
 @import "adm";
@@ -68,10 +71,10 @@ body {
     }
   }
   &.three-rows {
-    padding-top : 104px;
+    padding-top : 106px;
 
     &.has-timeline {
-      padding-top : 137px;
+      padding-top : 140px;
     }
   }
 

@@ -27,7 +27,7 @@
     top              : 73px;
     bottom           : 0;
     left             : -300px;
-    z-index          : 1000;
+    z-index          : 1040; /*e*/
     display          : block;
     padding          : 0 10px 20px;
     overflow-x       : hidden;
@@ -51,12 +51,12 @@
 
   body.three-rows {
     .sidebar {
-      top : 104px;
+      top : 106px;
     }
 
     &.has-timeline {
       .sidebar {
-        top: 137px;
+        top: 140px;
       }
     }
   }

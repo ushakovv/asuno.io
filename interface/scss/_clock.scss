@@ -48,3 +48,22 @@
     text-shadow : none;
   }
 }
+
+
+/*ed*/
+.site-nav--clock {
+  .clock {
+    height: 26px;
+    
+    &__time, &__date {
+      height: 13px;
+      line-height: 13px;
+      font-size: 12px !important;
+      
+      span {
+        font-weight: normal !important;
+        color: #333 !important;
+      }
+    }
+  }
+}
