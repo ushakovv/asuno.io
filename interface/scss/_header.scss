@@ -123,6 +123,47 @@
     }
   }
 
+  &--sun {
+    height: 26px;
+    line-height: 26px;
+
+    img, span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    img {
+      margin: 0 5px 0 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    span {
+      font-size: 17px;
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+  &--switch {
+    table {
+      height: 26px;
+      border-collapse: collapse;
+      margin: 0;
+
+      td {
+        padding: 0;
+        height: 13px;
+        font-size: 12px;
+        line-height: 13px;
+      }
+
+      td + td {
+        padding-left: 5px;
+      }
+    }
+  }
+  
   &--more {
     float: left;
     overflow: hidden;
@@ -135,47 +176,11 @@
     .site-nav--switch {
       float: left;
       margin-right: 40px;
-      
-      table {
-        height: 26px;
-        border-collapse: collapse;
-        margin: 0;
-        
-        td {
-          padding: 0;
-          height: 13px;
-          font-size: 12px;
-          line-height: 13px;
-        }
-
-        td + td {
-          padding-left: 5px;
-        }
-      }
     }
 
     .site-nav--sun {
       float: left;
-      height: 26px;
-      line-height: 26px;
       margin-right: 30px;
-      
-      img, span {
-        display: inline-block;
-        vertical-align: middle;
-      }
-
-      img {
-        margin: 0 5px 0 0;
-        width: 20px;
-        height: 20px;
-      }
-      
-      span {
-        font-size: 17px;
-        height: 20px;
-        line-height: 20px;
-      }
     }
   }
 
@@ -219,6 +224,7 @@
       
       &.disabled {
         background-color: #effdff;
+        cursor: not-allowed;
       }
       
       a {
@@ -253,6 +259,7 @@
 
       &.disabled a, &.disabled .badge {
         color: #999 !important;
+        cursor: not-allowed !important;
       }
     }
 
@@ -294,9 +301,12 @@
   top: 100%;
   left: 15px;
   
-  line-height: 1;
-  margin: 5px 0 0 0;
-  padding: 3px;
-  background: #f2f2f2;
+  height: 33px;
+  line-height: 33px;
+  width: 27px;
+  margin: 10px 0 0 0;
+  padding: 0;
+  text-align: center;
+  background: #fff; /*#f2f2f2*/
   color: #808080;
 }

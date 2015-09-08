@@ -58,7 +58,7 @@
 }
 
 body {
-  padding-top : 73px;
+  padding-top : 76px; /*73*/
 
   &.has-timeline {
     padding-top : 106px;
@@ -108,6 +108,19 @@ html, body {
   height : 100%;
 }
 
+.sb-padding {
+  padding-left: 30px;
+}
+
+.sb-padding-col {
+  padding-left: 45px;
+}
+
+/*
+.map-container {
+  padding: 10px 30px;
+}*/
+
 .alert-panel {
   position   : relative;
   min-height : 50px;
@@ -154,6 +167,7 @@ table.table-main {
 
 .breadcrumb {
   margin-bottom : 5px;
+  background: transparent !important;
 }
 
 @media (max-width : $screen-xs) {
