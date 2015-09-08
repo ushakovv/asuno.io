@@ -46,6 +46,14 @@
   &--icon-settings-asuno {
     background-image: url(/assets/img/menu/new/icon-settings-asuno.png);
   }
+
+  &--help {
+    background-image: url(/assets/img/menu/new/help.png);
+  }
+
+  &--logout {
+    background-image: url(/assets/img/menu/new/logout.png);
+  }
 }
 
 .site-nav {
@@ -134,14 +142,14 @@
 
     img {
       margin: 0 5px 0 0;
-      width: 20px;
-      height: 20px;
+      width: 21px;
+      height: 21px;
     }
 
     span {
       font-size: 17px;
-      height: 20px;
-      line-height: 20px;
+      height: 21px;
+      line-height: 21px;
     }
   }
 
