@@ -18,7 +18,8 @@
     "io": false,
     "Immutable": false,
     "classNames": false,
-    "REACT": true
+    "REACT": true,
+    "sGis": false
   },
   "rules": {
     "quotes": "single",
@@ -28,7 +29,7 @@
     "no-extra-parens": 1,
     "no-extra-strict": 0,
     "no-reserved-keys": 1,
-    "block-scoped-var": 2,
+    "block-scoped-var": 1,
     "complexity": [
       1,
       10
@@ -55,7 +56,11 @@
       "always"
     ],
     "key-spacing": false,
-    "no-shadow": false
+    "no-shadow": false,
+    "no-new": false,
+    "no-multi-spaces": false,
+    "eqeqeq": false,
+    "semi-spacing": false
   },
   "ecmaFeatures": {
     "arrowFunctions": true,
