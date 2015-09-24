@@ -137,28 +137,40 @@
             } else if (direction.monitorValue('.STATE') !== null) {
               color = GREEN_GRAD;
             }
+            let fuse = phase.fuse();
+            if (scope.controller.type === 'niitm' && fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE')) {
+              color = GREEN_GRAD;
+            }
+
+
+
+            var svg = element.find('svg:first g#main-group');
+            svg.find('image#direction_' + direction.id).remove();
+
+            var icon;
+            if (scope.controller.type === 'niitm' && fuse && fuse.isEmergency()) {
+              if (fuse.isSilent()) {
+                icon = alarmIconImage();
+              } else {
+                icon = alarmGifImage();
+              }
+            } else if (direction.isEmergency()) {
+              if (direction.isSilent()) {
+                icon = alarmIconImage();
+              } else {
+                icon = alarmGifImage();
+              }
+            }
+            if (icon) {
+              icon.setAttribute('id', 'direction_' + direction.id);
+              icon.setAttribute('x', directionPoint[0].cx.animVal.value);
+              icon.setAttribute('y', directionPoint[0].cy.animVal.value - 13);
+
+              svg[0].appendChild(icon);
+            }
           }
           directionPoint.css('fill', color);
 
-          var svg = element.find('svg:first g#main-group');
-
-          svg.find('image#direction_' + direction.id).remove();
-
-          if (direction.isEmergency()) {
-            var icon;
-
-            if (direction.isSilent()) {
-              icon = alarmIconImage();
-            } else {
-              icon = alarmGifImage();
-            }
-
-            icon.setAttribute('id', 'direction_' + direction.id);
-            icon.setAttribute('x', directionPoint[0].cx.animVal.value);
-            icon.setAttribute('y', directionPoint[0].cy.animVal.value - 13);
-
-            svg[0].appendChild(icon);
-          }
         }
 
         function drawPhase(phaseName) {
@@ -345,18 +357,7 @@
 
           var suffix = `CONTACTOR0${contactorNum}.PHASE${phaseName}.STATE`;
           var monitor = _(contactor.controller.monitors).find((m) => m.tag.includes(suffix));
-
-          if ( monitor && monitor.value === 0 && monitor.payload === 'emergency') {
-            var icon;
-
-            icon = alarmIconImage();
-            //icon = alarmGifImage();
-            icon.setAttribute('id', alarmName);
-            icon.setAttribute('x', contactorPhaseElement[0].cx.animVal.value);
-            icon.setAttribute('y', contactorPhaseElement[0].cy.animVal.value - 13);
-
-            svg[0].appendChild(icon);
-          }
+          let fuse = phase.fuse();
 
           if (scope.controller.type === 'niitm') {
             contactorPhaseElement
@@ -365,10 +366,28 @@
             contactorPhaseElement
                 .css('fill', phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD);
           }
-          let fuse = phase.fuse();
+
 
           if ( fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE') ) {
             contactorPhaseElement.css('fill', GREEN_GRAD);
+          }
+          var icon;
+          if (scope.controller.type === 'niitm' && fuse.isEmergency()) {
+            if (fuse.isSilent()) {
+              icon = alarmIconImage();
+            } else {
+              icon = alarmGifImage();
+            }
+          } else if ( monitor && monitor.value === 0 && monitor.payload === 'emergency') {
+            icon = alarmIconImage();
+          }
+
+          if (icon) {
+            icon.setAttribute('id', alarmName);
+            icon.setAttribute('x', contactorPhaseElement[0].cx.animVal.value);
+            icon.setAttribute('y', contactorPhaseElement[0].cy.animVal.value - 13);
+
+            svg[0].appendChild(icon);
           }
         }
 
