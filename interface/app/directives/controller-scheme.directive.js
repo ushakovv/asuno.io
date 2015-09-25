@@ -110,12 +110,24 @@
             }
           });
         });
+
+        function _isOnlyNight() {
+          var monitorLight = _(scope.controller.monitors).find((m) => {
+            return m.tag.includes('.LIGHT') && !m.tag.includes('.LIGHTSTATE');
+          });
+          return monitorLight && monitorLight.value === 3;
+        }
         function _isContractorGreen() {
+          let isOnlyNight = _isOnlyNight();
+          var isNiim = scope.controller.type === 'niim';
+
           return !_contactors.some(function(contactorNum) {
             let contactor = scope.controller.contactor(contactorNum);
+            var isNight = contactorNum === 1;
+
             if (!contactor) {
               return false;
-            } else if ( contactor.isEnabled()) {
+            } else if ( contactor.isEnabled() && (!isNiim || isOnlyNight && isNight)) {
               return true;
             } else if (contactor.monitorValue('.STATE') !== null) {
               return false;
@@ -145,18 +157,30 @@
           if (idx) {
             directionElement.find(`.direction-contactor-${idx}`).css('opacity', 1);
 
+            var isNiitm = scope.controller.type === 'niitm';
+            let isOnlyNight = _isOnlyNight();
+            var isNight = idx === 1;
             if (direction.isEnabled()) {
-              color = RED_GRAD;
+              if ( isNiitm ) {
+                if (isOnlyNight && isNight) {
+                  color = RED_GRAD;
+                } else if (direction.monitorValue('.STATE') !== null) {
+                  color = GREEN_GRAD;
+                }
+              } else {
+                color = RED_GRAD;
+              }
             } else if (direction.monitorValue('.STATE') !== null) {
               color = GREEN_GRAD;
             }
-            var isNiitm = scope.controller.type === 'niitm';
+
             let fuse = phase.fuse();
             if (!isContractorGreen) {
               if (isNiitm && fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE')) {
                 color = GREEN_GRAD;
               }
             }
+
             var svg = element.find('svg:first g#main-group');
             svg.find('image#direction_' + direction.id).remove();
 
@@ -327,15 +351,27 @@
         }
 
         function drawContactor(contactorNum) {
+          //LIGHT
           var contactorElement = element.find('.contactor-num.contactor-num-' + contactorNum);
           var contactor = scope.controller.contactor(contactorNum);
 
           element.find('.contactor-group.contactor-group-' + contactorNum).show();
 
+          let isOnlyNight = _isOnlyNight();
+          var isNight = contactorNum === 1;
+          var isNiitm = scope.controller.type === 'niitm';
           if (!contactor) {
             element.find('.contactor-group.contactor-group-' + contactorNum).hide();
           } else if (contactor.isEnabled()) {
-            contactorElement.attr('fill', RED);
+            if ( isNiitm ) {
+              if (isOnlyNight && isNight) {
+                contactorElement.attr('fill', RED);
+              } else if (contactor.monitorValue('.STATE') !== null){
+                contactorElement.attr('fill', GREEN);
+              }
+            } else {
+              contactorElement.attr('fill', RED);
+            }
           } else if (contactor.monitorValue('.STATE') !== null) {
             contactorElement.attr('fill', GREEN);
           } else {
@@ -350,13 +386,14 @@
 
           contactorModeElement.text(contactor ? contactor.regime() : 'не определено');
         }
-
         function drawContactorPhase(contactorNum, phaseName) {
 
           var contactorPhaseElement = element.find('.phase-contactor.phase-contactor-' + phaseName + '.phase-contactor-num-' + contactorNum);
 
           var phase = scope.controller.phase(phaseName);
           var contactor = scope.controller.contactor(contactorNum);
+          var isNiitm = scope.controller.type === 'niitm';
+
           var color = GREY_GRAD;
           if (!phase || !contactor) {
             return contactorPhaseElement.css('fill', GREY_GRAD);
@@ -369,12 +406,14 @@
           svg.find('image#' + alarmName).remove();
 
           var suffix = `CONTACTOR0${contactorNum}.PHASE${phaseName}.STATE`;
-          var monitor = _(contactor.controller.monitors).find((m) => m.tag.includes(suffix));
+          var monitor = _(scope.controller.monitors).find((m) => m.tag.includes(suffix));
           let fuse = phase.fuse();
-          var isNiitm = scope.controller.type === 'niitm';
+
           var isContractorGreen = _isContractorGreen();
           if (isNiitm) {
-            color = contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD;
+            let isOnlyNight = _isOnlyNight();
+            var isNight = contactorNum === 1;
+            color = contactor.isEnabled() && !contactor.isEmergency() && (isOnlyNight && isNight) ? RED_GRAD : GREEN_GRAD;
           } else {
             color = phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency();
           }
