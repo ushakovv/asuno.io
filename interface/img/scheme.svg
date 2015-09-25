@@ -40,7 +40,7 @@ xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:cc="http://creat
         <text id="svg_1007" transform="matrix(0.9775 0 0 1 209.9707 442.8242)" fill="#ED1C24" font-family="'Tahoma-Bold'" font-size="10.9091">C</text>
       <g id="svg_1006" class="contactor-group-mini contactor-group-mini-3">
         <text id="svg_57" class="contactor-mod-num contactor-mod-num-3" transform="matrix(0.9775 0 0 1 131.9366 348.0635)" font-family="Monospace"
-                font-size="11">не определено</text>
+                font-size="12">не определено</text>
         <rect id="svg_387" x="177.7" y="358.5" fill="#424242" width="44.9" height="61.6"/>
         <g id="svg_388">
           <polygon id="svg_389" fill="#595959" points="179.9,420.4 177.7,427.6 177.7,350.8 179.9,358.1      "/>
@@ -94,7 +94,7 @@ xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:cc="http://creat
       <text id="svg_316" transform="matrix(0.9775 0 0 1 801.7725 54.9014)" font-family="'Tahoma'" font-size="9.7114">Вечер</text>
       <g class="contactor-group-mini contactor-group-mini-2">
         <text id="svg_48" class="contactor-mod-num contactor-mod-num-2" transform="matrix(0.9775 0 0 1 346.5147 348.0635)" font-family="Monospace"
-                font-size="11">не определено</text>
+                font-size="12">не определено</text>
 
           <text id="svg_9" transform="matrix(6.123234e-17 1 -1 6.123234e-17 396.7083 356.9131)" font-family="Monospace" font-size="24">вечер</text>
         <rect id="svg_403" x="341.7" y="358.5" fill="#424242" width="44.9" height="61.6"/>
@@ -193,7 +193,7 @@ xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" xmlns:cc="http://creat
 
           <text id="svg_5_1_" transform="matrix(6.123234e-17 -1 1 6.123234e-17 262.3418 415.3771)" font-family="Monospace" font-size="24">ночь</text>
         <text id="svg_57_1_" class="contactor-mod-num contactor-mod-num-1" transform="matrix(0.9775 0 0 1 226.4824 348.5176)" font-family="Monospace"
-                font-size="11">не определено</text>
+                font-size="12">не определено</text>
       </g>
       <g id="svg_99_1_">
         <line id="svg_265_1_" fill="none" stroke="#666666" stroke-miterlimit="10" x1="286.1" y1="475.5" x2="299.2" y2="462"/>
