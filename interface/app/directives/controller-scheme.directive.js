@@ -127,13 +127,19 @@
 
             if (!contactor) {
               return false;
-            } else if ( contactor.isEnabled() && (!isNiim || isOnlyNight && isNight)) {
-              return true;
+            } else if ( contactor.isEnabled() ) {
+              if (isNiim && isOnlyNight) {
+                if (isNight) {
+                  return false;
+                } else {
+                  return true;
+                }
+              }
             } else if (contactor.monitorValue('.STATE') !== null) {
-              return false;
-            } else {
               return true;
             }
+
+            return false;
           });
         }
         function drawDirection(phase, phaseElement, directionNum, isContractorGreen) {
@@ -161,10 +167,10 @@
             let isOnlyNight = _isOnlyNight();
             var isNight = idx === 1;
             if (direction.isEnabled()) {
-              if ( isNiitm ) {
-                if (isOnlyNight && isNight) {
+              if ( isNiitm && isOnlyNight) {
+                if (isNight) {
                   color = RED_GRAD;
-                } else if (direction.monitorValue('.STATE') !== null) {
+                } else {
                   color = GREEN_GRAD;
                 }
               } else {
@@ -360,23 +366,23 @@
           let isOnlyNight = _isOnlyNight();
           var isNight = contactorNum === 1;
           var isNiitm = scope.controller.type === 'niitm';
+          var color = GREEN;
           if (!contactor) {
             element.find('.contactor-group.contactor-group-' + contactorNum).hide();
           } else if (contactor.isEnabled()) {
-            if ( isNiitm ) {
-              if (isOnlyNight && isNight) {
-                contactorElement.attr('fill', RED);
-              } else if (contactor.monitorValue('.STATE') !== null){
-                contactorElement.attr('fill', GREEN);
+            if ( isNiitm && isOnlyNight) {
+              if ( isNight ) {
+                color = RED;
               }
             } else {
-              contactorElement.attr('fill', RED);
+              color = RED;
             }
           } else if (contactor.monitorValue('.STATE') !== null) {
-            contactorElement.attr('fill', GREEN);
+            color = GREEN;
           } else {
-            contactorElement.attr('fill', GREY);
+            color = GREY;
           }
+          contactorElement.attr('fill', color);
         }
 
         function drawContactorMode(contactorNum) {
@@ -413,9 +419,18 @@
           if (isNiitm) {
             let isOnlyNight = _isOnlyNight();
             var isNight = contactorNum === 1;
-            color = contactor.isEnabled() && !contactor.isEmergency() && (isOnlyNight && isNight) ? RED_GRAD : GREEN_GRAD;
+            color = GREEN_GRAD;
+            if (contactor.isEnabled() && !contactor.isEmergency()) {
+              if (isOnlyNight) {
+                if (isNight) {
+                  color = RED_GRAD;
+                }
+              } else {
+                color = RED_GRAD;
+              }
+            }
           } else {
-            color = phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency();
+            color = phase.input() && phase.input().isEnabled() && contactor.isEnabled() && !contactor.isEmergency() ? RED_GRAD : GREEN_GRAD;
           }
           if (fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE')) {
             color = GREEN_GRAD;
