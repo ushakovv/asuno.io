@@ -52,7 +52,7 @@
     return img;
   }
 
-  function controllerScheme($compile, Controllers, $rootScope, $modal) {
+  function controllerScheme($compile, Controllers, $rootScope, $modal, $log) {
     return {
       scope    : {
         controller : '=controllerScheme'
@@ -117,32 +117,28 @@
           });
           return monitorLight && monitorLight.value === 3;
         }
-        function _isContractorGreen() {
-          let isOnlyNight = _isOnlyNight();
-          var isNiim = scope.controller.type === 'niim';
+        function _isContractorGreen(contactorNum, isOnlyNight, isNiitm) {
 
-          return !_contactors.some(function(contactorNum) {
-            let contactor = scope.controller.contactor(contactorNum);
-            var isNight = contactorNum === 1;
-
-            if (!contactor) {
-              return false;
-            } else if ( contactor.isEnabled() ) {
-              if (isNiim && isOnlyNight) {
+          let contactor = scope.controller.contactor(contactorNum);
+          var isNight = contactorNum === 1;
+          var result = false;
+          if (contactor) {
+            if (contactor.isEnabled()) {
+              if (isNiitm && isOnlyNight) {
                 if (isNight) {
-                  return false;
+                  result = false;
                 } else {
-                  return true;
+                  result = true;
                 }
               }
             } else if (contactor.monitorValue('.STATE') !== null) {
-              return true;
+              result = true;
             }
-
-            return false;
-          });
+          }
+          return result;
         }
-        function drawDirection(phase, phaseElement, directionNum, isContractorGreen) {
+
+        function drawDirection(phase, phaseElement, directionNum) {
           var directionElement = phaseElement.find('.direction-info.direction-info-' + directionNum);
 
           var direction = phase.direction(directionNum);
@@ -168,21 +164,26 @@
             var isNight = idx === 1;
             if (direction.isEnabled()) {
               if ( isNiitm && isOnlyNight) {
+                $log.debug('Направление ' + directionNum + ' тип NIITM');
                 if (isNight) {
                   color = RED_GRAD;
                 } else {
                   color = GREEN_GRAD;
+                  $log.debug('Направление ' + directionNum + ' зеленое так как контактор[' + idx + '] - не ночь и тег LIGHT==3');
                 }
               } else {
                 color = RED_GRAD;
               }
             } else if (direction.monitorValue('.STATE') !== null) {
               color = GREEN_GRAD;
+              $log.debug('Направление ' + directionNum + ' зеленое так !direction.isEnabled() и direction.monitorValue(.STATE) !== null (' + direction.monitorValue('.STATE') + ')');
             }
 
             let fuse = phase.fuse();
-            if (!isContractorGreen) {
+            var isThisContractorGreen = _isContractorGreen(idx, isOnlyNight, isNiitm);
+            if (!isThisContractorGreen) {
               if (isNiitm && fuse && !fuse.isEnabled() && fuse.monitorKnown('.STATE')) {
+                $log.debug('Направление ' + directionNum + ' зеленое так isNiitm && fuse && !fuse.isEnabled() && fuse.monitorKnown(.STATE)');
                 color = GREEN_GRAD;
               }
             }
@@ -191,7 +192,7 @@
             svg.find('image#direction_' + direction.id).remove();
 
             var icon;
-            if (isNiitm && !isContractorGreen && fuse && fuse.isEmergency()) {
+            if (isNiitm && !isThisContractorGreen && fuse && fuse.isEmergency()) {
                 if (fuse.isSilent()) {
                   icon = alarmIconImage();
                 } else {
@@ -226,9 +227,8 @@
           }
 
           translate = 0;
-          var isContractorGreen = _isContractorGreen();
           _directions.forEach(function (directionNum) {
-            drawDirection(phase, phaseElement, directionNum, isContractorGreen);
+            drawDirection(phase, phaseElement, directionNum);
           });
         }
 
@@ -415,9 +415,9 @@
           var monitor = _(scope.controller.monitors).find((m) => m.tag.includes(suffix));
           let fuse = phase.fuse();
 
-          var isContractorGreen = _isContractorGreen();
+          let isOnlyNight = _isOnlyNight();
+          var isContractorGreen = _isContractorGreen(contactorNum, isOnlyNight, isNiitm);
           if (isNiitm) {
-            let isOnlyNight = _isOnlyNight();
             var isNight = contactorNum === 1;
             color = GREEN_GRAD;
             if (contactor.isEnabled() && !contactor.isEmergency()) {
