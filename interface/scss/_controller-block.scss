@@ -2,20 +2,21 @@
 
 .controller-container {
   width   : percentage(6/12);
-  padding : 0 5px 0 0;
+  padding : 0 3px/* 0 0*/;
   float   : left;
   cursor: pointer;
+  /*min-width: 130px;*/
 
   @media (min-width : $screen-sm) {
-    width : percentage(4/12);
-  }
-
-  @media (min-width : $screen-md) {
     width : percentage(3/12);
   }
 
-  @media (min-width : $screen-lg) {
+  @media (min-width : $screen-md) {
     width : percentage(2/12);
+  }
+
+  @media (min-width : $screen-lg) {
+    width : percentage(1/8);
   }
 }
 
@@ -26,11 +27,13 @@
   cursor      : pointer;
   line-height : 1;
   width       : 100%;
-  overflow    : hidden;
-  margin      : 0;
-  padding     : 1px;
-  border      : 2px solid;
+  /*overflow:hidden;*/
+  padding: 2px 0px 4px 0px;
+  margin: 3px 0;
+  border: 2px solid;
+  background-color: #f2f2f2;
   user-select : none;
+  box-shadow: 1px 1px 6px 1px #c6c6c6;
 
   transform: translate3d(0, 0, 0);
 
@@ -82,8 +85,18 @@
   }
 
   &--disconnected {
-    border-color     : #808080 !important;
-    background-color : $table-bg-hover;
+    /*border-color     : #808080 !important;
+    background-color : $table-bg-hover;*/
+    &::after {
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+      content: '';
+      display: block;
+      background: #cf2a30;
+      width: 100%;
+      height: 4px;
+    }
 
     &.controller--cascade::before {
       border-color : #c2c2c2 #c2c2c2 $table-bg-hover $table-bg-hover;
@@ -97,11 +110,11 @@
   }
 
   &--enabled {
-    border-color : red;
+    border-color : #f80;
   }
 
   &--disabled {
-    border-color : green;
+    border-color : #39b449;
   }
 
   &--autonomous {
@@ -119,7 +132,9 @@
   &__name {
     width         : 100%;
     white-space   : nowrap;
-    font-weight   : bold;
+    /*font-weight:700;*/
+    font-size: 13px;
+    padding: 0 2px;
     text-align    : left;
     overflow      : hidden;
     text-overflow : ellipsis;
@@ -151,31 +166,32 @@
 
   &__type-name {
     padding-bottom: 2px;
-    border-bottom: 1px solid #d5d5d5;
+    /*border-bottom:1px solid #d5d5d5;*/
+    font-size: 14px;
     text-transform: uppercase;
 
     cursor: pointer;
 
     &__handle {
-      margin-right: 0.25rem;
+      margin-right: 1rem
     }
   }
 
   &--condensed {
     .controller-container {
       font-size     : 5px;
-      padding-right : 2px;
+      /*padding-right: 3px; /*e*/
 
-      @media (min-width : $screen-md) {
+      /*@media (min-width : $screen-md) {
         width : percentage(2/12);
       }
 
       @media (min-width : $screen-lg) {
         width : percentage(1/12);
-      }
+      }*/
 
-      @media (min-width : 1600px) {
-        width : percentage(1/16);
+      @media (min-width : 1680px) {
+        width : percentage(1/10);
       }
     }
 
@@ -200,9 +216,13 @@
         right    : 0;
       }
 
+      .controller__icons {
+        margin-top: 4px;
+      }
+
       &__alarm {
         .controller-alarm-icon {
-          height : 10px;
+          /*height : 10px;*/
         }
       }
     }

@@ -3,12 +3,12 @@
 .control-pane {
   @include pane(percentage(2/3));
 
-  .row + .row {
+  /*.row + .row {
     margin-top : 10px;
   }
 
-  &__show {
+  /*&__show {
     display     : inline-block;
     margin-left : 15px;
-  }
+  }*/
 }

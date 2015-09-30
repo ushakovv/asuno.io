@@ -1,7 +1,10 @@
 .navbar {
   min-height : 41px;
+  background: #fff; /*e*/
 
   .row.main-row {
+    padding-top: 7px; /*e*/
+    
     .navbar-brand {
       padding-top    : 11px;
       padding-bottom : 11px;
@@ -16,6 +19,8 @@
   }
 
   .row.small-row {
+    margin-top: 7px; /*e*/
+    
     .navbar-form {
       margin-top    : 0;
       margin-bottom : 0;
@@ -27,10 +32,10 @@
       }
     }
 
-    .controller-search {
+    /*.controller-search {
       height : 25px;
       margin : 4px 0 1px;
-    }
+    }*/
   }
 }
 table.table-condensed {

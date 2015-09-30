@@ -22,7 +22,7 @@
 
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-      display : none !important;
+      display : none !important; 
     }
   </style>
 
@@ -30,224 +30,230 @@
 
 <body
     ng-class="{'hide-header': isJournalTab(), 'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
-<header class="navbar navbar-default navbar-fixed-top" ng-class="{'is-choice': inState('choice'), 'journal-tab': isJournalTab() }"
+<header class="navbar navbar-fixed-top" ng-class="{'is-choice': inState('choice'), 'journal-tab': isJournalTab() }"
         ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="isNavbarOn()">
-  <div class="container-fluid">
-    <div class="row header-row hide-sm" ng-class="{'show': showTopMenu}">
-      <div class="col-md-12">
-        <div class="row logo-row">
-          <div class="col-sm-8">
-            <div class="logo hide-sm">
-              <img src="/assets/img/logo-mossvet.png" alt=""/>
-            </div>
-            <div class="logo hide-sm">
-              <img src="/assets/img/logo.png" alt=""/>
-            </div>
-            <div class="system-name">
-              <a href="/">Автоматизированная система управления наружным освещением</a>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="row login">
-              <div class="col-md-12">
-                <table style="width:100%">
-                  <tbody>
-                  <tr>
-                    <td rowspan="2">
-                      <a class="login-name" href="#" data-id="41">
-                        <span>{{fio()}}</span>
-                      </a>
-                    </td>
-                    <td class="nav-column">
-                      <a href="" class="navigation-item" ng-click="logout()">
-                        <i class="icon-wrapper"><i class="icon-logout"></i></i>
-                        <span>выход</span>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="nav-column">
-                      <a href="#" class="navigation-item">
-                        <i class="icon-wrapper"><i class="icon-help"></i></i>
-                        <span>справка</span>
-                      </a>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="container-fluid">
+        <div class="row header-row hide-sm" ng-class="{'show': showTopMenu}">
+            <div class="col-md-12">
+                <div class="row logo-row">
+                    <div class="col-sm-8">
+                        <div class="logo hide-sm">
+                            <img src="/assets/img/logo-mossvet.png" alt=""/>
+                        </div>
+                        <div class="logo hide-sm">
+                            <img src="/assets/img/logo.png" alt=""/>
+                        </div>
+                        <div class="system-name">
+                            <a href="/">Автоматизированная система управления наружным освещением</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row login">
+                            <div class="col-md-12">
+                                <table style="width:100%">
+                                    <tbody>
+                                    <tr>
+                                        <td rowspan="2">
+                                            <a class="login-name" href="#" data-id="41">
+                                                <span>{{fio()}}</span>
+                                            </a>
+                                        </td>
+                                        <td class="nav-column">
+                                            <a href="" class="navigation-item" ng-click="logout()">
+                                                <i class="icon-wrapper"><i class="icon-logout"></i></i>
+                                                <span>выход</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="nav-column">
+                                            <a href="#" class="navigation-item">
+                                                <i class="icon-wrapper"><i class="icon-help"></i></i>
+                                                <span>справка</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="row choice-row">
-          <div class="col-md-12">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
+                <div class="row choice-row">
+                    <div class="col-md-12">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <li><a ui-sref="core.rdps">Объекты НО</a></li>
+                                <li class="dropdown" dropdown>
+                                    <a href="" dropdown-toggle>
+                                        Групповые регуляторы
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="http://82.204.177.219/" target="_blank">Маэстро</a></li>
+                                        <li><a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
+                                            СШС
+                                        </a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
+                                        Объекты АХП
+                                    </a>
+                                </li>
+                                <li><a ui-sref="tp">Объекты ТП 6-10 кВ</a></li>
+                            </ul>
+                            <div class="navbar-right clock--navbar" clock></div>
+                            <div sun-level></div>
+                            <div class="navbar-right navbar-form" style="margin: 5px 0;">
+                                <button class="btn btn-default" ng-click="showTopMenu = false" ng-hide="inState('choice')">
+                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <connection-error class="row error-row"></connection-error>
             </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li><a ui-sref="core.rdps">Объекты НО</a></li>
-                <li class="dropdown" dropdown>
-                  <a href="" dropdown-toggle>
-                    Групповые регуляторы
-                    <span class="caret"></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a href="http://82.204.177.219/" target="_blank">Маэстро</a></li>
-                    <li><a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
-                      СШС
-                    </a></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="" onclick="alert('Сервер недоступен.\nОбратитесь за помощью в тех. поддержку')">
-                    Объекты АХП
-                  </a>
-                </li>
-                <li><a ui-sref="tp">Объекты ТП 6-10 кВ</a></li>
-              </ul>
-              <div class="navbar-right clock--navbar" clock></div>
-              <div sun-level></div>
-              <div class="navbar-right navbar-form" style="margin: 5px 0;">
-                <button class="btn btn-default" ng-click="showTopMenu = false" ng-hide="inState('choice')">
-                  <span class="glyphicon glyphicon-chevron-up"></span>
-                </button>
-              </div>
+        </div>
+        <div class="row main-row" ng-show="!inState('choice')">
+            <div class="col-xs-3 col-sm-2 col-md-2  col-lg-2">
+                <div class="site-nav--title" ui-sref="choice">АСУНО</div>
             </div>
-          </div>
+            <div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
+                <div class="site-nav--buttons">
+                    <a class="btn btn-img btn-img--home" ui-sref="choice" title="На главную"></a>
+                    <a class="btn btn-img btn-img--back" onclick="window.history.back()" title="Назад"></a>
+                    <a ui-sref="report.alarmsReport" class="btn btn-img btn-img--alarm" title="Аварии"></a>
+                    <a ui-sref="report.switchesReport" class="btn btn-img btn-img--journal" title="Оперативный журнал переключений"></a>
+                    <a ui-sref="report.operativeReport" class="btn btn-img btn-img--reports" title="Отчеты">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>
+                    <a ui-sref="report.maintenanceReport" class="btn btn-img btn-img--maintenance" title="Профилактики"></a>
+                    <a class="btn btn-img btn-img--schedule" title="Режим работы" ui-sref="schedule"></a>
+                    <a class="btn btn-img btn-img--timeline" title="Линейка времени"
+                       ng-click="timelineState.show = !timelineState.show"
+                       ng-disabled="!inState(['core.controller'])">
+                    </a>
+                    <a href="http://5.9.229.167/jsf/f?p=146:30:3331611608905:::::" target="_blank"
+                       class="btn btn-img btn-img--passport" title="Паспорта объектов">
+                        <span class="glyphicon glyphicon-book"></span>
+                    </a>
+                    <a admin-button></a>
+                    <a class="btn btn-img btn-img--auth" title="Авторизация">
+                        <span class="glyphicon glyphicon-log-in"></span>
+                    </a>
+                    
+                    <a ng-if="!inState('login')" server-status></a>
+                    <a conn-status></a>
+                    <a class="btn btn-img btn-img--ibp" title="ИБП" ng-click="openIbp()">
+                        <span class="glyphicon glyphicon-flash"></span>
+                    </a>
+                </div>
+            </div>
         </div>
-        <connection-error class="row error-row"></connection-error>
-      </div>
-    </div>
-    <div class="row main-row" ng-show="!inState('choice')">
-      <div class="col-md-12">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" ui-sref="choice">АСУНО</a>
+        <div class="row small-row hide-xs" ng-show="!inState(['choice', 'login', 'tp','ahp','group', 'ua'])">
+            <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+                <div class="site-nav--title-2">АСУНО/Объекты</div>
+            </div>
+            <div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
+                <div class="site-nav--form" ng-show="(inState('core.rdp') || inState('core.rdps')) && !show.showMap">
+                    <input class="site-nav--form-search" placeholder="Поиск" type="text"
+                           ng-model="search.term" ng-change="navbar.setSearch(search.term)"/>
+                    <div class="site-nav--buttons">
+                        <a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
+                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
+                            <span class="glyphicon glyphicon-map-marker"></span>
+                        </a>
+                        <a class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
+                                ng-class="{'btn-img--active': !show.showMap && show.showBlocks}">
+                            <span class="glyphicon glyphicon-th-large"></span>
+                        </a>
+                        <a class="btn btn-img btn-img--table" title="Таблица" ng-click="showTable()"
+                                ng-class="{'btn-img--active': !show.showMap && !show.showBlocks}">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </a>
+                    </div>
+                    <div class="site-nav--buttons site-nav--zoom" controller-zoom
+                         ng-show="inState('core.rdp') && !show.showMap && show.showBlocks">
+                    </div>
+                </div>
+                <div class="site-nav--more hide-xs hide-sm">
+                    <div class="site-nav--clock" clock></div>
+                    <div class="site-nav--switch">
+                        <table>
+                            <tr>
+                                <td>включение</td><td>time</td>
+                            </tr>
+                            <tr>
+                                <td>выключение</td><td>time</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="site-nav--sun">
+                        <img src="/assets/img/menu/new/sun.png" width="21" height="21">
+                        <span>253</span>
+                    </div>
+                </div>
+                <div class="site-nav--user">
+                    <div class="site-nav--buttons">
+                        <a class="btn btn-img btn-img--help"></a>
+                        <a class="btn btn-img btn-img--logout" ng-click="logout()"></a>
+                        <span class="site-nav--user-name">{{fio()}}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="navbar-collapse collapse">
-          <div class="navbar-right clock--navbar" clock></div>
-          <div sun-level></div>
-          <div class="navbar-right navbar-form">
-            <button class="btn btn-default" ng-click="showTopMenu = true">
-              <span class="glyphicon glyphicon-chevron-down"></span>
-            </button>
-          </div>
-          <div class="navbar-left navbar-form ">
-            <a class="btn btn-img btn-img--home" ui-sref="choice" title="На главную">
-            </a>
-            <button class="btn btn-img btn-img--back" onclick="window.history.back()" title="Назад">
-            </button>
-            <a ui-sref="report.alarmsReport" class="btn btn-img btn-img--alarm" title="Аварии"></a>
-            <a ui-sref="report.switchesReport" class="btn btn-img btn-img--journal" title="Оперативный журнал переключений"></a>
-            <a ui-sref="report.operativeReport" class="btn btn-img btn-img--reports" title="Отчеты"></a>
-            <a ui-sref="report.maintenanceReport" class="btn btn-img btn-img--maintenance" title="Профилактики"></a>
-            <a class="btn btn-img btn-img--schedule" title="Режим работы" ui-sref="schedule"></a>
-            <button class="btn btn-img btn-img--timeline" title="Линейка времени"
-                    ng-click="timelineState.show = !timelineState.show"
-                    ng-disabled="!inState(['core.controller'])">
-            </button>
-            <a href="http://5.9.229.167/jsf/f?p=146:30:3331611608905:::::" target="_blank"
-               class="btn btn-img btn-img--passport" title="Паспорта объектов">
-            </a>
-            <a admin-button></a>
-            <button class="btn btn-img btn-img--auth" title="Авторизация"></button>
-          </div>
+        <div class="row small-row hide-xs hide-sm" ng-show="inState(['core.rdps', 'core.rdp'])">
+            <div class="col-sm-10 col-md-11">
+                <ul class="site-nav--filters">
+                    <li filter-badge="all" name="Все" set-filter="setFilter" count="filterCount" current="isCurrentFilter"></li>
+                    <li filter-badge="disabled" name="Отключено" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="evening" name="Вечер" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="night" name="Ночь" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="day" name="День" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="fire" name="Пожар" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="door" name="Дверь" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="common_alarm" name="Авария" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="connection" name="Нет связи" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="autonomous" name="Автономный" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="lock" name="Блокировано" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                    <li filter-badge="maintenance_due" name="Профилактика" set-filter="setFilter" count="filterCount"
+                        current="isCurrentFilter"></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-1">
+                <a class="site-nav--control" control-pane ng-if="!inState('login')"></a>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="row small-row hide-xs" ng-show="!inState(['choice', 'login', 'tp','ahp','group', 'ua'])">
-      <div class="col-md-12">
-        <div class="navbar-collapse collapse">
-          <div class="navbar-form navbar-left" style="padding-left: 0">
-            <button class="btn btn-default" style="margin-right: 15px" ng-click="sidebar.show = !sidebar.show">
-              <span class="glyphicon glyphicon-th"></span>
-            </button>
-            <button ng-if="!inState('login')" server-status></button>
-            <button conn-status></button>
-            <button class="btn btn-img btn-img--ibp" title="ИБП" ng-click="openIbp()"></button>
-          </div>
-          <div class="navbar-form navbar-right">
-        <span ng-if="inState(['core.rdps', 'core.rdp'])">
-          <button class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
-                  ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
-          </button>
-          <button class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
-                  ng-class="{'btn-img--active': !show.showMap && show.showBlocks}">
-          </button>
-          <button class="btn btn-img btn-img--table" title="Таблица" ng-click="showTable()"
-                  ng-class="{'btn-img--active': !show.showMap && !show.showBlocks}">
-          </button>
-        </span>
-            <button rdp-remote-commands ng-if="inState(['core.rdp', 'core.controller', 'core.controllersp'])"></button>
-            <button control-pane ng-if="!inState('login')"></button>
-          </div>
+        <div class="row small-row hide-xs" ng-if="timelineState.show">
+            <div class="col-md-12">
+                <timeline></timeline>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="row small-row hide-xs filters" ng-show="inState(['core.rdps', 'core.rdp'])">
-      <div class="col-md-12">
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li filter-badge="all" name="Все" set-filter="setFilter" count="filterCount" current="isCurrentFilter"></li>
-            <li filter-badge="disabled" name="Отключено" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="evening" name="Вечер" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="night" name="Ночь" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="day" name="День" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="fire" name="Пожар" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="door" name="Дверь" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="common_alarm" name="Авария" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="connection" name="Нет связи" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="autonomous" name="Автономный" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="lock" name="Блокировано" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-            <li filter-badge="maintenance_due" name="Профилактика" set-filter="setFilter" count="filterCount"
-                current="isCurrentFilter"></li>
-          </ul>
-          <div class="navbar-form pull-right" style="padding-right: 0"
-               ng-show="(inState('core.rdp') || inState('core.rdps')) && !show.showMap">
-            <input class="form-control input-sm controller-search" placeholder="Быстрый поиск" type="text"
-                   ng-model="search.term" ng-change="navbar.setSearch(search.term)"/>
-          </div>
-          <div class="navbar-form pull-right" controller-zoom
-               ng-show="inState('core.rdp') && !show.showMap && show.showBlocks">
-          </div>
-          <div class="navbar-form pull-right" style="display: none;">
-            <button type="button" class="btn btn-default btn-no-outline" ng-model="showAutonomous" btn-checkbox
-                    ng-show="inState('core.rdp') && !show.showMap && show.showBlocks">
-              <i class="fa" ng-class="{'fa-toggle-on': showAutonomous, 'fa-toggle-off': !showAutonomous}"></i>
-              автономные
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row small-row hide-xs" ng-if="timelineState.show">
-      <div class="col-md-12">
-        <timeline></timeline>
-      </div>
-    </div>
-  </div>
+    <a class="btn-sidebar" ng-show="inState(['core.rdps', 'core.rdp'])" ng-click="sidebar.show = !sidebar.show">
+        <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </a>
 </header>
 <div class="container-fluid" ui-view></div>
 

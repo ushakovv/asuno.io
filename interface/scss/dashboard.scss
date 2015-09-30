@@ -6,7 +6,10 @@
 @import "clock";
 @import "controller-block";
 @import "control-pane";
-@import "btnImg";
+/*@import "btnImg";*/
+
+@import "header";
+
 @import "rdp-block";
 @import "condense";
 @import "table";
@@ -21,7 +24,7 @@
 @import "priority";
 @import "navigation";
 @import "sun";
-@import "filters";
+/*@import "filters";*/
 @import "tooltip";
 @import "progress-items";
 @import "adm";
@@ -55,7 +58,7 @@
 }
 
 body {
-  padding-top : 73px;
+  padding-top : 76px; /*73*/
 
   &.has-timeline {
     padding-top : 106px;
@@ -68,10 +71,10 @@ body {
     }
   }
   &.three-rows {
-    padding-top : 104px;
+    padding-top : 106px;
 
     &.has-timeline {
-      padding-top : 137px;
+      padding-top : 140px;
     }
   }
 
@@ -104,6 +107,19 @@ html, body {
 .container-fluid, .app-container, .map-container {
   height : 100%;
 }
+
+.sb-padding {
+  padding-left: 30px;
+}
+
+.sb-padding-col {
+  padding-left: 45px;
+}
+
+/*
+.map-container {
+  padding: 10px 30px;
+}*/
 
 .alert-panel {
   position   : relative;
@@ -151,6 +167,9 @@ table.table-main {
 
 .breadcrumb {
   margin-bottom : 5px;
+  background: transparent !important;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media (max-width : $screen-xs) {
