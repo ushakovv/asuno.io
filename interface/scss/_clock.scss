@@ -54,12 +54,12 @@
 .site-nav--clock {
   .clock {
     height: 26px;
-    
+
     &__time, &__date {
       height: 13px;
       line-height: 13px;
       font-size: 12px !important;
-      
+      text-align: left;
       span {
         font-weight: normal !important;
         color: #333 !important;

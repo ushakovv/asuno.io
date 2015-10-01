@@ -4,6 +4,10 @@
   function fill(value) {
     return value < 10 ? '0' + value : value;
   }
+  function dayText(value) {
+    const __days = ['', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    return __days[value];
+  }
 
   const R = window.REACT = window.REACT || {};
 
@@ -37,20 +41,22 @@
       const date = fill(this.state.timestamp.getDate());
       const month = fill(this.state.timestamp.getMonth() + 1);
       const year = fill(this.state.timestamp.getFullYear());
+      const dayOfWeek = dayText(this.state.timestamp.getDay());
 
       const classes = classNames('clock', this.props.className);
 
       return <div className={classes}>
-          <div className="clock__time" style={this.props.clockStyle}>
-            <span className="time__hours">{hours}</span>
-            <span className="time__point">:</span>
-            <span className="time__minutes">{minutes}</span>
-            <span className="time__point">:</span>
-            <span className="time__seconds">{seconds}</span>
-          </div>
-          <div className="clock__date" style={this.props.dateStyle}>
-            <strong>{date}.{month}.{year}</strong>
-          </div>
+        <div className="clock__date" style={this.props.dateStyle}>
+          <strong>{dayOfWeek} {date}.{month}.{year}</strong>
+        </div>
+        <div className="clock__time" style={this.props.clockStyle}>
+          <span className="time__hours">{hours}</span>
+          <span className="time__point">:</span>
+          <span className="time__minutes">{minutes}</span>
+          <span className="time__point">:</span>
+          <span className="time__seconds">{seconds}</span>
+        </div>
+
         </div>;
     }
 

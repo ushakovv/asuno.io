@@ -22,7 +22,7 @@
 
   <style>
     [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-      display : none !important; 
+      display : none !important;
     }
   </style>
 
@@ -152,12 +152,8 @@
                     <a class="btn btn-img btn-img--auth" title="Авторизация">
                         <span class="glyphicon glyphicon-log-in"></span>
                     </a>
-                    
+
                     <a ng-if="!inState('login')" server-status></a>
-                    <a conn-status></a>
-                    <a class="btn btn-img btn-img--ibp" title="ИБП" ng-click="openIbp()">
-                        <span class="glyphicon glyphicon-flash"></span>
-                    </a>
                 </div>
             </div>
         </div>

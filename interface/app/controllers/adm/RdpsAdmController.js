@@ -1,7 +1,8 @@
 (function () {
   'use strict';
 
-  function RdpsAdmController($scope, rdps) {
+  function RdpsAdmController($scope, rdps, $log) {
+    $log.debug(rdps);
     $scope.rdps = rdps;
   }
 

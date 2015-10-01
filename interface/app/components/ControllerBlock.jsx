@@ -71,7 +71,7 @@
       const icons = STATUS_ICONS.map((icon) => {
         const event = controller.alarms[icon.key];
         return <div className="controller__alarm" key={icon.key}>
-            <R.ControllerBlockAlarm src={icon.srcSm} srcNokvit={icon.srcNokvit} event={event} />
+            <R.ControllerBlockAlarm src={icon.srcSm} srcNokvit={icon.srcNokvit} event={event} key={icon.key} />
           </div>;
       });
 
