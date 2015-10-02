@@ -162,9 +162,9 @@
                 <div class="site-nav--title-2">АСУНО/Объекты</div>
             </div>
             <div class="col-xs-9 col-sm-10 col-md-10 col-lg-10">
-                <div class="site-nav--form" ng-show="(inState('core.rdp') || inState('core.rdps')) && !show.showMap">
+                <div class="site-nav--form" ng-show="(inState('core.rdp') || inState('core.rdps'))">
                     <input class="site-nav--form-search" placeholder="Поиск" type="text"
-                           ng-model="search.term" ng-change="navbar.setSearch(search.term)"/>
+                           ng-model="search.term" ng-change="navbar.setSearch(search.term)" && ng-show="!show.showMap"/>
                     <div class="site-nav--buttons">
                         <a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
                                 ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
