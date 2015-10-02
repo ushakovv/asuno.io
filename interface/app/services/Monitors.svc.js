@@ -33,7 +33,7 @@
     };
 
     this.isActive = function (monitors) {
-      return _.any(monitors, (monitor) => monitor.payload === 'emergency' || monitor.payload === 'manual');
+      return _.any(monitors, (monitor) => monitor.payload === 'emergency');
     };
 
     this.isAfterKvit = function (monitors) {

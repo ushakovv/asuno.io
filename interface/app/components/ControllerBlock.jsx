@@ -20,6 +20,7 @@
            compareEvents(prev.alarms.door, next.alarms.door) &&
            compareEvents(prev.alarms.connection, next.alarms.connection) &&
            compareEvents(prev.alarms.block, next.alarms.block) &&
+           compareEvents(prev.alarms.manual, next.alarms.manual) &&
            compareEvents(prev.alarms.common_alarm, next.alarms.common_alarm);
   }
 
