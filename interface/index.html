@@ -209,9 +209,9 @@
                 </div>
             </div>
         </div>
-        <div class="row small-row hide-xs hide-sm" ng-show="inState(['core.rdps', 'core.rdp'])">
-            <div class="col-sm-10 col-md-11">
-                <ul class="site-nav--filters">
+        <div class="row small-row">
+            <div class="col-sm-12 col-md-12">
+                <ul class="site-nav--filters hide-sm" ng-show="inState(['core.rdps', 'core.rdp'])">
                     <li filter-badge="all" name="Все" set-filter="setFilter" count="filterCount" current="isCurrentFilter"></li>
                     <li filter-badge="disabled" name="Отключено" set-filter="setFilter" count="filterCount"
                         current="isCurrentFilter"></li>
@@ -236,9 +236,7 @@
                     <li filter-badge="maintenance_due" name="Профилактика" set-filter="setFilter" count="filterCount"
                         current="isCurrentFilter"></li>
                 </ul>
-            </div>
-            <div class="col-xs-12 col-sm-2 col-md-1">
-                <a class="site-nav--control" control-pane ng-if="!inState('login')"></a>
+                <a class="site-nav--control hide-xs" control-pane ng-if="!inState('login')" ng-show="!inState(['choice', 'login', 'tp','ahp','group', 'ua'])"></a>
             </div>
         </div>
         <div class="row small-row hide-xs" ng-if="timelineState.show">
