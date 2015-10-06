@@ -38,15 +38,17 @@
   transform: translate3d(0, 0, 0);
 
   &--cascade::before {
-    content          : " ";
+    content          : "";
     position         : absolute;
     right            : 0;
     top              : 0;
-    border-width     : 0 22px 22px 0;
-    border-style     : solid;
-    border-color     : #c2c2c2 #c2c2c2 #ffffff #ffffff;
-    background-color : #d3d3d3;
+    //border-width     : 0 22px 22px 0;
+    //border-style     : solid;
+    //border-color     : #c2c2c2 #c2c2c2 #ffffff #ffffff;
+    background : url("/assets/img/icon_derevo.png");
     display          : block;
+    width: 14px;
+    height: 14px;
   }
 
   &--maintenance::after {
@@ -87,7 +89,19 @@
   &--disconnected {
     /*border-color     : #808080 !important;
     background-color : $table-bg-hover;*/
-    &::after {
+    background-color : $disconected-block-bg;
+
+    &.controller--cascade::before {
+      border-color : #c2c2c2 #c2c2c2 $table-bg-hover $table-bg-hover;
+    }
+
+    &.controller__name__link, &.controller__address {
+      color: #ececec;
+    }
+  }
+
+  &--common_alarm {
+    &::before {
       position: absolute;
       left: 0;
       bottom: -1px;
@@ -96,10 +110,6 @@
       background: #cf2a30;
       width: 100%;
       height: 4px;
-    }
-
-    &.controller--cascade::before {
-      border-color : #c2c2c2 #c2c2c2 $table-bg-hover $table-bg-hover;
     }
   }
 

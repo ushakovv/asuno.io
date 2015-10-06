@@ -27,6 +27,9 @@
   function isDisconnected(controller) {
     return _.any(controller.alarms.connection, (monitor) => monitor.payload === 'emergency');
   }
+  function isCommonAlarmHere(controller) {
+    return _.any(controller.alarms.common_alarm, (monitor) => monitor.payload === 'emergency');
+  }
 
   class ControllerBlock extends React.Component {
     constructor(props, context) {
@@ -82,6 +85,7 @@
         'controller--enabled'      : controller.enabled,
         'controller--disabled'     : !controller.enabled,
         'controller--disconnected' : isDisconnected(controller),
+        'controller--common_alarm' : isCommonAlarmHere(controller),
         'controller--cascade'      : controller.is_cascade,
         'controller--maintenance'  : isMaintenance,
         'controller--description'  : controller.description,
