@@ -23,7 +23,7 @@
         controller       : 'JournalController as journal'
       };
     })
-    .controller('JournalController', function JournalController($scope, RDPs, Muter, ngGridBase, Events, $log) {
+    .controller('JournalController', function JournalController($scope, RDPs, $log, Muter, ngGridBase, Events, $rootScope) {
       var journal = this;
 
       var _uniqueJournalLoad;
@@ -34,11 +34,12 @@
       if (journal.rdp || journal.rdpName) {
         journal.rdps = RDPs.query();
       }
+      $scope.journalEvents = [];
 
       journal.load = function (options, page, per_page) {
         var currentLoad = _uniqueJournalLoad = _.uniqueId();
 
-        journal.report.loading = options.sid ? true : false;
+        journal.report.loading = true;
         journal.currentOptions = options;
         journal.pagingOptions.currentPage = page || 1;
 
@@ -46,12 +47,15 @@
           page     : page,
           per_page : per_page
         });
-
+        $log.debug('journal.report.loading', journal.report.loading);
         journal.query(query, function (data) {
+          $log.debug(currentLoad === _uniqueJournalLoad, 'query');
           if (currentLoad === _uniqueJournalLoad) {
             journal.report.loading = false;
             journal.totalServerCount = data.total;
+
             $scope.journalEvents = journal.map(data);
+            journal.options.data = 'journalEvents';
           }
         });
       };
@@ -137,6 +141,9 @@
               journal.reload();
             });
       };
+      $rootScope.$on('asuno-refresh-all', function () {
+          journal.reload();
+      });
 
       $scope.$watch('journal.pagingOptions', function (next, prev) {
         if (next.currentPage !== prev.currentPage) {

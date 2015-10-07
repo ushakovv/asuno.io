@@ -4,9 +4,12 @@
   var _maintenanceStates = {
     planned  : 'Планируется',
     during :  'В процессе',
+    disabled :  'Снята ',
     completed :  'Завершена'
   };
-
+  /* TODO: если же атрибут maintenance.disabled равен True,
+   то в колонке "планируется"/"завершена"/"в процессе" нужно писать "Снята (имя_пользователя)",
+   заключая имя пользователя в скобки. Имя пользователя брать из атрибута maintenance.disabled_by_name.*/
   angular.module('asuno')
     .directive('maintenanceState', function maintenanceState() {
       return {
@@ -14,7 +17,9 @@
         replace    : true,
         scope      : {
           dateFrom: '=maintenanceDateFrom',
-          dateTo: '=maintenanceDateTo'
+          dateTo: '=maintenanceDateTo',
+          disabled: '=maintenanceDisabled',
+          disabledByName: '=maintenanceDisabledByName'
         },
         controller: 'MaintenanceStateController'
       };
@@ -42,9 +47,11 @@
       let tick = function tick() {
 
         const timeNow = (new Date(ClockStore.getTime())).getTime();
-        if (timeNow < timeFrom) {
+        if ($scope.disabled) {
+          $scope.stateText = _maintenanceStates.disabled + '(' + $scope.disabledByName + ')';
+        } else if (timeNow < timeFrom) {
           $scope.stateText = _maintenanceStates.planned;
-        } else if (timeNow < timeTo) {
+        } else if (timeTo > timeNow) {
           $scope.stateText = _maintenanceStates.during;
         } else {
           $scope.stateText = _maintenanceStates.completed;
@@ -52,6 +59,10 @@
       };
 
       tick();
+
+      $scope.$watch('disabled', function() {
+        tick();
+      });
     });
 
 })();

@@ -52,7 +52,13 @@
                 {
                     field        : 'controller_name',
                     displayName : 'Статус',
-                    cellTemplate : '<div class="ngCellText"><div maintenance-state maintenance-date-from="row.entity.date_from" maintenance-date-to="row.entity.date_to"></div></div>'
+                    cellTemplate : '<div class="ngCellText"><div maintenance-state maintenance-date-from="row.entity.date_from" maintenance-disabled-by-name="row.entity.disabled_by_name" maintenance-disabled="row.entity.disabled" maintenance-date-to="row.entity.date_to"></div></div>'
+                },
+                {
+                  field        : 'controller_name',
+                  displayName : 'Действие',
+                  cellTemplate : '<div class="ngCellText"><div maintenance-actions maintenance-entity="row.entity" maintenance-disabled="row.entity.disabled" maintenance-date-to="row.entity.date_to"></div></div>'
+
                 }
             ]
         };
