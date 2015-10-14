@@ -21,17 +21,24 @@
         controller       : 'SunLevelController as sun'
       };
     })
-    .controller('SunLevelController', function SunLevelController($scope, $interval, SensorsStore, Schedule, ClockStore) {
+    .controller('SunLevelController', function SunLevelController($scope, $rootScope, $interval, SensorsStore, Schedule, ClockStore) {
       const sun = this;
 
       sun.offline = true;
 
       function loadSchedule() {
         Schedule.get({time : moment(ClockStore.getTime()).format('YYYY-MM-DD')}, function (data) {
-          sun.datetime_on = new Date(data.schedule.datetime_on);
+          sun.datetime_on = new Date(data.datetime_on);
+
+          var time = moment(sun.datetime_on);
+          time = time.hour(time.hour()-3).format('HH:MM');
+          $rootScope.datetime_on = time;
         });
         Schedule.get({time : moment(ClockStore.getTime()).add(-1, 'd').format('YYYY-MM-DD')}, function (data) {
-          sun.datetime_off = new Date(data.schedule.datetime_off);
+          sun.datetime_off = new Date(data.datetime_off);
+          var time = moment(sun.datetime_off);
+          time = time.hour(time.hour()-3).format('HH:MM');
+          $rootScope.datetime_off = time;
         });
       }
 
