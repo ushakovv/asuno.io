@@ -29,7 +29,7 @@
 </head>
 
 <body
-    ng-class="{'hide-header': isJournalTab(), 'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp', 'adm.rdps']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
+    ng-class="{'hide-header': isJournalTab(), 'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp', 'adm.rdps','adm.users', 'adm.states', 'adm.rdp']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
 <header class="navbar navbar-fixed-top" ng-class="{'is-choice': inState('choice'), 'journal-tab': isJournalTab() }"
         ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="isNavbarOn()">
     <div class="container-fluid">
