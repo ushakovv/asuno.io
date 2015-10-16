@@ -53,8 +53,8 @@
 
   &--maintenance::after {
     position               : absolute;
-    top                    : 1px;
-    right                  : 1px;
+    top                    : 22px;
+    left                   : 11px;
     display                : inline-block;
     font-family            : 'Glyphicons Halflings';
     font-style             : normal;
@@ -247,6 +247,16 @@
     }
   }
 }
+
+.controller--maintenance {
+  .controller__alarm:first-child img {
+    display: none;
+  }
+  &::after {
+    content : "\e136" !important;
+  }
+}
+
 
 .controller--maintenance.controller--description::after {
   content : "\e111 \e136" !important;
