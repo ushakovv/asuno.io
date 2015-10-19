@@ -97,7 +97,11 @@
       };
 
       if (controller.profile) {
-        data.gis_id = controller.profile.id;
+        if(controller.profile.id) {
+          data.gis_id = controller.profile.id - 0;
+        } else {
+          data.gis_id = controller.profile - 0;
+        }
       }
 
       Controllers.patch({id : controller.id}, data).$promise.then(function () {
