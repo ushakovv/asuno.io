@@ -90,9 +90,10 @@
       $scope.loading = true;
 
       var data = {
+        tag: controller.tag,
         name    : controller.name,
-        address : controller.address,
-        tag     : controller.tag
+        checked    : controller.checked,
+        address : controller.address
       };
 
       if (controller.profile) {

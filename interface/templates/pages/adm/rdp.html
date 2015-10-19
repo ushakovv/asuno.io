@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-12 marLeft60">
+  <div class="col-md-12 padLeft60">
     <h3>Пункты питания РДП
       <a ui-sref="core.rdp({rdp: rdp.slug})">{{rdp.name}}</a>
       <button ng-click="addController()" class="btn btn-sm btn-primary" if-has-control>
@@ -17,6 +17,8 @@
         <th>Название</th>
         <th>Адрес</th>
         <th>Тег</th>
+        <th>Отмечен</th>
+        <th>Тип</th>
       </tr>
       </thead>
       <tbody>
@@ -29,6 +31,8 @@
         </td>
         <td>{{controller.address}}</td>
         <td>{{controller.tag}}</td>
+        <td><div data-ng-if="controller.checked" class="center">✓</div></td>
+        <td>{{controller.rus_type}}</td>
       </tr>
       </tbody>
     </table>
