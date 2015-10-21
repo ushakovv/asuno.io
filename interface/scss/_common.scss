@@ -1,3 +1,18 @@
 .center {
   text-align: center;
 }
+th {
+  &.desc { //DESC - сортирует по убыванию
+    &:after {
+      content: '⬇';
+    }
+  }
+  &.asc { // ASC - сортирует по возрастанию
+    &:after {
+      content: '⬆';
+    }
+  }
+}
+.marginTop10 {
+  margin-top: 10px;
+}

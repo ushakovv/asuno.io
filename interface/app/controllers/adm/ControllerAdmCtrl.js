@@ -11,6 +11,7 @@
     $scope.controller = controller;
     $scope.controller.profile = controller.gis_id;
     $scope.isAdmin = true;
+    
     this.search = function (name) {
       return UFAP.search({name : name}).$promise.then(function (data) {
         return data.profiles;

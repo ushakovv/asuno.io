@@ -11,6 +11,19 @@
     $scope.rdp = initial.rdp;
     $scope.controllers = initial.controllers;
 
+    $scope.sort = "address";
+    $scope.reverse = true;
+
+    $scope.changeSort = function(value){
+      if ($scope.sort == value){
+        $scope.reverse = !$scope.reverse;
+        return;
+      }
+
+      $scope.sort = value;
+      $scope.reverse = false;
+    }
+
     $scope.remove = function (ctrl) {
       confirmation(`Вы действительно хотите удалить ${ctrl.name} ?`).then(() => {
         Controllers.delete({controller : ctrl.id}, function () {

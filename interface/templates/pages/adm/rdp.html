@@ -11,30 +11,38 @@
 </div>
 <div class="row">
   <div class="col-md-12" fixed-header>
-    <table class="table table-condensed table-bordered">
-      <thead>
-      <tr>
-        <th>Название</th>
-        <th>Адрес</th>
-        <th>Тег</th>
-        <th>Отмечен</th>
-        <th>Тип</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="controller in controllers">
-        <td>
-          <a ng-click="remove(controller)" style="margin-right: 1em;" if-has-control>
-            <span class="glyphicon glyphicon-trash"></span>
-          </a>
-          <a ui-sref="adm.controller.scheme({rdp: rdp.slug, controller: controller.id})">{{controller.name}}</a>
-        </td>
-        <td>{{controller.address}}</td>
-        <td>{{controller.tag}}</td>
-        <td><div data-ng-if="controller.checked" class="center">✓</div></td>
-        <td>{{controller.rus_type}}</td>
-      </tr>
-      </tbody>
-    </table>
+    Сортировать по: <button ng-click="changeSort('name')">Название</button>
+    <button ng-click="changeSort('address')">Адрес</button>
+    <button ng-click="changeSort('tag')">Тег</button>
+    <button ng-click="changeSort('checked')">Отмечен</button>
+    <button ng-click="changeSort('type')">Тип</button>
+
+    <div class="marginTop10">
+      <table class="table table-condensed table-bordered">
+        <thead>
+        <tr>
+          <th>Название</th>
+          <th>Адрес</th>
+          <th>Тег</th>
+          <th>Отмечен</th>
+          <th>Тип</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="controller in controllers | orderBy:sort:reverse">
+          <td>
+            <a ng-click="remove(controller)" style="margin-right: 1em;" if-has-control>
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
+            <a ui-sref="adm.controller.scheme({rdp: rdp.slug, controller: controller.id})">{{controller.name}}</a>
+          </td>
+          <td>{{controller.address}}</td>
+          <td>{{controller.tag}}</td>
+          <td><div data-ng-if="controller.checked" class="center">✓</div></td>
+          <td>{{controller.rus_type}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
