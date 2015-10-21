@@ -32,6 +32,7 @@
         sensors_poll   : {method : 'POST', url : '/api/controllers/:controller/sensors/poll'},
         save           : {method : 'POST', url : '/api/rdp/:rdp/controllers'},
         change         : {method : 'POST', url : '/api/controllers/:controller/command'},
+        toggle   : {method : 'POST', url : '/api/controllers/:id/toggle_check'},
         patch          : {method : 'PATCH', url : '/api/controllers/:id'},
         maintenance    : {method : 'POST', url : '/api/controllers/:controller/maintenance'},
         maintenance_delete    : {method : 'DELETE', url : '/api/controllers/:controller/maintenance'},

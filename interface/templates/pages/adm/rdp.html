@@ -38,7 +38,7 @@
           </td>
           <td>{{controller.address}}</td>
           <td>{{controller.tag}}</td>
-          <td><div data-ng-if="controller.checked" class="center">✓</div></td>
+          <td class="center"><input type="checkbox" ng-model="controller.checked" ng-change="toggle(controller.id)"></td>
           <td>{{controller.rus_type}}</td>
         </tr>
         </tbody>
