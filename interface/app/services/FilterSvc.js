@@ -12,6 +12,7 @@
     'connection'      : 'connection',
     'door'            : 'door',
     'common_alarm'    : 'common_alarm',
+    'autonomous'      : 'autonomous',
     'night'           : 'night',
     'disabled'        : 'disabled',
     'maintenance_due' : 'maintenance_due'

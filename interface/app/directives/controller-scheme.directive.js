@@ -148,6 +148,12 @@
             return directionElement.hide();
           }
 
+          // fix ASUNO-124
+
+          if (!direction.contactor_id) {
+            return directionElement.hide();
+          }
+
           var contactorIds = scope.controller.contactorIds();
 
           var idx = contactorIds.indexOf(direction.contactor_id) + 1;
