@@ -17,6 +17,9 @@
       _errorData = request;
       _error = _error || request && request.hasOwnProperty('status') && (request.status >= 500 || request.status === 0);
     };
+    this.errorOff = function () {
+      _error = false;
+    };
   }
 
   angular.module('asuno.services').service('ConnectionError', ConnectionError);

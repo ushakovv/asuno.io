@@ -24,6 +24,7 @@
 
         Servers
           .status(function (servers) {
+            ConnectionError.errorOff();
             AsunoDispatcher.handleServerAction({
               actionType : ServersStoreConstants.SET_SERVERS,
               servers    : servers
