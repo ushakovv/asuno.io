@@ -30,6 +30,19 @@
 
 <body
     ng-class="{'hide-header': isJournalTab(), 'one-row': inState(['choice', 'login', 'tp', 'ahp', 'group', 'ua']), 'three-rows': inState(['core.rdps', 'core.rdp', 'adm.rdps','adm.users', 'adm.states', 'adm.rdp']), 'is-login': inState('login'), 'has-timeline': timelineState.show}">
+<div ng-if="isLoadingPage">
+  <div class="bg_layout"></div>
+  <div id="floatingBarsG">
+    <div class="blockG" id="rotateG_01"></div>
+    <div class="blockG" id="rotateG_02"></div>
+    <div class="blockG" id="rotateG_03"></div>
+    <div class="blockG" id="rotateG_04"></div>
+    <div class="blockG" id="rotateG_05"></div>
+    <div class="blockG" id="rotateG_06"></div>
+    <div class="blockG" id="rotateG_07"></div>
+    <div class="blockG" id="rotateG_08"></div>
+  </div>
+</div>
 <header class="navbar navbar-fixed-top" ng-class="{'is-choice': inState('choice'), 'journal-tab': isJournalTab() }"
         ng-controller="NavbarCtrl as navbar" ng-cloak ng-if="isNavbarOn()">
     <div class="container-fluid">

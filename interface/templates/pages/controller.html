@@ -49,7 +49,15 @@
                 <div ng-class="{'maintenance': controller.isMaintenance()}" ng-include="'/assets/img/akhp.svg'"></div>
               </div>
               <div ng-switch-when="grs_kulon" kulon-graphs="controller"></div>
+              <div ng-switch-when="briz" class="col-md-12">
+                <div ng-include="'/assets/templates/pages/briz-table.html'"></div>
+              </div>
               <div ng-switch-default class="col-md-12">
+              </div>
+            </div>
+            <div>
+              <div ng-repeat="cmd in controller.available_commands" class="col-sm-3">
+                <button class="btn btn-default btn-block" data-val="cmd" ng-click="commandBriz(cmd)">{{cmd}}</button>
               </div>
             </div>
           </div>

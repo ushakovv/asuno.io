@@ -183,10 +183,7 @@
           field        : '',
           width        : '**',
           displayName  : 'Квитировать',
-          cellTemplate : `<div class="ngCellText" style="text-align: center">
-                            <span class="ok" ng-if="row.entity.silenced_by"><i class="fa fa-check"></i>Профилактика</span>
-                            <input if-has-control type="checkbox" ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="journal.toggleKvit(row.entity, row.entity.silent_model)">
-                          </div>`
+          cellTemplate : '<div class="ngCellText" style="text-align: center"><span class="ok" ng-if="row.entity.silenced_by && row.entity.silenced_by != \'None\'"><i class="fa fa-check"></i>{{row.entity.silenced_by}}</span><span class="ok" ng-if="row.entity.silenced_by && row.entity.silenced_by == \'None\'""><i class="fa fa-check"></i>Профилактика</span><input if-has-control type="checkbox" ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="journal.toggleKvit(row.entity, row.entity.silent_model)"></div>'
         });
       }
 
