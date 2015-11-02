@@ -11,7 +11,8 @@
         templateUrl : '/assets/templates/camera-block.html',
         replace     : true,
         scope       : {
-          camera : '=cameraBlock'
+          camera : '=cameraBlock',
+          canEdit: '@'
         },
         controller: 'CameraBlockController as cameraBlock'
       };
@@ -25,8 +26,10 @@
       };
 
       $scope.deleteCamera = function (camera) {
-        confirmation('Вы уверены что хотите удалить камеру?').then(() => {
-          Cameras.delete({id : camera.id}, () => $rootScope.$broadcast('asuno-refresh-all'));
+        confirmation('Вы уверены что хотите удалить камеру?').then(function(){
+          Cameras.delete({id : camera.id}, function(){
+            rootScope.$broadcast('asuno-refresh-all');
+          });
         });
       };
 
@@ -41,12 +44,12 @@
             $scope.showArchive = showArchive;
 
             $scope.source = `http://GOST_GR_Pronyayev:17596777@195.208.65.189:8087/embed?id=${$scope.camera.uuid}&toolbar=1&allowControl=1`;
-            if ($scope.showArchive) {
-              $scope.source = `${$scope.source}&archive=1`;
-            }
+              if ($scope.showArchive) {
+                $scope.source = `${$scope.source}&archive=1`;
+              }
 
             $scope.getSnapshot = function () {
-              Cameras.snapshot({id : $scope.camera.id}, {}, () => inform('Снимок будет сделан в ближайшее время'));
+              Cameras.snapshot({id : $scope.camera.id}, {}, function(){inform('Снимок будет сделан в ближайшее время')});
             };
           }
         });
@@ -108,6 +111,5 @@
           }
         });
       };
-    });
-
+  });
 })();

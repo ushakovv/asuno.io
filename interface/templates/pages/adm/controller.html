@@ -75,6 +75,42 @@
     </div>
     <div class="row">
       <div class="col-md-12">
+        <div class="controller-telemetry__signals__video">
+          <h5>Видеонаблюдение</h5>
+
+          <div class="row" ng-repeat="camera in controller.cameras">
+            <div camera-block="camera" can-edit="true"></div>
+          </div>
+
+          <div ng-if="!controller.cameras.length">
+            <strong>
+              Не подключены камеры видеонаблюдения.
+              <a href="javascript:void(0)" ng-click="showMiniMap = !showMiniMap">
+                <span ng-if="!showMiniMap">Посмотреть на карте.</span>
+                <span ng-if="showMiniMap">Скрыть карту.</span>
+              </a>
+            </strong>
+
+            <div simple-map sm-zoom="17" sm-hide-layers="true" ng-if="showMiniMap" style="height:  300px">
+              <div simple-map-layer="cameras" sml-parent-scope="child" show="true" sml-point-click="cameraClick">
+                <div feature-renderer fr-extractor="cameraExtractor" fr-default-symbol="/assets/img/camera.png">
+                  <div renderer-setting rs-value="1" rs-symbol="/assets/img/camera_green.png"></div>
+                </div>
+              </div>
+              <div simple-map-layer="controllers" sml-points="controllers" sml-point-filter="pointFilter"
+                   sml-where="PP_ID = {{controller.gis_id||'null'}}" sml-parent-scope="child"
+                   sml-popup-template="<div controller-popup controller='point'></div>"
+                   sml-point-connect="controllerConnect"
+                   sml-title-template="<span><span ng-if='point'>[[point.name]] [[point.address]]</span><span ng-if='!point'>[[attributes.db_PP_NAME]] [[attributes.db_PP_ID]]</span></span>">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
         <telemetry controller="controller" hide-sensors="true"></telemetry>
       </div>
     </div>

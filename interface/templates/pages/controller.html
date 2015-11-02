@@ -55,11 +55,6 @@
               <div ng-switch-default class="col-md-12">
               </div>
             </div>
-            <div>
-              <div ng-repeat="cmd in controller.available_commands" class="col-sm-3">
-                <button class="btn btn-default btn-block" data-val="cmd" ng-click="commandBriz(cmd)">{{cmd}}</button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -75,7 +70,7 @@
             <h5>Видеонаблюдение</h5>
 
             <div class="row" ng-repeat="camera in controller.cameras">
-              <div camera-block="camera"></div>
+              <div camera-block="camera" can-edit="false"></div>
             </div>
 
             <div ng-if="!controller.cameras.length">

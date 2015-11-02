@@ -24,7 +24,7 @@
 
         Servers
           .status(function (servers) {
-            if(ConnectionError.isError()) {
+            if (ConnectionError.isError()) {
               location.reload();
               ConnectionError.errorOff();
             }

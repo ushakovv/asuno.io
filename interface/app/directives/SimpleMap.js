@@ -92,8 +92,8 @@
           return $scope.layers[id] ? $scope.layers[id].visible : false;
         };
 
-        require(['esri/map', 'esri/config', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/dijit/Popup', 'dojo/dom-construct', 'esri/geometry/Point', 'esri/dijit/Scalebar', 'esri/geometry/Extent', 'esri/layers/TileInfo', 'esri/SpatialReference'],
-          function (Map, config, ArcGISTiledMapServiceLayer, Popup, domConstruct, Point, Scalebar, Extent, TileInfo, SpatialReference) {
+        require(['esri/map', 'esri/config', 'esri/layers/ArcGISTiledMapServiceLayer', 'esri/dijit/Popup', 'dojo/dom-construct', 'esri/geometry/Point', 'esri/dijit/Scalebar', 'esri/geometry/Extent', 'esri/layers/TileInfo'],
+          function (Map, config, ArcGISTiledMapServiceLayer, Popup, domConstruct, Point, Scalebar, Extent, TileInfo) {
 
             config.defaults.io.corsEnabledServers.push('95.31.222.219');
             config.defaults.io.corsEnabledServers.push('95.31.222.219:83');

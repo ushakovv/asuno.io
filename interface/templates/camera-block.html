@@ -3,7 +3,7 @@
     <h6 class="camera__name">
       {{ camera.address }}
 
-      <span class="glyphicon glyphicon-trash camera__remove" ng-click="deleteCamera(camera)" if-has-control></span>
+      <span data-ng-if="canEdit === 'true'" class="glyphicon glyphicon-trash camera__remove" ng-click="deleteCamera(camera)" if-has-control></span>
     </h6>
 
     <div class="camera__description" ng-if="camera.description">
@@ -23,7 +23,7 @@
         <span class="glyphicon glyphicon-picture"></span>
       </button>
 
-      <button class="btn btn-primary btn-xs pull-right tooltipped tooltipped-s" data-tooltip="Редактировать"
+      <button data-ng-if="canEdit === 'true'" class="btn btn-primary btn-xs pull-right tooltipped tooltipped-s" data-tooltip="Редактировать"
               ng-click="showEditModal()" if-has-control>
         <span class="glyphicon glyphicon-edit"></span>
       </button>

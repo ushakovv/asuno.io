@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex, ngGridBase) {
+  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
 
     $scope.main.globalLocked = false;
@@ -501,9 +501,11 @@
       return cabelsId.indexOf(attributes.CABEL_ID) > 0;
     };
 
-    $scope.commandBriz = function (attributes) {
-      return Controllers.change({command: method});
+    $rootScope.commandBriz = function(method){
+      console.log('dd');
+      Controllers.change({controller: controller.id}, {command: method});
     };
+
 
     $scope.cameraExtractor = function (graphic) {
       var cameras = $scope.controller.cameras.map(function (camera) {
