@@ -185,7 +185,11 @@
           field        : '',
           displayName  : 'Квитировать',
           width        : '**',
-          cellTemplate : '<div class="ngCellText" style="text-align: center"><span class="ok" ng-if="row.entity.silenced_by && row.entity.silenced_by == \'None\'"><i class="fa fa-check"></i>Профилактика</span><span class="ok" ng-if="row.entity.silenced_by && row.entity.silenced_by != \'None\'"><i class="fa fa-check"></i>{{row.entity.silenced_by}}</span><input type="checkbox" if-has-control ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="row.entity.silent_model ? addEvent(row.entity) : removeEvent(row.entity)"></div>',
+          cellTemplate : '<div class="ngCellText" style="text-align: center">' +
+          '<span class="ok" ng-if="row.entity.silenced_by">' +
+            '<i class="fa fa-check"></i>{{row.entity.silenced_by}}' +
+          '</span>' +
+          '<input type="checkbox" if-has-control ng-if="row.entity.emergency && !row.entity.silenced_by" ng-model="row.entity.silent_model" ng-disabled="row.entity.silent" ng-change="row.entity.silent_model ? addEvent(row.entity) : removeEvent(row.entity)"><span ng-if="row.entity.emergency && !row.entity.silenced_by && row.entity.silent">Профилактика</span></div>',
           sortable     : false
         },
         {
