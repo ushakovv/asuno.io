@@ -13,8 +13,8 @@
       const { Monitors, event, src } = this.props;
 
       const classes = classNames('controller-alarm-icon', {
-        'controller-alarm-icon--icon-active': Monitors.isActive(event),
-        'controller-alarm-icon--icon-active--nokvit': Monitors.isAfterKvit(event)
+        'controller-alarm-icon--icon-active': Monitors.isActive(event)//,
+        //'controller-alarm-icon--icon-active--nokvit': Monitors.isAfterKvit(event)
       });
 
       return <img src={src} className={classes} />;

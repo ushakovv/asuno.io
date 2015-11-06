@@ -8,7 +8,7 @@
   function controllerBlockAlarm(Monitors) {
     return {
       replace  : true,
-      template : '<img ng-src="{{src}}" class="controller-alarm-icon" ng-class="{\'controller-alarm-icon--icon-active\': isEnabled, \'controller-alarm-icon--icon-active--nokvit\': isAfterKvit}"/>',
+      template : '<img ng-src="{{src}}" class="controller-alarm-icon" ng-class="{\'controller-alarm-icon--icon-active\': isEnabled}"/>', // , \'controller-alarm-icon--icon-active--nokvit\': isAfterKvit
       scope    : {
         event : '=',
         src   : '@controllerBlockAlarm'

@@ -76,9 +76,9 @@ var simpleAnnotate = lazypipe()
   .pipe(sourcemaps.write);
 
 var fullAnnotate = lazypipe()
-  .pipe(babel, {loose: true, compact: true})
-  .pipe(ngAnnotate, {remove : true, add : true, single_quotes : true})
-  .pipe(uglify);
+  .pipe(babel, {loose: true, compact: false})
+  .pipe(ngAnnotate, {remove : true, add : true, single_quotes : true});
+  //.pipe(uglify);
 
 gulp.task('useref', ['sass'], function () {
   var assets = useref.assets();

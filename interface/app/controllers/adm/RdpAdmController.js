@@ -28,7 +28,7 @@
     };
 
     $scope.remove = function (ctrl) {
-      confirmation('Вы действительно хотите удалить ${ctrl.name} ?').then(function(){
+      confirmation(`Вы действительно хотите удалить ${ctrl.name} ?`).then(function(){
         Controllers.delete({controller : ctrl.id}, function () {
           $scope.controllers = $scope.controllers.filter(function(controller){
             return controller.id !== ctrl.id;
@@ -68,6 +68,7 @@
     this.save = function (ctrl) {
       this.loading = true;
       this.message = void 0;
+      var thiz = this;
 
 
 
@@ -79,14 +80,14 @@
         tag: ctrl.tag
       })
         .$promise.then(function() {
-          this.success = true;
-          this.message = {type: 'success', text: 'Пункт питания добавлен'};
+          thiz.success = true;
+          thiz.message = {type: 'success', text: 'Пункт питания добавлен'};
         })
         .catch(function(){
-          this.message = {type: 'error', text: 'Произошла ошибка'};
+          thiz.message = {type: 'error', text: 'Произошла ошибка'};
         })
         .finally(function(){
-          this.loading = false
+          thiz.loading = false
         });
     };
 
