@@ -96,6 +96,32 @@
           controller: 'ChoiceCtrl',
           templateUrl: '/assets/templates/pages/choice.html'
         })
+        .state('rdp.groups', {
+          url: '/rdp_groups/:rdp',
+          data: {
+            allowRdp: true
+          },
+          views: {
+            '': {
+              controller: 'RDPController',
+              templateUrl: '/assets/templates/pages/rdp.html',
+              resolve: {
+                initial: function ($stateParams, RDPs, Controllers) {
+                  return RDPs.query_group({rdp: $stateParams.rdp})
+                    .$promise
+                    .then(function(rdp) {
+                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                          .$promise
+                          .then((controllers) => { return {rdp, controllers}; });
+                    });
+                }
+              }
+            },
+            'sidebar': {
+              templateUrl: '/assets/templates/pages/sidebar-with-groups.html'
+            }
+          }
+        })
         .state('tp', {
           url: '/tp',
           templateUrl: '/assets/templates/pages/tps.html'
@@ -153,8 +179,57 @@
                     .$promise
                     .then(function(rdp) {
                       return Controllers.query({sid: rdp.sid, head: 1})
-                        .$promise
-                        .then((controllers) => { return {rdp, controllers}; });
+                          .$promise
+                          .then((controllers) => { return {rdp, controllers}; });
+                    });
+                }
+              }
+            },
+            'sidebar': {
+              templateUrl: '/assets/templates/pages/sidebar-with-groups.html'
+            }
+          }
+        })
+        .state('core.rdp2', {
+          url: '/rdp_groups/:rdp?x&y&rid&journalExpand',
+          data: {
+            allowRdp: true
+          },
+          views: {
+            '': {
+              controller: 'RDPController',
+              templateUrl: '/assets/templates/pages/rdp.html',
+              resolve: {
+                initial: function ($stateParams, RDPs, Controllers) {
+                  return RDPs.query_group({id : $stateParams.rdp})
+                    .$promise
+                    .then(function(rdp) {
+                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                          .$promise
+                          .then(function (controllers) {
+                            function sEmergency(a, b) { // По возрастанию
+                              var one, two;
+
+                              for(var i= 0; i < a.alarms.common_alarm.length; ++i){
+                                if(a.alarms.common_alarm[i].payload == "emergency") one = true;
+                              }
+
+                              for(var k= 0; k < b.alarms.common_alarm.length; ++k){
+                                if(b.alarms.common_alarm[k].payload == "emergency") two = true;
+                              }
+
+
+                              if (one && !two)
+                                return -1;
+                              else if (!one && two)
+                                return 1;
+                              else
+                                return 0;
+                            }
+                            controllers.sort(sEmergency);
+
+                            return {rdp, controllers};
+                          });
                     });
                 }
               }

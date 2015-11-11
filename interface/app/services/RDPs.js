@@ -25,6 +25,16 @@
             .value();
         }
       },
+      query_groups  : {
+        method : 'GET', url : '/api/rdp/rdp_groups', isArray : true, transformResponse : function (data) {
+          return JSON.parse(data).groups;
+        }
+      },
+      query_group  : {
+        method : 'GET', url : '/api/rdp/rdp_groups/:id', transformResponse : function (data) {
+          return JSON.parse(data);
+        }
+      },
       query_no  : {
         method : 'GET', url : '/api/stats', isArray : true, transformResponse : function (data) {
           return _(JSON.parse(data).stats)

@@ -8,6 +8,7 @@
 
   function RDPController($log, $rootScope, $scope, $state, $window, $stateParams, Controllers, ControllersStore, Monitors, FilterSvc, FILTER_CONFIGS, FILTER_CONFIGS_BATCH, ControllersActions, Mutex, tickEvent, initial) {
     var mutex = Mutex.create();
+    var RDPGroup = false;
 
     $scope.alertsGridOptions.columnDefs[2].visible = false;
 
@@ -18,6 +19,34 @@
 
     $log.debug('RDPController');
 
+    if(!initial.rdp.slug){
+      angular.extend(initial.rdp, {
+        name: "Группы РДП",
+        slug: "rdpgroup"
+      });
+
+      RDPGroup = true;
+    }
+
+    function sEmergency(a, b) { // По возрастанию
+      var one, two;
+
+      for(var i= 0; i < a.alarms.common_alarm.length; ++i){
+        if(a.alarms.common_alarm[i].payload == "emergency") one = true;
+      }
+
+      for(var k= 0; k < b.alarms.common_alarm.length; ++k){
+        if(b.alarms.common_alarm[k].payload == "emergency") two = true;
+      }
+
+
+      if (one && !two)
+        return -1;
+      else if (!one && two)
+        return 1;
+      else
+        return 0;
+    }
 
     if (initial.rdp.slug.indexOf('akhp') >= 0) {
       $scope.crumbs = [{
@@ -39,6 +68,10 @@
     $scope.crumbs = $scope.crumbs.concat([{
       name: $scope.rdp.name
     }]);
+
+    if(RDPGroup) {
+      $scope.crumbs = [];
+    }
 
     const _dateBegin = moment();
     const _defaultDateFrom = _dateBegin.add(-7, 'd').startOf('d').toDate();
@@ -65,6 +98,11 @@
       FilterSvc.clear();
       controllers.forEach(FilterSvc.parseController, FilterSvc);
       controllers.forEach(_setContrillerLink);
+
+      if(RDPGroup){
+        controllers.sort(sEmergency);
+      }
+
       ControllersActions.setControllers(controllers);
 
       $scope.controllers = controllers;

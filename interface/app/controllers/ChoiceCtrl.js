@@ -51,6 +51,10 @@
           mutex.release();
         });
 
+        RDPs.query_groups(function (rdps) {
+          $scope.rdpsGroup = rdps;
+        });
+
       }
     };
 

@@ -7,7 +7,9 @@
 
   function States(resource) {
     return resource('/api/states/:id', {}, {
-      query : {method : 'GET', isArray : true, transformResponse : (data) => angular.fromJson(data).states}
+      query : {method : 'GET', isArray : true, transformResponse : function (data) {
+        angular.fromJson(data).states;
+      }}
     });
   }
 
