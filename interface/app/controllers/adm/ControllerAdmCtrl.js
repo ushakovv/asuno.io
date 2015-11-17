@@ -10,6 +10,7 @@
     $scope.rdp = rdp;
     $scope.controller = controller;
     $scope.controller.profile = controller.gis_id;
+    $rootScope.isLoadingPage = false
     $scope.isAdmin = true;
 
     this.search = function (name) {

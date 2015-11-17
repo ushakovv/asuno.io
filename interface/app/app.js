@@ -157,7 +157,12 @@
           views: {
             '': {
               controller: 'RDPsController',
-              templateUrl: '/assets/templates/pages/rdps.html'
+              templateUrl: '/assets/templates/pages/rdps.html',
+              resolve: {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+                }
+              }
             },
             'sidebar': {
               templateUrl: '/assets/templates/pages/sidebar-navigation-only.html'
@@ -253,6 +258,9 @@
               controller: 'ControllerCtrl',
               templateUrl: '/assets/templates/pages/controller.html',
               resolve: {
+                initial: function ($rootScope){
+                  $rootScope.isLoadingPage = true;
+                },
                 rdp: function ($stateParams, RDPs) {
                   return RDPs.get({
                     rdp: $stateParams.rdp
@@ -498,6 +506,9 @@
               templateUrl: '/assets/templates/pages/adm/controller.html',
               controller: 'ControllerAdmCtrl as cac',
               resolve: {
+                initial: function ($rootScope){
+                  $rootScope.isLoadingPage = true;
+                },
                 rdp: function ($stateParams, RDPs) {
                   return RDPs.get({
                     rdp: $stateParams.rdp
