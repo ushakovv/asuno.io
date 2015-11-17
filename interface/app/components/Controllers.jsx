@@ -8,7 +8,11 @@
     'niitm': 'НИИТМ',
     'ahp_saturn': 'Сатурн (АХП)',
     'ahp_kulon': 'Кулон (АХП)',
-    'grs_kulon': 'Кулон (ГР)'
+    'grs_kulon': 'Кулон (ГР)',
+    'emergency': 'Авария',
+    'off': 'Выключено',
+    'on': 'Включено'
+
   };
 
   class ControllersList extends React.Component {
@@ -90,7 +94,7 @@
       this.handleChangeCondense = this.handleChangeCondense.bind(this);
 
       this.state = {
-        controllers: ControllersStore.getControllersByType(),
+        controllers: ControllersStore.getSortControllers(),
         condensed: CondenseStore.isCondensed()
       };
     }
@@ -114,13 +118,13 @@
 
     handleChangeControllers() {
       this.setState({
-        controllers : this.props.ControllersStore.getControllersByType()
+        controllers : this.props.ControllersStore.getSortControllers()
       });
     }
 
     render() {
-      const controllers = _.map(this.state.controllers, (controllerList, type) => {
-        return <ControllerTypeBlock {...this.props} type={type} controllers={controllerList} key={type} />;
+      const controllers = _.map(this.state.controllers, (controllerList, sort_group) => {
+        return <ControllerTypeBlock {...this.props} type={sort_group} controllers={controllerList} key={sort_group} />;
       });
 
       var classes = classNames('row controller-list', {
