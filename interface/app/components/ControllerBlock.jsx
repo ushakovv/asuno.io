@@ -96,6 +96,18 @@
         'tooltipped tooltipped-n'     : isMaintenance || controller.description
       });
 
+      let iconTypeUI;
+      if (controller.type == 'dep') {
+        iconTypeUI = <div className="controller__alarm" >
+          <img src="/assets/img/d-lit.png" class="controller-alarm-icon" />
+        </div>;
+      } else if(controller.type == 'niitm') {
+        iconTypeUI = <div className="controller__alarm" >
+          <img src="/assets/img/n-lit.png" class="controller-alarm-icon" />
+        </div>;
+      }
+
+
       let tooltip;
       if (controller.description) {
         tooltip = controller.description;
@@ -113,6 +125,7 @@
               {controller.address}
             </a>
             <div className="controller__icons">
+              {iconTypeUI}
               {icons}
             </div>
           </div>

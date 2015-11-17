@@ -6,12 +6,14 @@
   'use strict';
   /* global confirm */
 
-  function RdpAdmController($scope, $modal, Controllers, initial, confirmation) {
+  function RdpAdmController($rootScope, $scope, $modal, Controllers, initial, confirmation) {
     $scope.rdp = initial.rdp;
     $scope.controllers = initial.controllers;
 
     $scope.sort = "address";
     $scope.reverse = true;
+    $rootScope.isLoadingPage = false;
+
 
     $scope.changeSort = function(value){
       if ($scope.sort == value){

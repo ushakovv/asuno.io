@@ -21,27 +21,27 @@
 }
 
 .controller {
-  position    : relative;
-  display     : inline-block;
-  text-align  : center;
-  cursor      : pointer;
-  line-height : 1;
-  width       : 100%;
-  /*overflow:hidden;*/
-  padding: 2px 0px 4px 0px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  line-height: 1;
+  width: 100%;
+  padding: 2px 0 7px;
   margin: 3px 0;
-  border: 2px solid;
+  border-left: 4px solid;
   background-color: #f2f2f2;
-  user-select : none;
+  user-select: none;
+  -moz-box-shadow: 1px 1px 6px 1px #c6c6c6;
   box-shadow: 1px 1px 6px 1px #c6c6c6;
-
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 
   &--cascade::before {
     content          : "";
     position         : absolute;
     right            : 0;
-    top              : 0;
     //border-width     : 0 22px 22px 0;
     //border-style     : solid;
     //border-color     : #c2c2c2 #c2c2c2 #ffffff #ffffff;
@@ -69,12 +69,8 @@
     top                    : 1px;
     right                  : 1px;
     display                : inline-block;
-    font-family            : 'Glyphicons Halflings';
-    font-style             : normal;
-    font-weight            : normal;
-    line-height            : 1;
-    -webkit-font-smoothing : antialiased;
     content                : "\e111";
+    color                  : #2591ae;
   }
 
   &__alarm {
@@ -86,26 +82,26 @@
     }
   }
 
-  &--disconnected {
-    /*border-color     : #808080 !important;
-    background-color : $table-bg-hover;*/
-    background-color : $disconected-block-bg;
+  &--controller__address {
+    border-color     : #8C8C8C !important;
 
     &.controller--cascade::before {
-      border-color : #c2c2c2 #c2c2c2 $table-bg-hover $table-bg-hover;
+      border-color : $table-bg-hover;
       top: inherit;
     }
 
-    .controller__name__link, .controller__address {
-      color: #ececec;
+    .controller__name__link, .description {
+      color: #333;
     }
   }
 
-  &--common_alarm {
+  &--disconnected {
+    border-color: #616161 !important;
+
     &::before {
       position: absolute;
       left: 0;
-      bottom: -1px;
+      bottom: 0;
       content: '';
       display: block;
       background: #cf2a30;

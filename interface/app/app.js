@@ -174,7 +174,9 @@
               controller: 'RDPController',
               templateUrl: '/assets/templates/pages/rdp.html',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
@@ -200,7 +202,9 @@
               controller: 'RDPController',
               templateUrl: '/assets/templates/pages/rdp.html',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.query_group({id : $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
@@ -465,7 +469,9 @@
               templateUrl: '/assets/templates/pages/adm/rdp.html',
               controller: 'RdpAdmController',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
