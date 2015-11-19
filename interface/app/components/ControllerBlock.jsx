@@ -99,13 +99,11 @@
 
       let iconTypeUI;
       if (controller.type == 'dep') {
-        iconTypeUI = <div className="controller__alarm controller--dep" >
-          <img src="/assets/img/d-lit.png" class="controller-alarm-icon" />
-        </div>;
-      } else if(controller.type == 'niitm') {
-        iconTypeUI = <div className="controller__alarm controller--niitm" >
-          <img src="/assets/img/n-lit.png" class="controller-alarm-icon" />
-        </div>;
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--dep"></span></div>;
+      } else if(controller.type == 'niitm' && controller.autonomous != true) {
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--niitm"></span></div>;
+      } else if(controller.type == 'niitm' && controller.autonomous == true) {
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--niitm blue"></span></div>;
       }
 
       let iconСascadeUI;

@@ -114,12 +114,30 @@
     }
   }
 
-  &--dep img {
-    margin-top: 4px;
+  &--dep {
+    background : url("/assets/img/d-lit.png") no-repeat;
+    height: 16px;
+    width: 16px;
+    display: block;
+    margin-left: 12px;
+    background-position-y: 2px;
+    position: absolute;
+    top: 17px;
   }
 
-  &--niitm img {
-    margin-top: 4px;
+  &--niitm {
+    background : url("/assets/img/n-lit.png") no-repeat;
+    height: 16px;
+    width: 16px;
+    display: block;
+    margin-left: 12px;
+    background-position-y: 2px;
+    position: absolute;
+    top: 17px;
+
+    &.blue {
+      background : url("/assets/img/n-lit-blue.png") no-repeat;
+    }
   }
 
   &--maintenance {
