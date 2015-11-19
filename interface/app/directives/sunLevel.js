@@ -28,17 +28,15 @@
 
       function loadSchedule() {
         Schedule.get({time : moment(ClockStore.getTime()).format('YYYY-MM-DD')}, function (data) {
-          sun.datetime_on = new Date(data.datetime_on);
+          data = data.schedule;
 
-          var time = moment(sun.datetime_on);
-          time = time.hour(time.hour()-3).format('HH:MM');
-          $rootScope.datetime_on = time;
-        });
-        Schedule.get({time : moment(ClockStore.getTime()).add(-1, 'd').format('YYYY-MM-DD')}, function (data) {
+          sun.datetime_on = new Date(data.datetime_on);
+          var time_on = moment(sun.datetime_on).format('HH:mm');
+          $rootScope.datetime_on = time_on;
+
           sun.datetime_off = new Date(data.datetime_off);
-          var time = moment(sun.datetime_off);
-          time = time.hour(time.hour()-3).format('HH:MM');
-          $rootScope.datetime_off = time;
+          var time_off = moment(sun.datetime_off).format('HH:mm');
+          $rootScope.datetime_off = time_off;
         });
       }
 
