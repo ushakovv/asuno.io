@@ -41,14 +41,12 @@
   &--cascade::before {
     content          : "";
     position         : absolute;
-    right            : 0;
-    //border-width     : 0 22px 22px 0;
-    //border-style     : solid;
-    //border-color     : #c2c2c2 #c2c2c2 #ffffff #ffffff;
+    right            : 12px;
     background : url("/assets/img/icon_derevo.png") no-repeat;
-    display          : block;
-    width: 14px;
+    display: block;
+    width: 10px;
     height: 14px;
+    background-size: 8px;
   }
 
   &--maintenance::after {
@@ -65,12 +63,14 @@
   }
 
   &--description::after {
+    width: 10px;
+    height: 8px;
     position               : absolute;
     top                    : 1px;
     right                  : 1px;
     display                : inline-block;
-    content                : "\e111";
-    color                  : #2591ae;
+    content                : "";
+    background : url("/assets/img/description-icon-14.png") no-repeat;
   }
 
   &__alarm {
