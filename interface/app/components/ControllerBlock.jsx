@@ -82,6 +82,7 @@
       const isMaintenance = controller.isMaintenance();
 
       const controllerClasses = classNames('controller', {
+        'controller--emergency'      : controller.sort_group == "emergency",
         'controller--enabled'      : controller.enabled,
         'controller--disabled'     : !controller.enabled,
         'controller--disconnected' : isDisconnected(controller),
@@ -98,11 +99,11 @@
 
       let iconTypeUI;
       if (controller.type == 'dep') {
-        iconTypeUI = <div className="controller__alarm" >
+        iconTypeUI = <div className="controller__alarm controller--dep" >
           <img src="/assets/img/d-lit.png" class="controller-alarm-icon" />
         </div>;
       } else if(controller.type == 'niitm') {
-        iconTypeUI = <div className="controller__alarm" >
+        iconTypeUI = <div className="controller__alarm controller--niitm" >
           <img src="/assets/img/n-lit.png" class="controller-alarm-icon" />
         </div>;
       }
@@ -121,13 +122,13 @@
               <input type="checkbox" className="controller__name__selector" checked={this.state.is_selected} readOnly={true} onClick={this.handleBlockSelect}/>
               <a href={this.props.controller.href} className="controller__name__link">{controller.name}</a>
             </div>
-            <a href={this.props.controller.href} className="controller__address">
-              {controller.address}
-            </a>
             <div className="controller__icons">
               {iconTypeUI}
               {icons}
             </div>
+            <a href={this.props.controller.href} className="controller__address">
+              {controller.address}
+            </a>
           </div>
         </div>;
     }
