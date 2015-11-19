@@ -91,8 +91,10 @@
 
       getSortControllers() {
         const controllers = this.getControllers();
+        const data = _(controllers).groupBy('sort_group').value();
+        const _result = {emergency: data.emergency, on: data.on, off: data.off};
 
-        return _(controllers).groupBy('sort_group').value();
+        return _result;
       },
 
       getAllControllers: function () {

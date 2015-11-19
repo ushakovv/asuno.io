@@ -108,6 +108,13 @@
         </div>;
       }
 
+      let iconСascadeUI;
+      if (controller.is_cascade) {
+        iconСascadeUI = <span className="controller--cascade" ></span>;
+      } else {
+        iconСascadeUI = '';
+      }
+
 
       let tooltip;
       if (controller.description) {
@@ -118,6 +125,7 @@
 
       return <div className={containerClasses} data-tooltip={tooltip} onClick={this.handleBlockClick} data-id={this.props.controller.id}>
           <div className={controllerClasses}>
+            {iconСascadeUI}
             <div className="controller__name">
               <input type="checkbox" className="controller__name__selector" checked={this.state.is_selected} readOnly={true} onClick={this.handleBlockSelect}/>
               <a href={this.props.controller.href} className="controller__name__link">{controller.name}</a>
