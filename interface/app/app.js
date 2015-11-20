@@ -595,6 +595,7 @@
 
       $rootScope.$state = $state;
       $rootScope.timelineState = {};
+      $rootScope.location = window.location;
 
       $rootScope.inState = function (states) {
         if (typeof states === 'string') {

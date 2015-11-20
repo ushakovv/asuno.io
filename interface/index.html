@@ -179,10 +179,10 @@
                     <input class="site-nav--form-search" placeholder="Поиск" type="text"
                            ng-model="search.term" ng-change="navbar.setSearch(search.term)" && ng-show="!show.showMap"/>
                     <div class="site-nav--buttons">
-                        <!--<a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
-                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
+                        <a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
+                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}" ng-if="location.hash==='#!/rdps'">
                             <span class="glyphicon glyphicon-map-marker"></span>
-                        </a>-->
+                        </a>
                         <a class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
                                 ng-class="{'btn-img--active': !show.showMap && show.showBlocks}">
                             <span class="glyphicon glyphicon-th-large"></span>
