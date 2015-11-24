@@ -71,14 +71,14 @@
 
       <div class="row">
         <div class="col-md-6">
-          <button class="btn btn-danger btn-block" ng-disabled="!hasCommand('control_mode:evening_night') || blockControl"
-                  ng-click="executeCommand('control_mode:evening_night'); $event.stopPropagation()">
+          <button class="btn btn-danger btn-block" ng-disabled="!hasCommand('mode:evening_night') || blockControl"
+                  ng-click="executeCommand('mode:evening_night'); $event.stopPropagation()">
             Вкл. вечер+ночь
           </button>
         </div>
         <div class="col-md-6">
-          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('control_mode:switch_off_evening_night') || blockControl"
-                  ng-click="executeCommand('control_mode:switch_off_evening_night'); $event.stopPropagation()">
+          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('mode:switch_off_evening_night') || blockControl"
+                  ng-click="executeCommand('mode:switch_off_evening_night'); $event.stopPropagation()">
             Выкл. вечер+ночь
           </button>
         </div>
