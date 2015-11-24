@@ -68,34 +68,81 @@
           </div>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <button class="btn btn-danger btn-block" ng-disabled="!hasCommand('control_mode:evening_night') || blockControl"
+                  ng-click="executeCommand('control_mode:evening_night'); $event.stopPropagation()">
+            Вкл. вечер+ночь
+          </button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('control_mode:switch_off_evening_night') || blockControl"
+                  ng-click="executeCommand('control_mode:switch_off_evening_night'); $event.stopPropagation()">
+            Выкл. вечер+ночь
+          </button>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-3">
           <button class="btn btn-danger btn-block"
                   ng-disabled="!hasCommand('mode:evening') || blockControl"
                   ng-click="executeCommand('mode:evening'); $event.stopPropagation()">
-            Вечер
+            Вкл. вечер
           </button>
         </div>
         <div class="col-md-3">
           <button class="btn btn-danger btn-block"
                   ng-disabled="!hasCommand('mode:night') || blockControl"
                   ng-click="executeCommand('mode:night'); $event.stopPropagation()">
-            Ночь
+            Вкл. ночь
           </button>
         </div>
         <div class="col-md-3">
-          <button class="btn btn-danger btn-block" ng-disabled="!hasCommand('mode:day') || blockControl"
-                  ng-click="executeCommand('mode:day'); $event.stopPropagation()">
-            День
+          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('mode:switch_off_evening') || blockControl"
+                  ng-click="executeCommand('mode:switch_off_evening'); $event.stopPropagation()">
+            Выкл. вечер
           </button>
         </div>
         <div class="col-md-3">
-          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('mode:switch_off') || blockControl"
-                  ng-click="executeCommand('mode:switch_off'); $event.stopPropagation()">
-            Отключить
+          <button class="btn btn-success btn-block" ng-disabled="!hasCommand('mode:switch_off_night') || blockControl"
+                  ng-click="executeCommand('mode:switch_off_night'); $event.stopPropagation()">
+            Выкл. ночь
           </button>
         </div>
       </div>
+
+
+      <!--<div class="row">-->
+        <!--<div class="col-md-3">-->
+          <!--<button class="btn btn-danger btn-block"-->
+                  <!--ng-disabled="!hasCommand('mode:evening') || blockControl"-->
+                  <!--ng-click="executeCommand('mode:evening'); $event.stopPropagation()">-->
+            <!--Вечер-->
+          <!--</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+          <!--<button class="btn btn-danger btn-block"-->
+                  <!--ng-disabled="!hasCommand('mode:night') || blockControl"-->
+                  <!--ng-click="executeCommand('mode:night'); $event.stopPropagation()">-->
+            <!--Ночь-->
+          <!--</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+          <!--<button class="btn btn-danger btn-block" ng-disabled="!hasCommand('mode:day') || blockControl"-->
+                  <!--ng-click="executeCommand('mode:day'); $event.stopPropagation()">-->
+            <!--День-->
+          <!--</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+          <!--<button class="btn btn-success btn-block" ng-disabled="!hasCommand('mode:switch_off') || blockControl"-->
+                  <!--ng-click="executeCommand('mode:switch_off'); $event.stopPropagation()">-->
+            <!--Отключить-->
+          <!--</button>-->
+        <!--</div>-->
+      <!--</div>-->
+
       <div class="row">
         <div class="col-md-4">
           <button class="btn btn-primary btn-block" ng-disabled="!hasCommand('control_mode:ta_mode') || blockControl"
