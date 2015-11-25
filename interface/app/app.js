@@ -157,7 +157,12 @@
           views: {
             '': {
               controller: 'RDPsController',
-              templateUrl: '/assets/templates/pages/rdps.html'
+              templateUrl: '/assets/templates/pages/rdps.html',
+              resolve: {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+                }
+              }
             },
             'sidebar': {
               templateUrl: '/assets/templates/pages/sidebar-navigation-only.html'
@@ -174,7 +179,9 @@
               controller: 'RDPController',
               templateUrl: '/assets/templates/pages/rdp.html',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
@@ -200,7 +207,9 @@
               controller: 'RDPController',
               templateUrl: '/assets/templates/pages/rdp.html',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.query_group({id : $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
@@ -249,6 +258,9 @@
               controller: 'ControllerCtrl',
               templateUrl: '/assets/templates/pages/controller.html',
               resolve: {
+                initial: function ($rootScope){
+                  $rootScope.isLoadingPage = true;
+                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller
@@ -460,7 +472,9 @@
               templateUrl: '/assets/templates/pages/adm/rdp.html',
               controller: 'RdpAdmController',
               resolve: {
-                initial: function ($stateParams, RDPs, Controllers) {
+                initial: function ($stateParams, RDPs, Controllers, $rootScope) {
+                  $rootScope.isLoadingPage = true;
+
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
@@ -487,6 +501,9 @@
               templateUrl: '/assets/templates/pages/adm/controller.html',
               controller: 'ControllerAdmCtrl as cac',
               resolve: {
+                initial: function ($rootScope){
+                  $rootScope.isLoadingPage = true;
+                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller

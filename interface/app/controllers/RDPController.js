@@ -73,6 +73,8 @@
       $scope.crumbs = [];
     }
 
+    $rootScope.isLoadingPage = false;
+
     const _dateBegin = moment();
     const _defaultDateFrom = _dateBegin.add(-7, 'd').startOf('d').toDate();
 
@@ -113,10 +115,14 @@
     var reloadControllers = function () {
       if (!mutex.isLocked() && !$rootScope.isJournalTab()) {
         mutex.lock();
-        Controllers.query({
+        var query = {
           sid: $scope.rdp.sid,
           head: 1
-        }, function (controllers) {
+        };
+
+        if(RDPGroup) query.no_niitm = true;
+
+        Controllers.query(query, function (controllers) {
           setControllers(controllers);
           mutex.release();
         });

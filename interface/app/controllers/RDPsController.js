@@ -5,10 +5,11 @@
 (function () {
   'use strict';
 
-  function RDPsController($scope, $state, $log, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent, Controllers) {
+  function RDPsController($scope, $state, $log, RDPs, FilterSvc, Mutex, FILTER_CONFIGS, tickEvent, Controllers, $rootScope) {
     var mutex = Mutex.create();
 
     $scope.alertsGridOptions.columnDefs[2].visible = true;
+    $rootScope.isLoadingPage = false;
 
     $scope.crumbs = [
       {name : 'Объекты НО'}

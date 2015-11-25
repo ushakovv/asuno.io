@@ -89,6 +89,18 @@
         return _(controllers).groupBy('type').value();
       },
 
+      getSortControllers() {
+        const controllers = this.getControllers();
+        var data = _(controllers).groupBy('sort_group').value();
+        var _result = {};
+
+        if(data.emergency) _result.emergency = data.emergency;
+        if(data.on) _result.on = data.on;
+        if(data.off) _result.off = data.off;
+
+        return _result;
+      },
+
       getAllControllers: function () {
         return _controllers;
       },

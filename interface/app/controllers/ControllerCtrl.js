@@ -8,6 +8,7 @@
   function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
     var rdp = controller.ancestors.rdp;
+    $rootScope.isLoadingPage = false;
 
     $scope.main.globalLocked = false;
 

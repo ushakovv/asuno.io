@@ -82,6 +82,7 @@
       const isMaintenance = controller.isMaintenance();
 
       const controllerClasses = classNames('controller', {
+        'controller--emergency'      : controller.sort_group == "emergency",
         'controller--enabled'      : controller.enabled,
         'controller--disabled'     : !controller.enabled,
         'controller--disconnected' : isDisconnected(controller),
@@ -96,6 +97,23 @@
         'tooltipped tooltipped-n'     : isMaintenance || controller.description
       });
 
+      let iconTypeUI;
+      if (controller.type == 'dep') {
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--dep"></span></div>;
+      } else if(controller.type == 'niitm' && controller.autonomous != true) {
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--niitm"></span></div>;
+      } else if(controller.type == 'niitm' && controller.autonomous == true) {
+        iconTypeUI = <div className="controller__alarm" ><span className="controller--niitm blue"></span></div>;
+      }
+
+      let iconСascadeUI;
+      if (controller.is_cascade) {
+        iconСascadeUI = <span className="controller--cascade" ></span>;
+      } else {
+        iconСascadeUI = '';
+      }
+
+
       let tooltip;
       if (controller.description) {
         tooltip = controller.description;
@@ -105,16 +123,18 @@
 
       return <div className={containerClasses} data-tooltip={tooltip} onClick={this.handleBlockClick} data-id={this.props.controller.id}>
           <div className={controllerClasses}>
+            {iconСascadeUI}
             <div className="controller__name">
               <input type="checkbox" className="controller__name__selector" checked={this.state.is_selected} readOnly={true} onClick={this.handleBlockSelect}/>
               <a href={this.props.controller.href} className="controller__name__link">{controller.name}</a>
             </div>
+            <div className="controller__icons">
+              {iconTypeUI}
+              {icons}
+            </div>
             <a href={this.props.controller.href} className="controller__address">
               {controller.address}
             </a>
-            <div className="controller__icons">
-              {icons}
-            </div>
           </div>
         </div>;
     }
