@@ -132,6 +132,7 @@
       x: parseFloat($stateParams.x) || $scope.rdp.latitude,
       y: parseFloat($stateParams.y) || $scope.rdp.longitude
     };
+
     $scope.rid = parseInt($stateParams.rid, 10) || $scope.rdp.gis_id;
     $scope.ctrlExtract = function (graphic) {
       var ctrl = $scope.pointConnect(graphic.attributes);

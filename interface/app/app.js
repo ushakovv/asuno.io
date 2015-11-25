@@ -249,11 +249,6 @@
               controller: 'ControllerCtrl',
               templateUrl: '/assets/templates/pages/controller.html',
               resolve: {
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller
@@ -492,11 +487,6 @@
               templateUrl: '/assets/templates/pages/adm/controller.html',
               controller: 'ControllerAdmCtrl as cac',
               resolve: {
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller
@@ -582,7 +572,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
+    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, $window, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
       let timeouts = {
         standart: 10000,
         more: 3000,
@@ -613,6 +603,29 @@
       $rootScope.isNavbarOn = function() {
         return !$rootScope.inState('login') && !$rootScope.isJournalTab();
       };
+
+      var applicationWindow = angular.element($window);
+      $rootScope.$watch(
+        function () {
+          return {
+              height: applicationWindow.height(), 
+              width: applicationWindow.width()
+          };
+        }, 
+        function (newValue, oldValue) {
+          if (newValue && (newValue.height !== oldValue.height || newValue.width !== oldValue.width)) {
+            var header = angular.element(document).find('header')[0];
+            var headerPadding = angular.element(document).find('#header-padding')[0];
+            if (header && headerPadding) {
+              var width = header.clientWidth;
+              var height = header.clientHeight;
+              angular.element(headerPadding).width(width);
+              angular.element(headerPadding).height(height);
+            }
+          }
+        },
+        true
+      );
 
       $rootScope.$on('$stateChangeSuccess', function () {
         ControllersActions.clear();

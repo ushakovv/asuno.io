@@ -180,7 +180,7 @@
                            ng-model="search.term" ng-change="navbar.setSearch(search.term)" && ng-show="!show.showMap"/>
                     <div class="site-nav--buttons">
                         <a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
-                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}" ng-if="location.hash==='#!/rdps'">
+                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}">
                             <span class="glyphicon glyphicon-map-marker"></span>
                         </a>
                         <a class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
@@ -223,7 +223,12 @@
             </div>
         </div>
         <div class="row small-row">
-            <div class="col-sm-12 col-md-12">
+            <div class="sidebar-button">
+                <a class="btn-sidebar" ng-show="inState(['core.rdps', 'core.rdp', 'adm.rdps','adm.users', 'adm.states', 'adm.rdp'])" ng-click="sidebar.show = !sidebar.show">
+                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </a>
+            </div>
+            <div class="col-sm-10 col-md-10">
                 <ul class="site-nav--filters hide-sm" ng-show="inState(['core.rdps', 'core.rdp'])">
                     <li filter-badge="all" name="Все" set-filter="setFilter" count="filterCount" current="isCurrentFilter"></li>
                     <li filter-badge="disabled" name="Отключено" set-filter="setFilter" count="filterCount"
@@ -249,6 +254,8 @@
                     <li filter-badge="maintenance_due" name="Профилактика" set-filter="setFilter" count="filterCount"
                         current="isCurrentFilter"></li>
                 </ul>
+            </div>
+            <div class="control-button">
                 <a class="site-nav--control hide-xs" control-pane ng-if="!inState('login')" ng-show="!inState(['choice', 'login', 'tp','ahp','group', 'ua'])"></a>
             </div>
         </div>
@@ -258,10 +265,8 @@
             </div>
         </div>
     </div>
-    <a class="btn-sidebar" ng-show="inState(['core.rdps', 'core.rdp', 'adm.rdps','adm.users', 'adm.states', 'adm.rdp'])" ng-click="sidebar.show = !sidebar.show">
-        <span class="glyphicon glyphicon-menu-hamburger"></span>
-    </a>
 </header>
+<div id="header-padding"></div>
 <div class="container-fluid" ui-view></div>
 
 <!-- build:js /assets/js/index.html.scripts.js -->

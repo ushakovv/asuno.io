@@ -5,9 +5,9 @@
 (function () {
   'use strict';
 
-  function ControllerAdmCtrl($scope, $state, Controllers, Cameras, UFAP, rdp, controller, $rootScope, $log) {
+  function ControllerAdmCtrl($scope, $state, Controllers, Cameras, UFAP, controller, $rootScope, $log) {
 
-    $scope.rdp = rdp;
+    $scope.rdp = controller.ancestors.rdp;
     $scope.controller = controller;
     $scope.controller.profile = controller.gis_id;
     $scope.isAdmin = true;
@@ -94,7 +94,9 @@
         tag: controller.tag,
         name    : controller.name,
         checked    : controller.checked,
-        address : controller.address
+        address : controller.address,
+        orig_name: controller.orig_name,
+        orig_section_num: parseInt(controller.orig_section_num, 10)
       };
 
       if (controller.profile) {

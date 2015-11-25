@@ -239,7 +239,7 @@
         display: block;
         margin: 0;
         padding: 4px;
-        min-width: 100px;
+        min-width: 80px;
         height: 33px;
         max-height: 33px;
         overflow: hidden;
@@ -305,10 +305,6 @@
 }
 
 .btn-sidebar {
-  position: absolute;
-  top: 100%;
-  left: 15px;
-  
   height: 33px;
   line-height: 33px;
   width: 27px;
@@ -317,4 +313,25 @@
   text-align: center;
   background: #fff; /*#f2f2f2*/
   color: #808080;
+}
+
+.control-button, .sidebar-button {
+  width: 27px;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.sidebar-button {
+  float: left;
+}
+
+.control-button {
+  float: right;
+}
+
+@media (max-width: 870px) {
+  .hide-sm {
+    display: none;
+  }
 }

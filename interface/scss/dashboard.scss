@@ -59,10 +59,10 @@
 }
 
 body {
-  padding-top : 76px; /*73*/
+  /*padding-top : 76px;*/
 
   &.has-timeline {
-    padding-top : 106px;
+    /*padding-top : 106px;*/
   }
 
   &.hide-header {
@@ -72,15 +72,15 @@ body {
     }
   }
   &.three-rows {
-    padding-top : 106px;
+    /*padding-top : 106px;*/
 
     &.has-timeline {
-      padding-top : 140px;
+      /*padding-top : 140px;*/
     }
   }
 
   &.one-row {
-    padding-top : 41px;
+    /*padding-top : 41px;*/
 
     &.has-timeline {
       padding-top : 74px;
@@ -88,7 +88,7 @@ body {
   }
 
   @media (max-width : $screen-sm) {
-    padding-top : 50px !important;
+    /*padding-top : 50px !important;*/
 
     &.hide-header {
       padding-top : 0 !important;
