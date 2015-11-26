@@ -75,6 +75,11 @@ var simpleAnnotate = lazypipe()
   .pipe(babel, {loose: true, compact: true})
   .pipe(sourcemaps.write);
 
+var fullAnnotateDev = lazypipe()
+  .pipe(sourcemaps.init)
+  .pipe(babel, {loose: true, compact: false})
+  .pipe(sourcemaps.write);
+
 var fullAnnotate = lazypipe()
   .pipe(babel, {loose: true, compact: true})
   .pipe(ngAnnotate, {remove : true, add : true, single_quotes : true})
@@ -100,6 +105,20 @@ gulp.task('useref-full', ['sass'], function () {
     .pipe(assets)
     .pipe(gulpif('**/index.html.app.js', fullAnnotate()))
     .pipe(gulpif('**!/index.html.scripts.js', uglify()))
+    .pipe(gulpif('**/index.html.style.css', cssmin({keepSpecialComments : 0, roundingPrecision : -1})))
+    .pipe(rev())
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(revReplace())
+    .pipe(gulp.dest(dist));
+});
+
+gulp.task('useref-full-dev', ['sass'], function () {
+  var assets = useref.assets();
+
+  return gulp.src(app + '/index.html')
+    .pipe(assets)
+    .pipe(gulpif('**/index.html.app.js', fullAnnotateDev()))
     .pipe(gulpif('**/index.html.style.css', cssmin({keepSpecialComments : 0, roundingPrecision : -1})))
     .pipe(rev())
     .pipe(assets.restore())
@@ -141,6 +160,9 @@ gulp.task('tarball', function () {
 });
 
 gulp.task('default', ['copy', 'sass', 'eslint', 'useref-full']);
+gulp.task('dev', ['copy', 'sass', 'eslint', 'useref-full-dev']);
+
+
 gulp.task('simple', ['copy', 'sass', 'eslint', 'useref']);
 gulp.task('simple-js', ['eslint', 'useref']);
 
