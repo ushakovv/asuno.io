@@ -24,7 +24,7 @@
 
         Servers
           .status(function (servers) {
-            if (ConnectionError.isError() && ConnectionError.getErrorNumber() != 900) {
+            if (ConnectionError.isError() && (ConnectionError.getErrorNumber() + '').indexOf('900') == -1) {
               location.reload();
               ConnectionError.errorOff();
             }

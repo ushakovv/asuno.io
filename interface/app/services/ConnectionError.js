@@ -3,7 +3,7 @@
   const _MESSAGE_ERROR = 'Потеряно соединение с сервером. Пожалуйста, проверьте соединение и перезагрузите страницу.';
   let _error;
   let _errorData;
-  let _errorNumber;
+  let _errorCode = 0;
 
   function ConnectionError() {
     this.MESSAGE_ERROR = _MESSAGE_ERROR;
@@ -13,7 +13,7 @@
     };
 
     this.getErrorNumber = function() {
-      return _errorNumber;
+      return _errorCode;
     };
 
     this.getErrorData = function() {
@@ -22,17 +22,18 @@
     this.setError = function (request) {
       this.MESSAGE_ERROR = 'Потеряно соединение с сервером. Пожалуйста, проверьте соединение и перезагрузите страницу.';
       _errorData = request;
-      _errorNumber = request.status;
+      _errorCode = request.status;
       _error = _error || request && request.hasOwnProperty('status') && (request.status >= 500 || request.status === 0);
     };
     this.setErrorRDP = function (request) {
       this.MESSAGE_ERROR = 'Потеряно соединение с РДП ' + request.rdp + '. Данные на экране могут быть неактуальны.';
       _errorData = request;
-      _errorNumber = request.status;
+      _errorCode = request.status + request.rdp;
       _error = _error || request && request.hasOwnProperty('status') && (request.status >= 500 || request.status === 0);
     };
     this.errorOff = function () {
       _error = false;
+      _errorCode = 0;
     };
   }
 
