@@ -181,6 +181,7 @@
               resolve: {
                 initial: function ($stateParams, RDPs, Controllers, $rootScope) {
                   $rootScope.isLoadingPage = true;
+                  $rootScope.rdp = $stateParams.rdp;
 
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise

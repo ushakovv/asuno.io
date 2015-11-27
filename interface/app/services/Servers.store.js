@@ -15,7 +15,7 @@
 
   var CHANGE_EVENT = 'ServersStore.change';
 
-  function ServersActions(Mutex, Servers, AsunoDispatcher, ServersStoreConstants, ConnectionError) {
+  function ServersActions(Mutex, Servers, AsunoDispatcher, ServersStoreConstants, ConnectionError, $rootScope) {
     var mutex = Mutex.create();
 
     this.reloadServers = function () {
@@ -24,7 +24,7 @@
 
         Servers
           .status(function (servers) {
-            if (ConnectionError.isError()) {
+            if (ConnectionError.isError() && ConnectionError.getErrorNumber() != 900) {
               location.reload();
               ConnectionError.errorOff();
             }
@@ -32,9 +32,29 @@
               actionType : ServersStoreConstants.SET_SERVERS,
               servers    : servers
             });
+
+            if($rootScope.inState('core.rdp')) {
+              for(var i = 0; i < servers.length; ++i){
+                for(var n = 0; n < servers[i]['monitors'].length; ++n){
+                  // Если это наш сервер
+                  if($rootScope.rdp == servers[i]['monitors'][n].rdp_slug) {
+                    if(!servers[i]['monitors'][n].connected){ // Соединение отсутствует
+                      ConnectionError.setErrorRDP({
+                        status: 900,
+                        rdp: $rootScope.rdp // Ошибка что потеряно соединение
+                        // Передаем ошибку что все плохо.
+                      });
+                    } else {
+                      ConnectionError.errorOff(); // Соединение восстановлено
+                    }
+                  }
+                }
+              }
+            };
           })
           .$promise
           .catch((data) => {
+            ConnectionError.errorOff();
             ConnectionError.setError(data);
             })
           .finally(function () {
