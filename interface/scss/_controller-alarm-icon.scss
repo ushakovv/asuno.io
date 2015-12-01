@@ -5,13 +5,13 @@
 }
 
 .controller-alarm-icon {
-  filter  : url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
-  filter  : #{'grayscale(1)'};
-  opacity : 0.3;
+  //filter  : url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale");
+  //filter  : #{'grayscale(1)'};
+  //opacity : 0.3;
 
   &--icon-active {
-    filter  : inherit;
-    opacity : 0.7;
+    //filter  : inherit;
+    //opacity : 0.7;
 
     &--nokvit {
       //opacity             : 1;

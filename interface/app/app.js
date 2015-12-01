@@ -181,6 +181,7 @@
               resolve: {
                 initial: function ($stateParams, RDPs, Controllers, $rootScope) {
                   $rootScope.isLoadingPage = true;
+                  $rootScope.rdp = $stateParams.rdp;
 
                   return RDPs.get({rdp: $stateParams.rdp})
                     .$promise
@@ -589,7 +590,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, $window, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent) {
+    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, $window, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent, ConnectionError) {
       let timeouts = {
         standart: 10000,
         more: 3000,
@@ -688,6 +689,8 @@
       var authTokenRefresh;
 
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        ConnectionError.errorOff();
+
         if (!Auth.isLoggedIn() && authTokenRefresh) {
           $interval.cancel(authTokenRefresh);
           authTokenRefresh = null;

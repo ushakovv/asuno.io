@@ -2,7 +2,7 @@
 
 .controller-container {
   width   : percentage(6/12);
-  padding : 0 5px/* 0 0*/;
+  padding : 3px 6px;
   float   : left;
   cursor: pointer;
   /*min-width: 130px;*/
@@ -80,7 +80,9 @@
     display : inline-block;
 
     .controller-alarm-icon {
-      height : 14px;
+      height : 16px;
+      background-repeat: no-repeat;
+      margin-left: 6px;
     }
   }
 
@@ -119,10 +121,9 @@
     height: 16px;
     width: 16px;
     display: block;
-    margin-left: 12px;
-    background-position-y: 2px;
+    margin-left: 11px;
+    top: 19px;
     position: absolute;
-    top: 17px;
   }
 
   &--niitm {
@@ -130,10 +131,9 @@
     height: 16px;
     width: 16px;
     display: block;
-    margin-left: 12px;
-    background-position-y: 2px;
+    margin-left: 11px;
+    top: 19px;
     position: absolute;
-    top: 17px;
 
     &.blue {
       background : url("/assets/img/n-lit-blue.png") no-repeat;

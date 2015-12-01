@@ -15,7 +15,7 @@
   function CondenseStore(AsunoDispatcher, CondenseConstants) {
 
     var CHANGE_EVENT = 'condense-store-change';
-    var _condensed = false;
+    var _condensed = true;
 
     var condenseStoreInstance = angular.extend(new EventEmitter(), {
 

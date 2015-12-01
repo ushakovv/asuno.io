@@ -17,7 +17,14 @@
         //'controller-alarm-icon--icon-active--nokvit': Monitors.isAfterKvit(event)
       });
 
-      return <img src={src} className={classes} />;
+      var url = src.split('-');
+      var active = Monitors.isActive(event) ? '1' : '0';
+
+      var _src = {
+        backgroundImage: 'url(' + url[0] + '-' + active + '.png)'
+      };
+
+      return <div style={_src} className={classes}></div>;
     }
   }
 
