@@ -621,6 +621,24 @@
         return !$rootScope.inState('login') && !$rootScope.isJournalTab();
       };
 
+      var updateHeaderPadding = function () {
+        var header = angular.element(document).find('header')[0];
+        var headerPadding = angular.element(document).find('#header-padding')[0];
+        var content = angular.element(document).find('#content')[0];
+        var width = 0;
+        var height = 0;
+        if (header && headerPadding) {
+          width = 1;
+          height = header.clientHeight;
+          angular.element(headerPadding).width(width);
+          angular.element(headerPadding).height(height);
+          if (content) {
+            var windowHeight = $window.innerHeight;
+            angular.element(content).height(windowHeight - height);
+          }
+        }
+      };
+
       var applicationWindow = angular.element($window);
       $rootScope.$watch(
         function () {
@@ -631,20 +649,21 @@
         }, 
         function (newValue, oldValue) {
           if (newValue && (newValue.height !== oldValue.height || newValue.width !== oldValue.width)) {
-            var header = angular.element(document).find('header')[0];
-            var headerPadding = angular.element(document).find('#header-padding')[0];
-            if (header && headerPadding) {
-              var width = header.clientWidth;
-              var height = header.clientHeight;
-              angular.element(headerPadding).width(width);
-              angular.element(headerPadding).height(height);
-            }
+            updateHeaderPadding();
           }
         },
         true
       );
 
       $rootScope.$on('$stateChangeSuccess', function () {
+        updateHeaderPadding();
+        var observer = new MutationObserver(function(mutations) {
+                updateHeaderPadding();
+        });
+        observer.observe(angular.element(document).find('head')[0], {
+            childList: true,
+            subtree: true
+        });
         ControllersActions.clear();
         FilterSvc.clear();
 

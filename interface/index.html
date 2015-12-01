@@ -106,7 +106,7 @@
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li><a ui-sref="core.rdps">Объекты НО</a></li>
-                                <!--<li class="dropdown" dropdown>
+                                <li class="dropdown" dropdown>
                                     <a href="" dropdown-toggle>
                                         Групповые регуляторы
                                         <span class="caret"></span>
@@ -123,7 +123,7 @@
                                         Объекты АХП
                                     </a>
                                 </li>
-                                <li><a ui-sref="tp">Объекты ТП 6-10 кВ</a></li>-->
+                                <li><a ui-sref="tp">Объекты ТП 6-10 кВ</a></li>
                             </ul>
                             <div class="navbar-right clock--navbar" clock></div>
                             <div sun-level></div>
@@ -266,8 +266,10 @@
         </div>
     </div>
 </header>
-<div id="header-padding"></div>
-<div class="container-fluid" ui-view></div>
+<div class="container-fluid">
+    <div id="header-padding"></div>
+    <div id="content" ui-view></div>
+</div>
 
 <!-- build:js /assets/js/index.html.scripts.js -->
 <script src="../bower_components/base64/base64.js"></script>
