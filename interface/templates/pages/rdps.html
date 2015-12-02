@@ -60,7 +60,7 @@
 <div class="row body-pane" ng-if="!show.showMap && show.showBlocks">
   <div class="col-md-12">
     <ol breadcrumbs="crumbs"></ol>
-    <div ng-repeat="rdp in rdps|filter:filterRdp|filter:search.term track by rdp.slug" rdp-block="rdp"
+    <div ng-repeat="rdp in rdps | filter:filterRdp | filter:search.term track by rdp.slug" rdp-block="rdp"
          on-select="selectRdp"></div>
   </div>
 </div>

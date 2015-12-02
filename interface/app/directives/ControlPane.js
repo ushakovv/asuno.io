@@ -15,12 +15,12 @@
     'mode:evening'            : 'Включение режима "Вечер"',
     'mode:night'              : 'Включение режима "Ночь"',
 
-    'mode:switch_off_evening_night' : 'Выключение режима "Вечер + Ночь"',
-    'mode:switch_off_evening'       : 'Выключение режима "Вечер"',
-    'mode:switch_off_night'         : 'Выключение режима "Ночь"',
+    'mode:switch_off_evening_night' : 'Отключение режима "Вечер + Ночь"',
+    'mode:switch_off_evening'       : 'Отключение режима "Вечер"',
+    'mode:switch_off_night'         : 'Отключение режима "Ночь"',
 
     'mode:day'                : 'Включение режима "День"',
-    'mode:switch_off'         : 'Выключение',
+    'mode:switch_off'         : 'Отключение',
     'control_mode:ta_mode'    : 'Установка телеадресного режима',
     'control_mode:tk_mode'    : 'Установка телекаскадного режима',
     'control_mode:autonomous' : 'Установка автономного режима',

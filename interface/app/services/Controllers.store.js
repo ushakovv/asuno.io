@@ -94,10 +94,11 @@
         var data = _(controllers).groupBy('sort_group').value();
         var _result = {};
 
-        if(data.emergency) _result.emergency = data.emergency;
-        if(data.on) _result.on = data.on;
-        if(data.off) _result.off = data.off;
+        if(data.emergency) _result.emergency = _(data.emergency).sortBy('type').value();
+        if(data.on) _result.on = _(data.on).sortBy('type').value();
+        if(data.off) _result.off = _(data.off).sortBy('type').value();
 
+        console.log(_result);
         return _result;
       },
 

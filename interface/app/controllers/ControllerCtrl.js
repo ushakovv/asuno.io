@@ -30,9 +30,6 @@
       dateFrom: _defaultDateFrom
     };
 
-    $log.debug('ControllerCtrl', $scope.controller);
-    $log.debug('ControllerCtrl', rdp);
-
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);
 
