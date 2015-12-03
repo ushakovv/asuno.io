@@ -200,7 +200,11 @@
     };
 
     $scope.pointFilter = function (attributes) {
-      return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      if (attributes.db_DISPATCHER_ID) {
+        return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      } else {
+        return _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      }
     };
 
     let cabelsId = [];

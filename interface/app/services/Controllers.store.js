@@ -97,8 +97,7 @@
         if(data.emergency) _result.emergency = _(data.emergency).sortBy('type').value();
         if(data.on) _result.on = _(data.on).sortBy('type').value();
         if(data.off) _result.off = _(data.off).sortBy('type').value();
-
-        console.log(_result);
+        
         return _result;
       },
 

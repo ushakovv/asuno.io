@@ -180,7 +180,7 @@
                            ng-model="search.term" ng-change="navbar.setSearch(search.term)" && ng-show="!show.showMap"/>
                     <div class="site-nav--buttons">
                         <a class="btn btn-img btn-img--gis" title="Карта" ng-click="showMap()"
-                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}" ng-show="inState(['core.rdp', 'core.rdps'])">
+                                ng-class="{'btn-img--active': show.showMap && !show.showBlocks}" ng-show="inState(['core.rdp', 'core.rdps', 'core.rdp2'])">
                             <span class="glyphicon glyphicon-map-marker"></span>
                         </a>
                         <a class="btn btn-img btn-img--window" title="Мнемосхемы" ng-click="showBlocks()"
