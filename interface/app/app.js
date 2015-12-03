@@ -110,7 +110,7 @@
                   return RDPs.query_group({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
-                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                      return Controllers.query({sid: rdp.sid, head: 1})
                           .$promise
                           .then((controllers) => { return {rdp, controllers}; });
                     });
@@ -214,7 +214,7 @@
                   return RDPs.query_group({id : $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
-                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                      return Controllers.query({sid: rdp.sid, head: 1})
                           .$promise
                           .then(function (controllers) {
                             function sEmergency(a, b) { // По возрастанию

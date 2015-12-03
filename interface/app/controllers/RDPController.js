@@ -120,8 +120,6 @@
           head: 1
         };
 
-        if(RDPGroup) query.no_niitm = true;
-
         Controllers.query(query, function (controllers) {
           setControllers(controllers);
           mutex.release();
