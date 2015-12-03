@@ -5,7 +5,8 @@
 (function () {
   'use strict';
 
-  function CascadeControllerCtrl($rootScope, $scope, $state, controller, rdp, Monitors) {
+  function CascadeControllerCtrl($rootScope, $scope, $state, controller, Monitors) {
+    var rdp = controller.ancestors.rdp;
     $scope.controller = controller;
     $scope.rdp = rdp;
 

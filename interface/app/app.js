@@ -284,11 +284,6 @@
               controller: 'CascadeControllerCtrl',
               templateUrl: '/assets/templates/pages/controllerCascade.html',
               resolve: {
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller,
