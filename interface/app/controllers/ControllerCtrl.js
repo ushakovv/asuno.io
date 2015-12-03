@@ -5,8 +5,9 @@
 (function () {
   'use strict';
 
-  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, rdp, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
+  function ControllerCtrl($rootScope, $scope, socketIo, Scheme, $state, $q, $log, $timeout, controller, Controllers, ControllersActions, ReportFormatter, ControllerFactory, Sensors, Monitors, ClockStore, TimelineService, Mutex) {
     var mutex = Mutex.create();
+    var rdp = controller.ancestors.rdp;
     $rootScope.isLoadingPage = false;
 
     $scope.main.globalLocked = false;
@@ -28,9 +29,6 @@
     $scope.filters = {
       dateFrom: _defaultDateFrom
     };
-
-    $log.debug('ControllerCtrl', $scope.controller);
-    $log.debug('ControllerCtrl', rdp);
 
     ControllersActions.setControllers([$scope.controller]);
     ControllersActions.selectController($scope.controller.id);

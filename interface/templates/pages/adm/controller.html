@@ -30,6 +30,16 @@
           <input type="text" class="form-control" id="controllerTag" name="controllerTag" ng-minlength="8"
                  ng-model="controller.tag"/>
         </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.controllerOrigName.$invalid}">
+          <label class="control-label" for="controllerOrigName">Имя на сервере</label>
+          <input type="text" class="form-control" id="controllerOrigName" name="controllerOrigName" ng-maxlength="50"
+                 ng-model="controller.orig_name"/>
+        </div>
+        <div class="form-group" ng-class="{'has-error': userAdd.controllerSectionNum.$invalid}">
+          <label class="control-label" for="controllerSectionNum">Номер секции на сервере</label>
+          <input type="number" class="form-control" id="controllerSectionNum" name="controllerSectionNum" ng-min="0"
+                 ng-model="controller.orig_section_num"/>
+        </div>
         <div class="form-group">
           <label class="control-label" for="controllerСhecked">Отмечен</label>
           <input type="checkbox" class="form-control" ng-model="controller.checked" id="controllerСhecked">

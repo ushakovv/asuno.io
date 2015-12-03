@@ -23,7 +23,7 @@
             {{group.name}}
           </label>
         </div>
-        <div class="group__delete" ng-click="gr.deleteGroup(group)" ng-if="group.controllers !== 'all'">
+        <div class="group__delete" ng-click="gr.deleteGroup(group)" ng-if="!group.undeletable">
           <i class="fa fa-trash"></i>
         </div>
       </div>

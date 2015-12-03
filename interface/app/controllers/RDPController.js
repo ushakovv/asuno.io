@@ -120,8 +120,6 @@
           head: 1
         };
 
-        if(RDPGroup) query.no_niitm = true;
-
         Controllers.query(query, function (controllers) {
           setControllers(controllers);
           mutex.release();
@@ -138,6 +136,7 @@
       x: parseFloat($stateParams.x) || $scope.rdp.latitude,
       y: parseFloat($stateParams.y) || $scope.rdp.longitude
     };
+
     $scope.rid = parseInt($stateParams.rid, 10) || $scope.rdp.gis_id;
     $scope.ctrlExtract = function (graphic) {
       var ctrl = $scope.pointConnect(graphic.attributes);
@@ -201,7 +200,11 @@
     };
 
     $scope.pointFilter = function (attributes) {
-      return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      if (attributes.db_DISPATCHER_ID) {
+        return attributes.db_DISPATCHER_ID === $scope.rid || _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      } else {
+        return _.any($scope.controllers, (c) => c.gis_id === attributes.PP_ID);
+      }
     };
 
     let cabelsId = [];

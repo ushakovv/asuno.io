@@ -30,10 +30,6 @@
         this.groupLayersArray = [];
 
         this.addLayer = function (id, layer) {
-
-          if (id === 'lep') {
-            $log.debug('addLayer lep in SimpleMap');
-          }
           layer.gis_data = angular.copy(GIS_LAYERS[id]);
           layer.is_visible = layer.visible;
           this.layers[id] = layer;
@@ -111,52 +107,48 @@
             deferredPopup.resolve(popup);
             deferredElement.resolve($element);
 
-            $(window).on('resize.simplemap', function () {
-              return map.resize()
-            });
-
-            var res = function () {
-              map.resize();
-            };
-
-            setTimeout(res, 50);
-
-            new Scalebar({
-              map          : map,
-              scalebarUnit : 'metric'
-            });
-
-            window.map = map;
-            window.ArcGISTiledMapServiceLayer = ArcGISTiledMapServiceLayer;
-
             var baseLayer = new ArcGISTiledMapServiceLayer("http://87.245.154.112/ArcGIS/rest/services/egko_go/MapServer");
 
             map.addLayer(baseLayer);
 
-            if ($scope.zoom && $scope.center && $scope.center.x && $scope.center.y) {
-              map.centerAndZoom(new Point($scope.center.x, $scope.center.y, SPATIAL_REFERENCE), parseInt($scope.zoom, 10) || 0);
-            } else if ($scope.zoom) {
-              map.setZoom(parseInt($scope.zoom, 10));
-            } else if ($scope.center && $scope.center.x && $scope.center.y) {
-              map.centerAt(new Point($scope.center.x, $scope.center.y, SPATIAL_REFERENCE));
-            }
+            setTimeout(function () {
+              map.on('click', function () {
+                return popup.hide()
+              });
 
-            map.addLayer(baseLayer);
+              map.on('zoom-start', function () {
+                return popup.hide()
+              });
 
-            map.on('click', function () {
-              return popup.hide()
-            });
+              dojo.disconnect(map.infoWindow._eventConnections[4]);
 
-            map.on('zoom-start', function () {
-              return popup.hide()
-            });
+              $scope.$on('$destroy', function () {
+                map.destroy();
+                $(window).off('resize');
+              });
 
-            dojo.disconnect(map.infoWindow._eventConnections[4]);
+              map.resize();
 
-            $scope.$on('$destroy', function () {
-              map.destroy();
-              $(window).off('resize');
-            });
+              $(window).on('resize.simplemap', function () {
+                return map.resize()
+              });
+
+              new Scalebar({
+                map          : map,
+                scalebarUnit : 'metric'
+              });
+
+              window.map = map;
+              window.ArcGISTiledMapServiceLayer = ArcGISTiledMapServiceLayer;
+
+              if ($scope.zoom && $scope.center && $scope.center.x && $scope.center.y) {
+                map.centerAndZoom(new Point($scope.center.x, $scope.center.y, map.spatialReference), parseInt($scope.zoom, 10) || 0);
+              } else if ($scope.zoom) {
+                map.setZoom(parseInt($scope.zoom, 10));
+              } else if ($scope.center && $scope.center.x && $scope.center.y) {
+                map.centerAt(new Point($scope.center.x, $scope.center.y, map.spatialReference));
+              }
+            }, 200);
           });
       }
     };

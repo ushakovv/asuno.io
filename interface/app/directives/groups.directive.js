@@ -19,7 +19,9 @@
       var gr = this;
 
       gr.groups = [
-        {name : 'Все пункты питания', controllers : 'all'}
+        {name : 'Все пункты питания', controllers : 'all', undeletable: true},
+        {name: 'Все ДЭП', controllers: 'dep', undeletable: true},
+        {name: 'Все НИИТМ', controllers: 'niitm', undeletable: true}
       ];
 
       Groups.query({rdp : $state.params.rdp}, function (data) {
@@ -30,7 +32,7 @@
         var allControllers = ControllersStore.getAllControllers().map((ctrl) => ctrl.id);
 
         return selectedControllers.length && !Utils.same(allControllers, selectedControllers) && !_.any(gr.groups, function (group) {
-            return group.controllers !== 'all' && Utils.same(group.controllers, selectedControllers);
+            return group.undeletable && Utils.same(group.controllers, selectedControllers);
           });
       }
 
@@ -61,22 +63,35 @@
       };
 
       gr.selectGroup = function (selected, group) {
+        var controllerIds = null;
+
         gr.groups.forEach(function (grp) {
           if (grp.name !== group.name) {
             grp.selected = false;
           }
         });
 
-        if (group.controllers === 'all') {
-          var controllerIds = ControllersStore.getAllControllers().map((ctrl) => ctrl.id);
-          ControllersActions.toggleControllersSelection(selected, controllerIds);
-        } else {
-          ControllersActions.toggleControllersSelection(selected, group.controllers);
+        switch (group.controllers) {
+          case 'all':
+            controllerIds = ControllersStore.getAllControllers().map((ctrl) => ctrl.id);
+            ControllersActions.toggleControllersSelection(selected, controllerIds);
+            break;
+          case 'dep':
+            controllerIds = ControllersStore.getAllControllers().filter((ctrl) => ctrl.type === 'dep').map((ctrl) => ctrl.id);
+            ControllersActions.toggleControllersSelection(selected, controllerIds);
+            break;
+          case 'niitm':
+            controllerIds = ControllersStore.getAllControllers().filter((ctrl) => ctrl.type === 'niitm').map((ctrl) => ctrl.id);
+            ControllersActions.toggleControllersSelection(selected, controllerIds);
+            break;
+          default:
+            ControllersActions.toggleControllersSelection(selected, group.controllers);
+            break;
         }
       };
 
       gr.deleteGroup = function (group) {
-        if (group.controllers !== 'all') {
+        if (!group.undeletable) {
           var index = gr.groups.indexOf(group);
           gr.groups.splice(index, 1);
 

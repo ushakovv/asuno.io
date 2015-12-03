@@ -110,7 +110,7 @@
                   return RDPs.query_group({rdp: $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
-                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                      return Controllers.query({sid: rdp.sid, head: 1})
                           .$promise
                           .then((controllers) => { return {rdp, controllers}; });
                     });
@@ -214,7 +214,7 @@
                   return RDPs.query_group({id : $stateParams.rdp})
                     .$promise
                     .then(function(rdp) {
-                      return Controllers.query({sid: rdp.sid, head: 1, no_niitm: true})
+                      return Controllers.query({sid: rdp.sid, head: 1})
                           .$promise
                           .then(function (controllers) {
                             function sEmergency(a, b) { // По возрастанию
@@ -262,11 +262,6 @@
                 initial: function ($rootScope){
                   $rootScope.isLoadingPage = true;
                 },
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller
@@ -289,11 +284,6 @@
               controller: 'CascadeControllerCtrl',
               templateUrl: '/assets/templates/pages/controllerCascade.html',
               resolve: {
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller,
@@ -510,11 +500,6 @@
                 initial: function ($rootScope){
                   $rootScope.isLoadingPage = true;
                 },
-                rdp: function ($stateParams, RDPs) {
-                  return RDPs.get({
-                    rdp: $stateParams.rdp
-                  }).$promise;
-                },
                 controller: function ($stateParams, Controllers) {
                   return Controllers.get({
                     controller: $stateParams.controller
@@ -600,7 +585,7 @@
     })
     .constant('asunoSessionCookie', 'asuno-user')
     .constant('tickEvent', 'asuno.tick')
-    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent, ConnectionError) {
+    .run(function ($rootScope, $sci, $interval, $http, $state, $modal, $location, $window, Auth, ControllersStoreConstants, FilterSvc, ControllersActions, MassOperations, RemoteCommandListener, RemoteCommandSocket, tickEvent, ConnectionError) {
       let timeouts = {
         standart: 10000,
         more: 3000,
@@ -613,6 +598,7 @@
 
       $rootScope.$state = $state;
       $rootScope.timelineState = {};
+      $rootScope.location = window.location;
 
       $rootScope.inState = function (states) {
         if (typeof states === 'string') {
@@ -631,7 +617,49 @@
         return !$rootScope.inState('login') && !$rootScope.isJournalTab();
       };
 
+      var updateHeaderPadding = function () {
+        var header = angular.element(document).find('header')[0];
+        var headerPadding = angular.element(document).find('#header-padding')[0];
+        var content = angular.element(document).find('#content')[0];
+        var width = 0;
+        var height = 0;
+        if (header && headerPadding) {
+          width = 1;
+          height = header.clientHeight;
+          angular.element(headerPadding).width(width);
+          angular.element(headerPadding).height(height);
+          if (content) {
+            var windowHeight = $window.innerHeight;
+            angular.element(content).height(windowHeight - height);
+          }
+        }
+      };
+
+      var applicationWindow = angular.element($window);
+      $rootScope.$watch(
+        function () {
+          return {
+              height: applicationWindow.height(), 
+              width: applicationWindow.width()
+          };
+        }, 
+        function (newValue, oldValue) {
+          if (newValue && (newValue.height !== oldValue.height || newValue.width !== oldValue.width)) {
+            updateHeaderPadding();
+          }
+        },
+        true
+      );
+
       $rootScope.$on('$stateChangeSuccess', function () {
+        updateHeaderPadding();
+        var observer = new MutationObserver(function(mutations) {
+                updateHeaderPadding();
+        });
+        observer.observe(angular.element(document).find('head')[0], {
+            childList: true,
+            subtree: true
+        });
         ControllersActions.clear();
         FilterSvc.clear();
 
