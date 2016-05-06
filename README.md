@@ -25,3 +25,18 @@
 
 По ssh:
 `copynewfront`  - делает бекап, распаковывает архив
+
+# Структура #
+
+### Страница контроллера ###
+* путь: /rdps/:rdp/:controller?journalExpand
+* контроллер: ControllerCtrl
+* вьюшка: interface/templates/pages/controller.html
+
+При переходе загружает данные контроллера сервисом 
+```
+#!javascript
+
+Controllers
+```
+ методом get параметр :controller из url.
